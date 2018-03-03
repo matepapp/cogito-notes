@@ -6,3 +6,6 @@ My Bachelor thesis at Budapest University of Technology about a community based 
 
 - [yarn](https://yarnpkg.com/en/)
 - [create-react-app](https://github.com/facebook/create-react-app)
+- [ESLint](https://eslint.org)
+- [Prettier](https://prettier.io)
+- [Flow](https://flow.org/en/) and [Flow React](https://flow.org/en/)
