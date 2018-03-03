@@ -1,4 +1,4 @@
-# Cogito notes 📝
+# Cogito Notes 📝
 
 My Bachelor thesis at Budapest University of Technology about a community based lecture notes editor web application using [React](https://reactjs.org), [Redux](https://redux.js.org).
 
@@ -9,3 +9,4 @@ My Bachelor thesis at Budapest University of Technology about a community based 
 - [ESLint](https://eslint.org)
 - [Prettier](https://prettier.io)
 - [Flow](https://flow.org/en/) and [Flow React](https://flow.org/en/)
+- [Travis CI](https://travis-ci.com/)
