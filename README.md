@@ -1,2 +1,8 @@
-# cogito-notes
-Community lecture notes editor application.
+# Cogito notes 📝
+
+My Bachelor thesis at Budapest University of Technology about a community based lecture notes editor web application using [React](https://reactjs.org), [Redux](https://redux.js.org).
+
+## Tech stack
+
+- [yarn](https://yarnpkg.com/en/)
+- [create-react-app](https://github.com/facebook/create-react-app)
