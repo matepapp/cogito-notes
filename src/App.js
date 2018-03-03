@@ -7,8 +7,8 @@ import { Provider, Heading, Button } from 'rebass';
 
 const App = props => (
   <Provider>
-    <Heading>Hello</Heading>
-    <Button>Rebass</Button>
+    <Heading>Cogito Notes 📝</Heading>
+    <Button>Push the button!</Button>
   </Provider>
 );
 
