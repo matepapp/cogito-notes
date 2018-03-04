@@ -16,3 +16,8 @@ Check it out live [here](https://matepapp.github.io/cogito-notes/)!
 
 ## Instructions
 The `master` branch is protected, you can only modify it by creating a **Pull Request**. Every accepted and merged pull request triggers a new build on Travis CI and deploys the changes to Github Pages. See more CI details on the [repo Travis CI page](https://travis-ci.com/matepapp/cogito-notes).
+
+Beside of Continous Integration you can deploy manually to Github Pages by running
+```shell
+yarn run deploy
+```
