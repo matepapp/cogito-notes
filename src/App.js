@@ -1,12 +1,21 @@
-import React from 'react';
-import { Provider, Heading } from 'rebass';
-import MyButton from './Components/Button';
+import React, { Component } from 'react';
+import { Button } from 'antd';
+import './App.css';
 
-const App = props => (
-  <Provider>
-    <Heading>Cogito Notes</Heading>
-    <MyButton onClick={() => alert('Tapped on my button')} value="Push the button!" />
-  </Provider>
-);
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Button
+          type="primary"
+          onClick={() => {
+            alert('You tapped on button');
+          }}>
+          Button
+        </Button>
+      </div>
+    );
+  }
+}
 
 export default App;
