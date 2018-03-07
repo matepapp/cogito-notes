@@ -1,25 +1,16 @@
-import React, { Component } from 'react';
-import { Button } from 'antd';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import LoginPage from '../Pages/LoginPage';
+import Home from '../Pages/Home';
 import './App.css';
 
-class App extends Component {
-  handleButtonTap = () => {
-    alert('You tapped on button');
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <Button type="primary" onClick={this.handleButtonTap}>
-          Button
-        </Button>
-
-        <Button type="primary" onClick={this.handleButtonTap}>
-          Button2
-        </Button>
-      </div>
-    );
-  }
-}
+const App = () => {
+  return (
+    <Switch>
+      <Route exact path="/" component={LoginPage} />
+      <Route path="/home" component={Home} />
+    </Switch>
+  );
+};
 
 export default App;
