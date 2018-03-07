@@ -1,5 +1,5 @@
 # Cogito Notes 📝
-[![Build Status](https://travis-ci.com/matepapp/cogito-notes.svg?token=xfz6hSPQHtHd5XkqKmZj&branch=master)](https://travis-ci.com/matepapp/cogito-notes) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Build Status](https://travis-ci.com/matepapp/cogito-notes.svg?token=xfz6hSPQHtHd5XkqKmZj&branch=development)](https://travis-ci.com/matepapp/cogito-notes) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 My Bachelor thesis at Budapest University of Technology about a community based lecture notes editor web application using [React](https://reactjs.org), [Redux](https://redux.js.org).
 
