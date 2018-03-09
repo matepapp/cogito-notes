@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'antd';
 import InputRow from '../Components/InputRow';
 
 const RegistrationInputs = () => {
