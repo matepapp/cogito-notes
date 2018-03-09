@@ -17,7 +17,7 @@ const LoginPage = () => {
           <Col span={14} />
         </Row>
       </Header>
-      <Content>
+      <Content style={{ marginTop: 50 }}>
         <Row>
           <Col span={8} />
           <Col span={8}>
