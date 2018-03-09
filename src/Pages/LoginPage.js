@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import RegistrationCard from '../Components/RegistrationCard';
 import { Row, Col } from 'antd';
 import { Layout } from 'antd';
