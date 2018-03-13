@@ -1,7 +1,13 @@
+// @flow
 import React from 'react';
 import { Input } from 'antd';
 
-class InputRow extends React.Component {
+type Props = {
+  label: string,
+  placeholder: string,
+};
+
+class InputRow extends React.Component<Props> {
   render() {
     return (
       <div>
