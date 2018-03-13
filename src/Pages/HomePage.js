@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
 import { Layout, Menu, Icon } from 'antd';
+import NoteList from '../Components/NoteList';
+
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -32,11 +33,8 @@ class HomePage extends React.Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{ background: '#fff', padding: 0 }} />
           <Content style={{ margin: '0 16px' }}>
-            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-              Welcome Home!
-            </div>
+            <NoteList />
           </Content>
         </Layout>
       </Layout>
