@@ -6,7 +6,7 @@ const { Header, Footer, Content } = Layout;
 
 const LoginPage = () => {
   return (
-    <Layout>
+    <Layout style={{ minHeight: '100vh' }}>
       <Header>
         <Row>
           <Col span={10}>
@@ -14,8 +14,8 @@ const LoginPage = () => {
           </Col>
         </Row>
       </Header>
-      <Content>
-        <Row type="flex" justify="center" align="middle">
+      <Content style={{ paddingTop: 60 }}>
+        <Row type="flex" justify="center">
           <Col xs={20} sm={16} md={12} lg={8} xl={8}>
             <RegistrationCard />
           </Col>
