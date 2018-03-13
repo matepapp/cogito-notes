@@ -1,7 +1,6 @@
 import React from 'react';
 import RegistrationCard from '../Components/RegistrationCard';
-import { Row, Col } from 'antd';
-import { Layout } from 'antd';
+import { Layout, Row, Col } from 'antd';
 import logo from '../Resources/img/logo.png';
 const { Header, Footer, Content } = Layout;
 
@@ -13,19 +12,15 @@ const LoginPage = () => {
           <Col span={10}>
             <img src={logo} alt="logo" />
           </Col>
-          <Col span={14} />
         </Row>
       </Header>
-      <Content style={{ marginTop: 50 }}>
-        <Row>
-          <Col span={8} />
-          <Col span={8}>
+      <Content>
+        <Row type="flex" justify="center" align="middle">
+          <Col xs={20} sm={16} md={12} lg={8} xl={8}>
             <RegistrationCard />
           </Col>
-          <Col span={8} />
         </Row>
       </Content>
-      <Footer />
     </Layout>
   );
 };
