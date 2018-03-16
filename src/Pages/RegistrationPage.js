@@ -1,11 +1,11 @@
 import React from 'react';
-import WrappedNormalLoginForm from '../Components/WrappedNormalLoginForm';
+import RegistrationForm from '../Components/RegistrationForm';
 import { Layout, Row, Col } from 'antd';
 import logo from '../Resources/img/logo.svg';
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
-const LoginPage = () => {
+const RegistrationPage = () => {
   const styleLogo = {
     marginTop: 50,
     width: '25%',
@@ -16,6 +16,7 @@ const LoginPage = () => {
     display: 'flex',
     justifyContent: 'center',
   };
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Row style={styleCenter}>
@@ -24,7 +25,7 @@ const LoginPage = () => {
       <Content style={{ paddingTop: 70 }}>
         <Row style={styleCenter}>
           <Col xs={20} sm={16} md={12} lg={8} xl={8}>
-            <WrappedNormalLoginForm style={{}} />
+            <RegistrationForm />
           </Col>
         </Row>
       </Content>
@@ -32,4 +33,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegistrationPage;
