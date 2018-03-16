@@ -28,7 +28,7 @@ class HomePage extends React.Component {
             <Menu.Item key="2">
               <Icon type="desktop" />
               <span>Log out</span>
-              <Link to="/">Go back to Login!</Link>
+              <Link to="/registration">Go back to Login!</Link>
             </Menu.Item>
           </Menu>
         </Sider>
