@@ -19,7 +19,8 @@ class NormalLoginForm extends React.Component {
         onSubmit={this.handleSubmit}
         className="login-form"
         style={{ width: '50%', margin: '0 auto' }}>
-        <FormItem label="">
+        <h4 style={{ marginBottom: 0 }}>Teljes név</h4>
+        <FormItem style={{ marginBottom: 10 }}>
           {getFieldDecorator('name', {
             rules: [{ required: true, message: 'Kérlek add meg az vezetékneved!' }],
           })(
@@ -29,7 +30,8 @@ class NormalLoginForm extends React.Component {
             />,
           )}
         </FormItem>
-        <FormItem>
+        <h4 style={{ marginBottom: 0 }}>Email cím</h4>
+        <FormItem style={{ marginBottom: 10 }}>
           {getFieldDecorator('email', {
             rules: [{ required: true, message: 'Kérlek add meg az e-mail címed!' }],
           })(
@@ -39,7 +41,8 @@ class NormalLoginForm extends React.Component {
             />,
           )}
         </FormItem>
-        <FormItem>
+        <h4 style={{ marginBottom: 0 }}>Jelszó</h4>
+        <FormItem style={{ marginBottom: 10 }}>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Kérlek add meg a jelszavad!' }],
           })(
@@ -50,6 +53,7 @@ class NormalLoginForm extends React.Component {
             />,
           )}
         </FormItem>
+        <h4 style={{ marginBottom: 0 }}>Jelszó megismétlése</h4>
         <FormItem>
           {getFieldDecorator('passwordCheck', {
             rules: [{ required: true, message: 'Kérlek add meg a jelszavad!' }],
@@ -78,9 +82,10 @@ class NormalLoginForm extends React.Component {
             </Link>
           </Row>
           <Row>
-            <p style={{ fontSize: 10, padding: 0 }}>
-              A regisztrációra való kattintással elfogadom az általános szerződési
-              feltételeket és az adatvédelmi nyilatkozatot.
+            <p style={{ fontSize: 10, padding: 0, lineHeight: 1.5 }}>
+              A regisztrációra való kattintással elfogadom az{' '}
+              <a href="">általános szerződési feltételeket</a> és az{' '}
+              <a href="">adatvédelmi nyilatkozatot</a>.
             </p>
           </Row>
           <Row>
