@@ -56,12 +56,12 @@ class NoteList extends Component<{}, State> {
   }
 }
 
-const MockNoteList: Note[] = [
-  { id: 0, title: 'Elso jegyzet', description: 'Nagyon sokat kell meg tanulni' },
-  { id: 1, title: 'Masodik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
-  { id: 2, title: 'Harmadik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
-  { id: 3, title: 'Negyedik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
-  { id: 4, title: 'Otodik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
-];
+// const MockNoteList: Note[] = [
+//   { id: 0, title: 'Elso jegyzet', description: 'Nagyon sokat kell meg tanulni' },
+//   { id: 1, title: 'Masodik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
+//   { id: 2, title: 'Harmadik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
+//   { id: 3, title: 'Negyedik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
+//   { id: 4, title: 'Otodik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
+// ];
 
 export default NoteList;

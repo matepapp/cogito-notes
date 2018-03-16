@@ -2,9 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
 import NoteList from '../Components/NoteList';
-
-const { Header, Content, Footer, Sider } = Layout;
-const SubMenu = Menu.SubMenu;
+const { Content, Sider } = Layout;
 
 class HomePage extends React.Component {
   state = {
