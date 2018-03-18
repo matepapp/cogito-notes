@@ -37,7 +37,11 @@ class HomePage extends React.Component {
             <Route
               path="/note/:title"
               render={routeProps => (
-                <NoteEditor {...routeProps} title={routeProps.match.params.title} />
+                <NoteEditor
+                  {...routeProps}
+                  title={routeProps.match.params.title}
+                  readOnly={Math.random() >= 0.5}
+                />
               )}
             />
           </Content>

@@ -4,6 +4,7 @@ import RichTextEditor from 'react-rte';
 
 type Props = {
   title: string,
+  readOnly: boolean,
   onChange: Function,
 };
 
@@ -32,7 +33,13 @@ class NoteEditor extends React.Component<Props, State> {
   }
 
   render() {
-    return <RichTextEditor value={this.state.value} onChange={this.onChange} />;
+    return (
+      <RichTextEditor
+        readOnly={this.props.readOnly}
+        value={this.state.value}
+        onChange={this.onChange}
+      />
+    );
   }
 }
 
