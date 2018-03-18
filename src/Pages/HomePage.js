@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
 import NoteList from '../Components/NoteList';
+import NoteEditor from '../Components/NoteEditor';
 const { Content, Sider } = Layout;
 
 class HomePage extends React.Component {
@@ -32,7 +33,13 @@ class HomePage extends React.Component {
         </Sider>
         <Layout>
           <Content style={{ margin: '0 16px' }}>
-            <NoteList />
+            <Route path="/notes" component={NoteList} />
+            <Route
+              path="/note/:title"
+              render={routeProps => (
+                <NoteEditor {...routeProps} isReadOnly title="valami" />
+              )}
+            />
           </Content>
         </Layout>
       </Layout>
