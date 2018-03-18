@@ -12,25 +12,13 @@ class NormalLoginForm extends React.Component {
       }
     });
   };
-
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form
         onSubmit={this.handleSubmit}
         className="login-form"
-        style={{ width: '50%', margin: '0 auto' }}>
-        <h4 style={{ marginBottom: 0 }}>Full name</h4>
-        <FormItem style={{ marginBottom: 10 }}>
-          {getFieldDecorator('name', {
-            rules: [{ required: true, message: 'Please fill in your full name!' }],
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="John Doe"
-            />,
-          )}
-        </FormItem>
+        style={{ width: '50%', margin: '0 auto', textAlign: 'center' }}>
         <h4 style={{ marginBottom: 0 }}>Email</h4>
         <FormItem style={{ marginBottom: 10 }}>
           {getFieldDecorator('email', {
@@ -43,26 +31,14 @@ class NormalLoginForm extends React.Component {
           )}
         </FormItem>
         <h4 style={{ marginBottom: 0 }}>Password</h4>
-        <FormItem style={{ marginBottom: 10 }}>
+        <FormItem>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please fill in your password!' }],
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
-              placeholder="Password"
-            />,
-          )}
-        </FormItem>
-        <h4 style={{ marginBottom: 0 }}>Repeat password</h4>
-        <FormItem>
-          {getFieldDecorator('passwordCheck', {
-            rules: [{ required: true, message: 'Please fill in your password!' }],
-          })(
-            <Input
-              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              type="password"
-              placeholder="Password again"
+              placeholder="password"
             />,
           )}
         </FormItem>
@@ -78,7 +54,7 @@ class NormalLoginForm extends React.Component {
                   backgroundColor: '#1890FF',
                   borderColor: '#1890FF',
                 }}>
-                Registration
+                Login
               </Button>
             </Link>
           </Row>
@@ -88,6 +64,6 @@ class NormalLoginForm extends React.Component {
   }
 }
 
-const RegistrationForm = Form.create()(NormalLoginForm);
+const LoginForm = Form.create()(NormalLoginForm);
 
-export default RegistrationForm;
+export default LoginForm;
