@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
 import NoteList from '../Components/NoteList';
+import NoteEditor from '../Components/NoteEditor';
 const { Content, Sider } = Layout;
 
 class HomePage extends React.Component {
@@ -26,13 +27,23 @@ class HomePage extends React.Component {
             <Menu.Item key="2">
               <Icon type="desktop" />
               <span>Log out</span>
-              <Link to="/registration">Go back to Login!</Link>
+              <Link to="/">Go back to Login!</Link>
             </Menu.Item>
           </Menu>
         </Sider>
         <Layout>
-          <Content style={{ margin: '0 16px' }}>
-            <NoteList />
+          <Content style={{ margin: '0 16px', textAlign: 'center' }}>
+            <Route exact path="/notes" component={NoteList} />
+            <Route
+              path="/notes/:title"
+              render={routeProps => (
+                <NoteEditor
+                  {...routeProps}
+                  title={routeProps.match.params.title}
+                  readOnly={Math.random() >= 0.5}
+                />
+              )}
+            />
           </Content>
         </Layout>
       </Layout>

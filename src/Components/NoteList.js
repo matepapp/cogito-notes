@@ -1,8 +1,9 @@
 // @flow
 import React, { Component } from 'react';
-import { List } from 'antd';
-import NoteCard from './NoteCard';
+import { Link } from 'react-router-dom';
+import { List, Spin } from 'antd';
 import axios from 'axios';
+import NoteCard from './NoteCard';
 
 type Note = {
   id: number,
@@ -12,11 +13,13 @@ type Note = {
 
 type State = {
   notes: Array<Note>,
+  loading: boolean,
 };
 
 class NoteList extends Component<{}, State> {
   state: State = {
     notes: [],
+    loading: true,
   };
 
   componentDidMount() {
@@ -34,21 +37,25 @@ class NoteList extends Component<{}, State> {
         };
       });
 
-      this.setState({ notes });
+      this.setState({ notes, loading: false });
       console.log(this.state);
     });
   }
 
   render() {
-    return (
+    return this.state.loading ? (
+      <Spin size="large" />
+    ) : (
       <List
         grid={{ gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 3 }}
         dataSource={this.state.notes}
         renderItem={item => (
           <List.Item>
-            <NoteCard title={item.title} isLoading={false}>
-              {item.description}
-            </NoteCard>
+            <Link to={`/notes/${item.title}`}>
+              <NoteCard title={item.title} isLoading={false}>
+                {item.description}
+              </NoteCard>
+            </Link>
           </List.Item>
         )}
       />

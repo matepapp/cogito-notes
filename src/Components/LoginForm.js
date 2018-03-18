@@ -44,7 +44,7 @@ class NormalLoginForm extends React.Component {
         </FormItem>
         <FormItem style={{ textAlign: 'center' }}>
           <Row>
-            <Link to="/">
+            <Link to="/notes">
               <Button
                 type="primary"
                 htmlType="submit"
