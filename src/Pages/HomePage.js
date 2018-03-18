@@ -27,15 +27,15 @@ class HomePage extends React.Component {
             <Menu.Item key="2">
               <Icon type="desktop" />
               <span>Log out</span>
-              <Link to="/registration">Go back to Login!</Link>
+              <Link to="/">Go back to Login!</Link>
             </Menu.Item>
           </Menu>
         </Sider>
         <Layout>
-          <Content style={{ margin: '0 16px' }}>
-            <Route path="/notes" component={NoteList} />
+          <Content style={{ margin: '0 16px', textAlign: 'center' }}>
+            <Route exact path="/notes" component={NoteList} />
             <Route
-              path="/note/:title"
+              path="/notes/:title"
               render={routeProps => (
                 <NoteEditor
                   {...routeProps}
