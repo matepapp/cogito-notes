@@ -37,7 +37,7 @@ class HomePage extends React.Component {
             <Route
               path="/note/:title"
               render={routeProps => (
-                <NoteEditor {...routeProps} isReadOnly title="valami" />
+                <NoteEditor {...routeProps} title={routeProps.match.params.title} />
               )}
             />
           </Content>
