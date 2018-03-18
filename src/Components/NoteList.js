@@ -1,8 +1,9 @@
 // @flow
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { List } from 'antd';
-import NoteCard from './NoteCard';
 import axios from 'axios';
+import NoteCard from './NoteCard';
 
 type Note = {
   id: number,
@@ -46,9 +47,11 @@ class NoteList extends Component<{}, State> {
         dataSource={this.state.notes}
         renderItem={item => (
           <List.Item>
-            <NoteCard title={item.title} isLoading={false}>
-              {item.description}
-            </NoteCard>
+            <Link to={`/note/${item.title}`}>
+              <NoteCard title={item.title} isLoading={false}>
+                {item.description}
+              </NoteCard>
+            </Link>
           </List.Item>
         )}
       />
