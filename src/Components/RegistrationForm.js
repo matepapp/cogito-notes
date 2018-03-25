@@ -89,5 +89,4 @@ class NormalLoginForm extends React.Component {
 }
 
 const RegistrationForm = Form.create()(NormalLoginForm);
-
 export default RegistrationForm;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
-import NoteList from '../Components/NoteList';
-import NoteEditor from '../Components/NoteEditor';
+import { NoteList, NoteEditor } from '../components';
+
 const { Content, Sider } = Layout;
 
-class HomePage extends React.Component {
+export default class HomePage extends React.Component {
   state = {
     collapsed: false,
   };
@@ -50,5 +50,3 @@ class HomePage extends React.Component {
     );
   }
 }
-
-export default HomePage;

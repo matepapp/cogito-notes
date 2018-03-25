@@ -1,17 +1,30 @@
+// @flow
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { authActions } from '../actions';
+import { Dispatch } from '../types';
 import { Row, Form, Icon, Input, Button } from 'antd';
+
 const FormItem = Form.Item;
 
-class NormalLoginForm extends React.Component {
+type Props = {
+  form: any,
+  dispatch: Dispatch,
+};
+
+class NormalLoginForm extends React.Component<Props> {
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
+    const { form, dispatch } = this.props;
+
+    form.validateFields((error, values) => {
+      if (!error) {
+        const { email, password } = values;
+        dispatch(authActions.login(email, password));
       }
     });
   };
+
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -30,6 +43,7 @@ class NormalLoginForm extends React.Component {
             />,
           )}
         </FormItem>
+
         <h4 style={{ marginBottom: 0 }}>Password</h4>
         <FormItem>
           {getFieldDecorator('password', {
@@ -42,21 +56,20 @@ class NormalLoginForm extends React.Component {
             />,
           )}
         </FormItem>
+
         <FormItem style={{ textAlign: 'center' }}>
           <Row>
-            <Link to="/notes">
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                style={{
-                  width: '70%',
-                  backgroundColor: '#1890FF',
-                  borderColor: '#1890FF',
-                }}>
-                Login
-              </Button>
-            </Link>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+              style={{
+                width: '70%',
+                backgroundColor: '#1890FF',
+                borderColor: '#1890FF',
+              }}>
+              Login
+            </Button>
           </Row>
         </FormItem>
       </Form>
@@ -64,6 +77,5 @@ class NormalLoginForm extends React.Component {
   }
 }
 
-const LoginForm = Form.create()(NormalLoginForm);
-
+const LoginForm = connect(null)(Form.create()(NormalLoginForm));
 export default LoginForm;

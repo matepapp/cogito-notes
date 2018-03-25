@@ -3,20 +3,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { List, Spin } from 'antd';
 import axios from 'axios';
-import NoteCard from './NoteCard';
-
-type Note = {
-  id: number,
-  title: string,
-  description: string,
-};
+import { NoteCard } from '.';
+import { Notes } from '../types';
 
 type State = {
-  notes: Array<Note>,
+  notes: Notes,
   loading: boolean,
 };
 
-class NoteList extends Component<{}, State> {
+export default class NoteList extends Component<{}, State> {
   state: State = {
     notes: [],
     loading: true,
@@ -27,7 +22,7 @@ class NoteList extends Component<{}, State> {
     axios.get('https://swapi.co/api/planets').then(response => {
       console.log(response.data.results);
 
-      const notes: Array<Note> = response.data.results.map(planet => {
+      const notes: Notes = response.data.results.map(planet => {
         return {
           id: planet.orbital_period,
           title: planet.name,
@@ -70,5 +65,3 @@ class NoteList extends Component<{}, State> {
 //   { id: 3, title: 'Negyedik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
 //   { id: 4, title: 'Otodik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
 // ];
-
-export default NoteList;

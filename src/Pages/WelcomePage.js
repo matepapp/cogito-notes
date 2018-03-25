@@ -1,8 +1,7 @@
 import React from 'react';
-import RegistrationForm from '../Components/RegistrationForm';
-import LoginForm from '../Components/LoginForm';
 import { Layout, Row, Col, Tabs } from 'antd';
-import logo from '../Resources/img/logo.svg';
+import { RegistrationForm, LoginForm } from '../components';
+import logo from '../resources/img/logo.svg';
 
 const TabPane = Tabs.TabPane;
 const { Content } = Layout;
@@ -18,7 +17,7 @@ const styleCenter = {
   justifyContent: 'center',
 };
 
-class WelcomePage extends React.Component {
+export default class WelcomePage extends React.Component {
   render() {
     return (
       <Layout style={{ minHeight: '100vh' }}>
@@ -43,5 +42,3 @@ class WelcomePage extends React.Component {
     );
   }
 }
-
-export default WelcomePage;

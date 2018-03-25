@@ -1,15 +1,20 @@
+// @flow
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import WelcomePage from '../Pages/WelcomePage';
-import HomePage from '../Pages/HomePage';
+import { Route, Router, Switch } from 'react-router-dom';
+import { PrivateRoute } from '../components';
+import { history } from '../helpers';
+import { alertActions } from '../actions';
+import { HomePage, WelcomePage } from '../pages';
 import './App.css';
 
 const App = () => {
   return (
-    <Switch>
-      <Route exact path="/" component={WelcomePage} />
-      <Route path="/notes" component={HomePage} />
-    </Switch>
+    <Router history={history}>
+      <Switch>
+        <PrivateRoute exact path="/" component={HomePage} />
+        <Route path="/login" component={WelcomePage} />
+      </Switch>
+    </Router>
   );
 };
 
