@@ -6,8 +6,8 @@ import { User } from '../types';
 const FormItem = Form.Item;
 
 class NormalLoginForm extends React.Component<{}> {
-  handleSubmit = e => {
-    e.preventDefault();
+  handleSubmit = event => {
+    event.preventDefault();
     this.props.form.validateFields((error, values) => {
       if (!error) {
         const { username, password, email, firstName, lastName } = values;

@@ -36,9 +36,10 @@ export default class HomePage extends React.Component<{}, State> {
             defaultSelectedKeys={['1']}
             mode="inline"
             onSelect={this.onMenuItemSelect}>
-            <MenuItem key="1">
+            <MenuItem key="notes">
               <Icon type="pie-chart" />
-              <span>Option 1</span>
+              <span>Note List</span>
+              <Link to="/notes" />
             </MenuItem>
             <MenuItem key="logout">
               <Icon type="logout" />
