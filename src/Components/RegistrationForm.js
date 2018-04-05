@@ -1,14 +1,18 @@
+// @flow
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Form, Icon, Input, Button } from 'antd';
+import { User } from '../types';
 const FormItem = Form.Item;
 
-class NormalLoginForm extends React.Component {
+class NormalLoginForm extends React.Component<{}> {
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
+    this.props.form.validateFields((error, values) => {
+      if (!error) {
+        const { username, password, email, firstName, lastName } = values;
+        const user: User = { username, password, email, firstName, lastName };
+        // TODO: Registration
       }
     });
   };
@@ -20,17 +24,30 @@ class NormalLoginForm extends React.Component {
         onSubmit={this.handleSubmit}
         className="login-form"
         style={{ width: '50%', margin: '0 auto' }}>
-        <h4 style={{ marginBottom: 0 }}>Full name</h4>
+        <h4 style={{ marginBottom: 0 }}>First name</h4>
         <FormItem style={{ marginBottom: 10 }}>
-          {getFieldDecorator('name', {
-            rules: [{ required: true, message: 'Please fill in your full name!' }],
+          {getFieldDecorator('firstname', {
+            rules: [{ required: true, message: 'Please fill your first name!' }],
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="John Doe"
+              placeholder="John"
             />,
           )}
         </FormItem>
+
+        <h4 style={{ marginBottom: 0 }}>Last name</h4>
+        <FormItem style={{ marginBottom: 10 }}>
+          {getFieldDecorator('lastname', {
+            rules: [{ required: true, message: 'Please fill your last name!' }],
+          })(
+            <Input
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="Doe"
+            />,
+          )}
+        </FormItem>
+
         <h4 style={{ marginBottom: 0 }}>Email</h4>
         <FormItem style={{ marginBottom: 10 }}>
           {getFieldDecorator('email', {
@@ -42,6 +59,7 @@ class NormalLoginForm extends React.Component {
             />,
           )}
         </FormItem>
+
         <h4 style={{ marginBottom: 0 }}>Password</h4>
         <FormItem style={{ marginBottom: 10 }}>
           {getFieldDecorator('password', {
@@ -54,6 +72,7 @@ class NormalLoginForm extends React.Component {
             />,
           )}
         </FormItem>
+
         <h4 style={{ marginBottom: 0 }}>Repeat password</h4>
         <FormItem>
           {getFieldDecorator('passwordCheck', {
@@ -66,21 +85,20 @@ class NormalLoginForm extends React.Component {
             />,
           )}
         </FormItem>
+
         <FormItem style={{ textAlign: 'center' }}>
           <Row>
-            <Link to="/notes">
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                style={{
-                  width: '70%',
-                  backgroundColor: '#1890FF',
-                  borderColor: '#1890FF',
-                }}>
-                Registration
-              </Button>
-            </Link>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+              style={{
+                width: '70%',
+                backgroundColor: '#1890FF',
+                borderColor: '#1890FF',
+              }}>
+              Registration
+            </Button>
           </Row>
         </FormItem>
       </Form>

@@ -1,5 +1,5 @@
 // @flow
-import { authConstants } from '../constants';
+import { authConstants, commonConstants } from '../constants';
 import { User } from '../types';
 import axios from 'axios';
 
@@ -9,30 +9,33 @@ const URL = {
   LOGOUT: '/logout/',
 };
 
-const register = (username: string, password: string) => {};
+const network = axios.create({
+  baseURL: commonConstants.BASE_URL,
+});
+
+const register = (user: User): Promise<User> => {
+  const { username, password, email } = user;
+  return network.post(URL.REGISTER, { username, password }).catch(error => {});
+};
 
 const login = (username: string, password: string): Promise<User> => {
-  return axios
-    .post(URL.LOGIN, JSON.stringify({ username, password }))
+  return network
+    .post(URL.LOGIN, { username, password })
     .catch(error => {
+      console.log(error);
       return Promise.reject(error.response.data);
     })
     .then(response => {
-      // TODO: save token to localStorage
       localStorage.setItem(authConstants.TOKEN_KEY, response.data.token);
-
-      // TODO: parse response data to User object
-      // response.data.results
-      const user: User = { username: 'Test' };
+      const { username, email, first_name, last_name } = response.data.user;
+      const user: User = { username, email, firstName: first_name, lastName: last_name };
 
       return user;
     });
 };
 
 const logout = () => {
-  // remove user from local storage to log user out
   localStorage.removeItem(authConstants.TOKEN_KEY);
-  // TODO: Call API for logout
 };
 
 const mockLogin = (username: string, password: string): Promise<User> => {

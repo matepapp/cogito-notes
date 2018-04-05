@@ -12,9 +12,7 @@ export type AuthAction =
   | { type: 'AUTH_LOGIN', user: User }
   | { type: 'AUTH_LOGIN_SUCCESS', user: User }
   | { type: 'AUTH_LOGIN_ERROR' }
-  | { type: 'AUTH_LOGOUT', user: User }
-  | { type: 'AUTH_LOGOUT_SUCCESS' }
-  | { type: 'AUTH_LOGOUT_ERROR' };
+  | { type: 'AUTH_LOGOUT' };
 
 // const register = (username: string, password: string): UserAction => {
 //   return { type: 'USER_REGISTER' };
@@ -29,20 +27,20 @@ const login = (username: string, password: string): Dispatch => {
     return { type: authConstants.LOGIN_SUCCESS, user };
   };
 
-  const error = (error: string): AuthAction => {
+  const failure = (error: string): AuthAction => {
     return { type: authConstants.LOGIN_ERROR, error };
   };
 
   return dispatch => {
     dispatch(request({ username }));
 
-    authService.mockLogin(username, password).then(
+    authService.login(username, password).then(
       user => {
         dispatch(success(user));
         history.push('/');
       },
       error => {
-        dispatch(error(error));
+        dispatch(failure(error));
         dispatch(alertActions.error(error));
       },
     );
@@ -51,6 +49,7 @@ const login = (username: string, password: string): Dispatch => {
 
 const logout = () => {
   authService.logout();
+  history.push('/login');
   return { type: authConstants.LOGOUT };
 };
 

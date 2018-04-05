@@ -5,12 +5,10 @@ import { User } from '../types';
 
 export type AuthState = {
   loggedIn: boolean,
-  user?: User,
 };
 
-let userString: ?string = localStorage.getItem(authConstants.TOKEN_KEY);
-let user: ?User = userString ? JSON.parse(userString) : null;
-const initialState: AuthState = user ? { loggedIn: true, user } : { loggedIn: false };
+let token: ?string = localStorage.getItem(authConstants.TOKEN_KEY);
+const initialState: AuthState = token ? { loggedIn: true } : { loggedIn: false };
 
 export const auth = (state: AuthState = initialState, action: AuthAction): AuthState => {
   switch (action.type) {

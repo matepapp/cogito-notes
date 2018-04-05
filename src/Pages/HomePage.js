@@ -1,34 +1,49 @@
+// @flow
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
 import { NoteList, NoteEditor } from '../components';
+import { authActions } from '../actions';
 
 const { Content, Sider } = Layout;
+const MenuItem = Menu.Item;
 
-export default class HomePage extends React.Component {
-  state = {
+type State = {
+  collapsed: boolean,
+};
+
+export default class HomePage extends React.Component<{}, State> {
+  state: State = {
     collapsed: false,
   };
 
-  onCollapse = collapsed => {
-    console.log(collapsed);
+  onCollapse = (collapsed: boolean) => {
     this.setState({ collapsed });
+  };
+
+  onMenuItemSelect = (object: Object) => {
+    if (object.key === 'logout') {
+      authActions.logout();
+    }
   };
 
   render() {
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="1">
+          <Menu
+            theme="dark"
+            defaultSelectedKeys={['1']}
+            mode="inline"
+            onSelect={this.onMenuItemSelect}>
+            <MenuItem key="1">
               <Icon type="pie-chart" />
               <span>Option 1</span>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Icon type="desktop" />
+            </MenuItem>
+            <MenuItem key="logout">
+              <Icon type="logout" />
               <span>Log out</span>
-              <Link to="/">Go back to Login!</Link>
-            </Menu.Item>
+            </MenuItem>
           </Menu>
         </Sider>
         <Layout>
