@@ -1,12 +1,6 @@
 // @flow
-import { authConstants, commonConstants } from '../constants';
-import {
-  User,
-  LoginUser,
-  RegisterUser,
-  userInfoFromApiResponse,
-  UserInfo,
-} from '../types';
+import { authConstants } from '../constants';
+import { LoginUser, RegisterUser, userInfoFromApiResponse, UserInfo } from '../types';
 import { network } from '.';
 
 const URL = {

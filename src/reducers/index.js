@@ -1,11 +1,14 @@
 // @flow
 import { combineReducers } from 'redux';
-import { auth } from './authReducer';
-import { alert } from './alertReducer';
+import { auth, type AuthState } from './authReducer';
+import { alert, type AlertState } from './alertReducer';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   auth,
   alert,
 });
 
-export default rootReducer;
+export type State = {
+  auth: AuthState,
+  alert: AlertState,
+};

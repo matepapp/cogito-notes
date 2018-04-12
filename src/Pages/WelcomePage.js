@@ -1,31 +1,36 @@
+// @flow
 import React from 'react';
-import { Layout, Row, Col, Tabs } from 'antd';
+import { Layout, Row, Col, Tabs, Alert } from 'antd';
+import { connect } from 'react-redux';
 import { RegistrationForm, LoginForm } from '../components';
+import { type State } from '../reducers';
 import logo from '../resources/img/logo.svg';
 
 const TabPane = Tabs.TabPane;
 const { Content } = Layout;
 
-const styleLogo = {
-  marginTop: 50,
-  width: '25%',
-  height: '25%',
+type Props = {
+  alertMessage?: string,
+  alertType: 'success' | 'error',
 };
 
-const styleCenter = {
-  display: 'flex',
-  justifyContent: 'center',
-};
-
-export default class WelcomePage extends React.Component {
+class WelcomePage extends React.Component<Props> {
   render() {
+    const { alertMessage, alertType } = this.props;
     return (
       <Layout style={{ minHeight: '100vh' }}>
-        <Row style={styleCenter}>
-          <img src={logo} alt="logo" style={styleLogo} />
+        {alertMessage ? (
+          <Alert message="Error" description={alertMessage} type={alertType} showIcon />
+        ) : null}
+        <Row style={{ display: 'flex', justifyContent: 'center' }}>
+          <img
+            src={logo}
+            alt="logo"
+            style={{ marginTop: 50, width: '25%', height: '25%' }}
+          />
         </Row>
         <Content style={{ paddingTop: 70 }}>
-          <Row style={styleCenter}>
+          <Row style={{ display: 'flex', justifyContent: 'center' }}>
             <Col xs={20} sm={16} md={12} lg={8} xl={8}>
               <Tabs defaultActiveKey="login" style={{ textAlign: 'center' }}>
                 <TabPane tab="Login" key="login">
@@ -42,3 +47,12 @@ export default class WelcomePage extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state: State): Props => {
+  return {
+    alertMessage: state.alert.message,
+    alertType: state.alert.type,
+  };
+};
+
+export default connect(mapStateToProps)(WelcomePage);

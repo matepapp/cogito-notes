@@ -1,15 +1,15 @@
 // @flow
 import { alertConstants } from '../constants';
-import { type AlertAction } from '../actions';
+import { AlertAction } from '../actions';
 
 export type AlertState = {
-  type?: string,
+  type: 'success' | 'error',
   message?: string,
 };
 
 const initialState: AlertState = {
-  type: 'alert-success',
-  message: 'You successfully did something',
+  type: 'error',
+  message: '',
 };
 
 export const alert = (
@@ -19,16 +19,16 @@ export const alert = (
   switch (action.type) {
     case alertConstants.SUCCESS:
       return {
-        type: 'alert-success',
+        type: 'success',
         message: action.message,
       };
     case alertConstants.ERROR:
       return {
-        type: 'alert-danger',
+        type: 'error',
         message: action.message,
       };
     case alertConstants.CLEAR:
-      return {};
+      return state;
     default:
       return state;
   }

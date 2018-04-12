@@ -6,11 +6,13 @@ export type AlertAction =
   | { type: 'ALERT_ERROR', message: string }
   | { type: 'ALERT_CLEAR' };
 
-const success = (message: string): AlertAction => {
+const success = (messages: Array<string>): AlertAction => {
+  const message: string = messages.join('. ');
   return { type: alertConstants.SUCCESS, message };
 };
 
-const error = (message: string): AlertAction => {
+const error = (messages: Array<string>): AlertAction => {
+  const message: string = messages.join(' ');
   return { type: alertConstants.ERROR, message };
 };
 

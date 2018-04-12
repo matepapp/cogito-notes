@@ -37,8 +37,6 @@ export const auth = (state: AuthState = initialState, action: AuthAction): AuthS
       };
     case authConstants.REGISTER_ERROR:
       return { loggedIn: false };
-    case authConstants.LOGOUT:
-      return { loggedIn: false };
     default:
       return state;
   }
