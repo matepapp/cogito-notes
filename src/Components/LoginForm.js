@@ -77,6 +77,4 @@ class Login extends React.Component<Props> {
   }
 }
 
-const LoginFormComponent = Form.create()(Login);
-const LoginForm = connect(null)(LoginFormComponent);
-export default LoginForm;
+export const LoginForm = connect(null)(Form.create()(Login));
