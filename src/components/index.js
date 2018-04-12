@@ -1,6 +1,6 @@
-export { LoginForm } from './LoginForm';
-export { NoteCard } from './NoteCard';
-export { NoteEditor } from './NoteEditor';
-export { NoteList } from './NoteList';
-export { PrivateRoute } from './PrivateRoute';
-export { RegistrationForm } from './RegistrationForm';
+export * from './LoginForm';
+export * from './NoteCard';
+export * from './NoteEditor';
+export * from './NoteList';
+export * from './PrivateRoute';
+export * from './RegistrationForm';
