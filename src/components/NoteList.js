@@ -3,20 +3,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { List, Spin } from 'antd';
 import axios from 'axios';
-import NoteCard from './NoteCard';
-
-type Note = {
-  id: number,
-  title: string,
-  description: string,
-};
+import { NoteCard } from '.';
+import { type Note } from '../types';
 
 type State = {
   notes: Array<Note>,
   loading: boolean,
 };
 
-class NoteList extends Component<{}, State> {
+export class NoteList extends Component<{}, State> {
   state: State = {
     notes: [],
     loading: true,
@@ -62,13 +57,3 @@ class NoteList extends Component<{}, State> {
     );
   }
 }
-
-// const MockNoteList: Note[] = [
-//   { id: 0, title: 'Elso jegyzet', description: 'Nagyon sokat kell meg tanulni' },
-//   { id: 1, title: 'Masodik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
-//   { id: 2, title: 'Harmadik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
-//   { id: 3, title: 'Negyedik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
-//   { id: 4, title: 'Otodik jegyzet', description: 'Nagyon sokat kell meg tanulni' },
-// ];
-
-export default NoteList;
