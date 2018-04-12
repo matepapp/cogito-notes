@@ -19,8 +19,8 @@ class NormalLoginForm extends React.Component<Props> {
 
     form.validateFields((error, values) => {
       if (!error) {
-        const { email, password } = values;
-        dispatch(authActions.login(email, password));
+        const { username, password } = values;
+        dispatch(authActions.login({ username, password }));
       }
     });
   };
@@ -32,14 +32,14 @@ class NormalLoginForm extends React.Component<Props> {
         onSubmit={this.handleSubmit}
         className="login-form"
         style={{ width: '50%', margin: '0 auto', textAlign: 'center' }}>
-        <h4 style={{ marginBottom: 0 }}>Email</h4>
+        <h4 style={{ marginBottom: 0 }}>Username</h4>
         <FormItem style={{ marginBottom: 10 }}>
-          {getFieldDecorator('email', {
-            rules: [{ required: true, message: 'Please fill in your email address!' }],
+          {getFieldDecorator('username', {
+            rules: [{ required: true, message: 'Please fill in your username!' }],
           })(
             <Input
-              prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="email@address.com"
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="johndoe"
             />,
           )}
         </FormItem>

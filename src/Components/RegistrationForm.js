@@ -1,18 +1,35 @@
 // @flow
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Row, Form, Icon, Input, Button } from 'antd';
-import { User } from '../types';
+import { connect } from 'react-redux';
+import { Dispatch } from '../types';
+import { authActions } from '../actions';
+
 const FormItem = Form.Item;
 
-class NormalLoginForm extends React.Component<{}> {
+type Props = {
+  form: any,
+  dispatch: Dispatch,
+};
+
+class NormalLoginForm extends React.Component<Props> {
   handleSubmit = event => {
     event.preventDefault();
-    this.props.form.validateFields((error, values) => {
+    const { form, dispatch } = this.props;
+
+    form.validateFields((error, values) => {
       if (!error) {
-        const { username, password, email, firstName, lastName } = values;
-        const user: User = { username, password, email, firstName, lastName };
-        // TODO: Registration
+        const { username, password, passwordCheck, email, firstName, lastName } = values;
+        dispatch(
+          authActions.register({
+            username,
+            password1: password,
+            password2: passwordCheck,
+            email,
+            firstName,
+            lastName,
+          }),
+        );
       }
     });
   };
@@ -48,10 +65,22 @@ class NormalLoginForm extends React.Component<{}> {
           )}
         </FormItem>
 
+        <h4 style={{ marginBottom: 0 }}>Username</h4>
+        <FormItem style={{ marginBottom: 10 }}>
+          {getFieldDecorator('username', {
+            rules: [{ required: true, message: 'Please fill your username!' }],
+          })(
+            <Input
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="johndoe"
+            />,
+          )}
+        </FormItem>
+
         <h4 style={{ marginBottom: 0 }}>Email</h4>
         <FormItem style={{ marginBottom: 10 }}>
           {getFieldDecorator('email', {
-            rules: [{ required: true, message: 'Please fill in your email address!' }],
+            rules: [{ required: true, message: 'Please fill your email address!' }],
           })(
             <Input
               prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -63,7 +92,7 @@ class NormalLoginForm extends React.Component<{}> {
         <h4 style={{ marginBottom: 0 }}>Password</h4>
         <FormItem style={{ marginBottom: 10 }}>
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please fill in your password!' }],
+            rules: [{ required: true, message: 'Please fill your password!' }],
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -76,7 +105,7 @@ class NormalLoginForm extends React.Component<{}> {
         <h4 style={{ marginBottom: 0 }}>Repeat password</h4>
         <FormItem>
           {getFieldDecorator('passwordCheck', {
-            rules: [{ required: true, message: 'Please fill in your password!' }],
+            rules: [{ required: true, message: 'Please fill your password!' }],
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -106,5 +135,5 @@ class NormalLoginForm extends React.Component<{}> {
   }
 }
 
-const RegistrationForm = Form.create()(NormalLoginForm);
+const RegistrationForm = connect(null)(Form.create()(NormalLoginForm));
 export default RegistrationForm;

@@ -1,36 +1,40 @@
 // @flow
 import { authConstants, commonConstants } from '../constants';
-import { User } from '../types';
-import axios from 'axios';
+import {
+  User,
+  LoginUser,
+  RegisterUser,
+  userInfoFromApiResponse,
+  UserInfo,
+} from '../types';
+import { network } from '.';
 
 const URL = {
-  REGISTER: '/register/',
+  REGISTER: '/registration/',
   LOGIN: '/login/',
   LOGOUT: '/logout/',
 };
 
-const network = axios.create({
-  baseURL: commonConstants.BASE_URL,
-});
-
-const register = (user: User): Promise<User> => {
-  const { username, password, email } = user;
-  return network.post(URL.REGISTER, { username, password }).catch(error => {});
+const register = (user: RegisterUser): Promise<UserInfo> => {
+  return network
+    .post(URL.REGISTER, user)
+    .catch(error => {
+      return Promise.reject(error.response.data);
+    })
+    .then(response => {
+      return userInfoFromApiResponse(response.data.user);
+    });
 };
 
-const login = (username: string, password: string): Promise<User> => {
+const login = (user: LoginUser): Promise<UserInfo> => {
   return network
-    .post(URL.LOGIN, { username, password })
+    .post(URL.LOGIN, JSON.stringify(user))
     .catch(error => {
-      console.log(error);
       return Promise.reject(error.response.data);
     })
     .then(response => {
       localStorage.setItem(authConstants.TOKEN_KEY, response.data.token);
-      const { username, email, first_name, last_name } = response.data.user;
-      const user: User = { username, email, firstName: first_name, lastName: last_name };
-
-      return user;
+      return userInfoFromApiResponse(response.data.user);
     });
 };
 
@@ -38,15 +42,8 @@ const logout = () => {
   localStorage.removeItem(authConstants.TOKEN_KEY);
 };
 
-const mockLogin = (username: string, password: string): Promise<User> => {
-  const user: User = { username: 'Test' };
-  localStorage.setItem(authConstants.TOKEN_KEY, user.username);
-  return Promise.resolve(user);
-};
-
 export const authService = {
   register,
   login,
   logout,
-  mockLogin,
 };
