@@ -1,3 +1,4 @@
+/* eslint-disable */
 // @flow
 export type Action = { type: string };
 export type GetState = () => Object;
