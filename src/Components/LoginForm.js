@@ -12,7 +12,7 @@ type Props = {
   dispatch: Dispatch,
 };
 
-class NormalLoginForm extends React.Component<Props> {
+class Login extends React.Component<Props> {
   handleSubmit = e => {
     e.preventDefault();
     const { form, dispatch } = this.props;
@@ -77,4 +77,6 @@ class NormalLoginForm extends React.Component<Props> {
   }
 }
 
-export const LoginForm = connect(null)(Form.create()(NormalLoginForm));
+const LoginFormComponent = Form.create()(Login);
+const LoginForm = connect(null)(LoginFormComponent);
+export default LoginForm;

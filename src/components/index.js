@@ -1,4 +1,4 @@
-export { LoginForm } from './LoginForm';
+export { default as LoginForm } from './LoginForm';
 export { NoteCard } from './NoteCard';
 export { NoteEditor } from './NoteEditor';
 export { NoteList } from './NoteList';
