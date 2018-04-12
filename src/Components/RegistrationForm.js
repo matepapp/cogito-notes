@@ -2,7 +2,7 @@
 import React from 'react';
 import { Row, Form, Icon, Input, Button } from 'antd';
 import { connect } from 'react-redux';
-import { Dispatch } from '../types';
+import { type Dispatch } from '../types';
 import { authActions } from '../actions';
 
 const FormItem = Form.Item;
@@ -135,5 +135,4 @@ class NormalLoginForm extends React.Component<Props> {
   }
 }
 
-const RegistrationForm = connect(null)(Form.create()(NormalLoginForm));
-export default RegistrationForm;
+export const RegistrationForm = connect(null)(Form.create()(NormalLoginForm));

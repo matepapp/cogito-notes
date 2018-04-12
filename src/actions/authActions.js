@@ -3,7 +3,12 @@ import { authService } from '../services';
 import { alertActions } from './';
 import { history } from '../helpers';
 import { authConstants } from '../constants';
-import { RegisterUser, LoginUser, Dispatch, UserInfo } from '../types';
+import {
+  type RegisterUser,
+  type LoginUser,
+  type Dispatch,
+  type UserInfo,
+} from '../types';
 
 export type AuthAction =
   | { type: 'AUTH_REGISTER' }

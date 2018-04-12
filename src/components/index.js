@@ -1,6 +1,6 @@
-export { default as LoginForm } from './LoginForm';
-export { default as NoteCard } from './NoteCard';
-export { default as NoteEditor } from './NoteEditor';
-export { default as NoteList } from './NoteList';
-export { default as PrivateRoute } from './PrivateRoute';
-export { default as RegistrationForm } from './RegistrationForm';
+export { LoginForm } from './LoginForm';
+export { NoteCard } from './NoteCard';
+export { NoteEditor } from './NoteEditor';
+export { NoteList } from './NoteList';
+export { PrivateRoute } from './PrivateRoute';
+export { RegistrationForm } from './RegistrationForm';

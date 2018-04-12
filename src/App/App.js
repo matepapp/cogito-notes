@@ -3,7 +3,6 @@ import React from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
 import { PrivateRoute } from '../components';
 import { history } from '../helpers';
-import { alertActions } from '../actions';
 import { HomePage, WelcomePage } from '../pages';
 import './App.css';
 

@@ -12,7 +12,7 @@ type State = {
   collapsed: boolean,
 };
 
-export default class HomePage extends React.Component<{}, State> {
+export class HomePage extends React.Component<{}, State> {
   state: State = {
     collapsed: false,
   };

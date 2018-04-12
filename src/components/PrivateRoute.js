@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { authConstants } from '../constants';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
@@ -14,5 +14,3 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
-
-export default PrivateRoute;

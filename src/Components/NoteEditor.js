@@ -12,7 +12,7 @@ type State = {
   value: any,
 };
 
-export default class NoteEditor extends React.Component<Props, State> {
+export class NoteEditor extends React.Component<Props, State> {
   state = {
     value: RichTextEditor.createEmptyValue(),
   };

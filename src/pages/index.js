@@ -1,2 +1,2 @@
-export { default as HomePage } from './HomePage';
-export { default as WelcomePage } from './WelcomePage';
+export { HomePage } from './HomePage';
+export { WelcomePage } from './WelcomePage';

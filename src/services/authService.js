@@ -1,6 +1,11 @@
 // @flow
 import { authConstants } from '../constants';
-import { LoginUser, RegisterUser, userInfoFromApiResponse, UserInfo } from '../types';
+import {
+  type LoginUser,
+  type RegisterUser,
+  type UserInfo,
+  userInfoFromApiResponse,
+} from '../types';
 import { network } from '.';
 
 const URL = {

@@ -14,7 +14,7 @@ type Props = {
   alertType: 'success' | 'error',
 };
 
-class WelcomePage extends React.Component<Props> {
+class Page extends React.Component<Props> {
   render() {
     const { alertMessage, alertType } = this.props;
     return (
@@ -55,4 +55,4 @@ const mapStateToProps = (state: State): Props => {
   };
 };
 
-export default connect(mapStateToProps)(WelcomePage);
+export const WelcomePage = connect(mapStateToProps)(Page);

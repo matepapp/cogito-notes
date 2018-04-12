@@ -8,7 +8,7 @@ type Props = {
   children: string,
 };
 
-const NoteCard = (props: Props) => {
+export const NoteCard = (props: Props) => {
   return (
     // TODO: Make Card responsive
     <Card loading={props.isLoading} title={props.title} style={{ width: '200px' }}>
@@ -16,5 +16,3 @@ const NoteCard = (props: Props) => {
     </Card>
   );
 };
-
-export default NoteCard;
