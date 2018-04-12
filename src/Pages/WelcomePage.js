@@ -4,6 +4,7 @@ import { Layout, Row, Col, Tabs, Alert } from 'antd';
 import { connect } from 'react-redux';
 import { RegistrationForm, LoginForm } from '../components';
 import { type State } from '../reducers';
+import { history } from '../helpers';
 import logo from '../resources/img/logo.svg';
 
 const TabPane = Tabs.TabPane;

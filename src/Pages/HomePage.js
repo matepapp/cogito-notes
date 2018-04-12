@@ -2,8 +2,10 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
+import { connect } from 'react-redux';
 import { NoteList, NoteEditor } from '../components';
 import { authActions } from '../actions';
+import { Dispatch } from '../types';
 
 const { Content, Sider } = Layout;
 const MenuItem = Menu.Item;
@@ -12,7 +14,11 @@ type State = {
   collapsed: boolean,
 };
 
-export class HomePage extends React.Component<{}, State> {
+type Props = {
+  dispatch: Dispatch,
+};
+
+class Home extends React.Component<Props, State> {
   state: State = {
     collapsed: false,
   };
@@ -23,7 +29,7 @@ export class HomePage extends React.Component<{}, State> {
 
   onMenuItemSelect = (object: Object) => {
     if (object.key === 'logout') {
-      authActions.logout();
+      this.props.dispatch(authActions.logout());
     }
   };
 
@@ -66,3 +72,5 @@ export class HomePage extends React.Component<{}, State> {
     );
   }
 }
+
+export const HomePage = connect(null)(Home);
