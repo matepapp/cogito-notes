@@ -68,7 +68,7 @@ const login = (user: LoginUser): Dispatch => {
       },
       error => {
         dispatch(failure(error));
-        dispatch(alertActions.error(error.non_field_errors));
+        dispatch(alertActions.error(error));
       },
     );
   };

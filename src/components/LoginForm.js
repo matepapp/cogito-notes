@@ -3,13 +3,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { authActions } from '../actions';
 import { type Dispatch } from '../types';
+import { type State } from '../reducers';
 import { Row, Form, Icon, Input, Button } from 'antd';
 
 const FormItem = Form.Item;
 
 type Props = {
-  form: any,
-  dispatch: Dispatch,
+  form?: any,
+  loading: boolean,
+  dispatch?: Dispatch,
 };
 
 class Login extends React.Component<Props> {
@@ -31,26 +33,21 @@ class Login extends React.Component<Props> {
       <Form
         onSubmit={this.handleSubmit}
         className="login-form"
-        style={{ width: '50%', margin: '0 auto', textAlign: 'center' }}>
-        <h4 style={{ marginBottom: 0 }}>Username</h4>
-        <FormItem style={{ marginBottom: 10 }}>
+        hideRequiredMark
+        layout="vertical"
+        style={{ width: '60%', margin: '0 auto' }}>
+        <FormItem style={{ marginBottom: 10 }} label="Username">
           {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please fill in your username!' }],
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="johndoe"
-            />,
-          )}
+            rules: [{ required: true, message: 'Please add your username!' }],
+          })(<Input prefix={<Icon type="user" />} placeholder="johndoe" />)}
         </FormItem>
 
-        <h4 style={{ marginBottom: 0 }}>Password</h4>
-        <FormItem>
+        <FormItem label="Password">
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please fill in your password!' }],
           })(
             <Input
-              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<Icon type="lock" />}
               type="password"
               placeholder="password"
             />,
@@ -63,11 +60,8 @@ class Login extends React.Component<Props> {
               type="primary"
               htmlType="submit"
               className="login-form-button"
-              style={{
-                width: '70%',
-                backgroundColor: '#1890FF',
-                borderColor: '#1890FF',
-              }}>
+              loading={this.props.loading}
+              style={{ width: '70%' }}>
               Login
             </Button>
           </Row>
@@ -77,4 +71,10 @@ class Login extends React.Component<Props> {
   }
 }
 
-export const LoginForm = connect(null)(Form.create()(Login));
+const mapStateToProps = (state: State): Props => {
+  return {
+    loading: state.auth.loggedIn,
+  };
+};
+
+export const LoginForm = connect(mapStateToProps)(Form.create()(Login));
