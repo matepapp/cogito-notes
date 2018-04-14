@@ -35,7 +35,7 @@ class Login extends React.Component<Props> {
         className="login-form"
         hideRequiredMark
         layout="vertical"
-        style={{ width: '60%', margin: '0 auto', textAlign: 'center' }}>
+        style={{ width: '60%', margin: '0 auto' }}>
         <FormItem style={{ marginBottom: 10 }} label="Username">
           {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please add your username!' }],

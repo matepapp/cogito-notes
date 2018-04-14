@@ -12,12 +12,34 @@ type Props = {
   dispatch: Dispatch,
 };
 
-class NormalLoginForm extends React.Component<Props> {
+type State = {
+  passwordsValidationStatus: ?'success' | 'error',
+  passwordsValidationMessage: ?string,
+};
+
+class NormalLoginForm extends React.Component<Props, State> {
+  state = {
+    passwordsValidationStatus: null,
+    passwordsValidationMessage: null,
+  };
+
   handleSubmit = event => {
     event.preventDefault();
     const { form, dispatch } = this.props;
 
     form.validateFields((error, values) => {
+      console.log(values.passwordCheck);
+
+      values.passwordCheck == values.password
+        ? this.setState({
+            passwordsValidationStatus: 'success',
+            passwordsValidationMessage: null,
+          })
+        : this.setState({
+            passwordsValidationStatus: 'error',
+            passwordsValidationMessage: 'The passwords are not the same',
+          });
+
       if (!error) {
         const { username, password, passwordCheck, email, firstName, lastName } = values;
         dispatch(
@@ -40,70 +62,51 @@ class NormalLoginForm extends React.Component<Props> {
       <Form
         onSubmit={this.handleSubmit}
         className="login-form"
-        style={{ width: '50%', margin: '0 auto' }}>
-        <h4 style={{ marginBottom: 0 }}>First name</h4>
-        <FormItem style={{ marginBottom: 10 }}>
+        layout="vertical"
+        style={{ width: '60%', margin: '0 auto' }}>
+        <FormItem style={{ marginBottom: 10 }} label="First name">
           {getFieldDecorator('firstname', {
             rules: [{ required: true, message: 'Please fill your first name!' }],
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="John"
-            />,
-          )}
+          })(<Input prefix={<Icon type="user" />} placeholder="John" />)}
         </FormItem>
 
-        <h4 style={{ marginBottom: 0 }}>Last name</h4>
-        <FormItem style={{ marginBottom: 10 }}>
+        <FormItem style={{ marginBottom: 10 }} label="Last name">
           {getFieldDecorator('lastname', {
             rules: [{ required: true, message: 'Please fill your last name!' }],
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="Doe"
-            />,
-          )}
+          })(<Input prefix={<Icon type="user" />} placeholder="Doe" />)}
         </FormItem>
 
-        <h4 style={{ marginBottom: 0 }}>Username</h4>
-        <FormItem style={{ marginBottom: 10 }}>
+        <FormItem style={{ marginBottom: 10 }} label="Username">
           {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please fill your username!' }],
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="johndoe"
-            />,
-          )}
+          })(<Input prefix={<Icon type="user" />} placeholder="johndoe" />)}
         </FormItem>
 
-        <h4 style={{ marginBottom: 0 }}>Email</h4>
-        <FormItem style={{ marginBottom: 10 }}>
+        <FormItem style={{ marginBottom: 10 }} label="Email" type="email">
           {getFieldDecorator('email', {
             rules: [{ required: true, message: 'Please fill your email address!' }],
-          })(
-            <Input
-              prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="email@address.com"
-            />,
-          )}
+          })(<Input prefix={<Icon type="mail" />} placeholder="email@address.com" />)}
         </FormItem>
 
-        <h4 style={{ marginBottom: 0 }}>Password</h4>
-        <FormItem style={{ marginBottom: 10 }}>
+        <FormItem style={{ marginBottom: 10 }} label="Password">
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please fill your password!' }],
+            rules: [
+              { required: true, message: 'Please fill your password!' },
+              { min: 8, message: 'Tha password should be minimum 8 character' },
+            ],
           })(
             <Input
-              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<Icon type="lock" />}
               type="password"
               placeholder="Password"
             />,
           )}
         </FormItem>
 
-        <h4 style={{ marginBottom: 0 }}>Repeat password</h4>
-        <FormItem>
+        <FormItem
+          label="Repeat password"
+          validateStatus={this.state.passwordsValidationStatus}
+          help={this.state.passwordsValidationMessage}>
           {getFieldDecorator('passwordCheck', {
             rules: [{ required: true, message: 'Please fill your password!' }],
           })(
@@ -115,21 +118,15 @@ class NormalLoginForm extends React.Component<Props> {
           )}
         </FormItem>
 
-        <FormItem style={{ textAlign: 'center' }}>
-          <Row>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              style={{
-                width: '70%',
-                backgroundColor: '#1890FF',
-                borderColor: '#1890FF',
-              }}>
-              Registration
-            </Button>
-          </Row>
-        </FormItem>
+        <Row>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+            style={{ width: '70%' }}>
+            Registration
+          </Button>
+        </Row>
       </Form>
     );
   }
