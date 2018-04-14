@@ -30,7 +30,7 @@ class NormalLoginForm extends React.Component<Props, State> {
     form.validateFields((error, values) => {
       console.log(values.passwordCheck);
 
-      values.passwordCheck == values.password
+      values.passwordCheck === values.password
         ? this.setState({
             passwordsValidationStatus: 'success',
             passwordsValidationMessage: null,
