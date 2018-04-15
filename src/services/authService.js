@@ -29,7 +29,7 @@ const login = (user: LoginUser): Promise<UserInfo> => {
   return network
     .post(URL.LOGIN, JSON.stringify(user))
     .catch(error => {
-      return Promise.reject(error.response.data.non_field_errors);
+      return Promise.reject(error.response.data.non_field_errors.join('. '));
     })
     .then(response => {
       setToken(response.data.token);
