@@ -2,6 +2,7 @@
 import { authConstants } from '../constants';
 import { AuthAction } from '../actions';
 import { type UserInfo } from '../types';
+import { hasToken } from '../helpers';
 
 export type AuthState = {
   loading: boolean,
@@ -9,9 +10,7 @@ export type AuthState = {
   user?: UserInfo,
 };
 
-let token: ?string = localStorage.getItem(authConstants.TOKEN_KEY);
-const loggedIn: boolean = token ? true : false;
-const initialState: AuthState = { loading: false, loggedIn };
+const initialState: AuthState = { loading: false, loggedIn: hasToken };
 
 export const auth = (state: AuthState = initialState, action: AuthAction): AuthState => {
   switch (action.type) {

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { List, Spin } from 'antd';
-import axios from 'axios';
+import { noteService } from '../services';
 import { NoteCard, LoadingCardList } from '.';
 import { type Note } from '../types';
 
@@ -18,23 +18,21 @@ export class NoteList extends Component<{}, State> {
   };
 
   componentDidMount() {
-    // TODO: Change to our API when it's available
-    axios.get('https://swapi.co/api/planets').then(response => {
-      console.log(response.data.results);
-
-      const notes: Array<Note> = response.data.results.map(planet => {
-        return {
-          id: planet.orbital_period,
-          title: planet.name,
-          description: `The climate is ${planet.climate} and the terrain is ${
-            planet.terrain
-          }`,
-        };
-      });
-
-      this.setState({ notes, loading: false });
-      console.log(this.state);
-    });
+    // axios.get('https://swapi.co/api/planets').then(response => {
+    //   console.log(response.data.results);
+    //   const notes: Array<Note> = response.data.results.map(planet => {
+    //     return {
+    //       id: planet.orbital_period,
+    //       title: planet.name,
+    //       description: `The climate is ${planet.climate} and the terrain is ${
+    //         planet.terrain
+    //       }`,
+    //     };
+    //   });
+    //   this.setState({ notes, loading: false });
+    //   console.log(this.state);
+    // });
+    noteService.list();
   }
 
   render() {

@@ -6,6 +6,7 @@ import {
   type UserInfo,
   userInfoFromApiResponse,
 } from '../types';
+import { setToken, removeToken } from '../helpers';
 import { network } from '.';
 
 const URL = {
@@ -32,13 +33,13 @@ const login = (user: LoginUser): Promise<UserInfo> => {
       return Promise.reject(error.response.data.non_field_errors);
     })
     .then(response => {
-      localStorage.setItem(authConstants.TOKEN_KEY, response.data.token);
+      setToken(response.data.token);
       return userInfoFromApiResponse(response.data.user);
     });
 };
 
 const logout = () => {
-  localStorage.removeItem(authConstants.TOKEN_KEY);
+  removeToken();
 };
 
 export const authService = {
