@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Layout, Tabs, Button } from 'antd';
 import { NoteList, Header } from '../components';
 

@@ -1,5 +1,6 @@
 {
   "extends": [
+    "eslint:recommended",
     "plugin:flowtype/recommended",
     "plugin:react/recommended",
     "prettier",
@@ -25,7 +26,8 @@
   },
   "rules": {
     "prettier/prettier": "error",
-    "react/prop-types": 0
+    "react/prop-types": 0,
+
   },
   "settings": {
     "flowtype": {

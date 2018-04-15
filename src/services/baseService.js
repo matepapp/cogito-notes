@@ -1,5 +1,4 @@
-import { commonConstants, authConstants } from '../constants';
-import { hasToken, TOKEN } from '../helpers';
+import { commonConstants } from '../constants';
 import axios from 'axios';
 
 axios.defaults.baseURL = commonConstants.BASE_URL;

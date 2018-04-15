@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Layout, Icon, Button, Popover, Row, Col } from 'antd';
+import { Layout, Icon, Popover, Row, Col } from 'antd';
 import { connect } from 'react-redux';
 import { Dispatch } from '../types';
 import { authActions } from '../actions';

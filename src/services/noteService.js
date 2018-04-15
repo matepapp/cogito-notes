@@ -1,5 +1,4 @@
 // @flow
-import { noteConstants } from '../constants';
 import { Note } from '../types';
 import { TOKEN } from '../helpers';
 import { network } from '.';

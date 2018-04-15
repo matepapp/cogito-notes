@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { List, Spin } from 'antd';
+import { List } from 'antd';
 import { noteService } from '../services';
 import { NoteCard, LoadingCardList } from '.';
 import { type Note } from '../types';

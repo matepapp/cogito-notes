@@ -1,5 +1,4 @@
 // @flow
-import { authConstants } from '../constants';
 import {
   type LoginUser,
   type RegisterUser,
