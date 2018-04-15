@@ -2,27 +2,36 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import { Layout, Tabs, Button } from 'antd';
-import { connect } from 'react-redux';
-import { NoteList, NoteEditor, Header } from '../components';
-import { UserInfo } from '../types';
-import { type State } from '../reducers';
+import { NoteList, Header } from '../components';
 
 const { Content, Footer } = Layout;
 const TabPane = Tabs.TabPane;
 
-class Home extends React.Component<{}> {
+type Props = {
+  activeTabKey: 'shared' | 'notes',
+};
+
+export class HomePage extends React.Component<Props> {
+  static defaultProps = {
+    activeTabKey: 'notes',
+  };
+
   render() {
-    const operations = <Button>Extra Action</Button>;
+    const addNoteButton = <Button>New Note</Button>;
     return (
       <Layout className="layout" style={{ minHeight: '100vh' }}>
-        <Header username="Nagy Arpad" />
-        <Content style={{ padding: '50px' }}>
-          <Tabs tabBarExtraContent={operations}>
-            <TabPane tab="Tab 1" key="1">
-              Content of tab 1
+        <Header />
+        <Content
+          style={{ padding: '50px', alignItems: 'center', justifyContent: 'center' }}>
+          <Tabs
+            defaultActiveKey={this.props.activeTabKey}
+            tabBarExtraContent={addNoteButton}
+            style={{ width: '80%', margin: '0 auto' }}>
+            <TabPane tab="My Notes" key="notes">
+              <Route exact path="/" component={NoteList} />
             </TabPane>
-            <TabPane tab="Tab 2" key="2">
-              Content of tab 2
+            <TabPane tab="Shared Notes" key="shared">
+              Content of Shared Notes
             </TabPane>
           </Tabs>
         </Content>
@@ -30,24 +39,6 @@ class Home extends React.Component<{}> {
           Cogito Notes ©2018 Created by Mate Papp
         </Footer>
       </Layout>
-      //   <Layout>
-      //     <Content style={{ margin: '0 16px', textAlign: 'center' }}>
-      //       <Route exact path="/notes" component={NoteList} />
-      //       <Route
-      //         path="/notes/:title"
-      //         render={routeProps => (
-      //           <NoteEditor
-      //             {...routeProps}
-      //             title={routeProps.match.params.title}
-      //             readOnly={Math.random() >= 0.5}
-      //           />
-      //         )}
-      //       />
-      //     </Content>
-      //   </Layout>
-      // </Layout>
     );
   }
 }
-
-export const HomePage = connect(null)(Home);
