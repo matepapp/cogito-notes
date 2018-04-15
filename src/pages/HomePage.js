@@ -1,76 +1,44 @@
 // @flow
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
-import { Layout, Menu, Icon } from 'antd';
-import { connect } from 'react-redux';
-import { NoteList, NoteEditor } from '../components';
-import { authActions } from '../actions';
-import { Dispatch } from '../types';
+import { Route } from 'react-router-dom';
+import { Layout, Tabs, Button } from 'antd';
+import { NoteList, Header } from '../components';
 
-const { Content, Sider } = Layout;
-const MenuItem = Menu.Item;
-
-type State = {
-  collapsed: boolean,
-};
+const { Content, Footer } = Layout;
+const TabPane = Tabs.TabPane;
 
 type Props = {
-  dispatch: Dispatch,
+  activeTabKey: 'shared' | 'notes',
 };
 
-class Home extends React.Component<Props, State> {
-  state: State = {
-    collapsed: false,
-  };
-
-  onCollapse = (collapsed: boolean) => {
-    this.setState({ collapsed });
-  };
-
-  onMenuItemSelect = (object: Object) => {
-    if (object.key === 'logout') {
-      this.props.dispatch(authActions.logout());
-    }
+export class HomePage extends React.Component<Props> {
+  static defaultProps = {
+    activeTabKey: 'notes',
   };
 
   render() {
+    const addNoteButton = <Button>New Note</Button>;
     return (
-      <Layout style={{ minHeight: '100vh' }}>
-        <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
-          <Menu
-            theme="dark"
-            defaultSelectedKeys={['1']}
-            mode="inline"
-            onSelect={this.onMenuItemSelect}>
-            <MenuItem key="notes">
-              <Icon type="pie-chart" />
-              <span>Note List</span>
-              <Link to="/notes" />
-            </MenuItem>
-            <MenuItem key="logout">
-              <Icon type="logout" />
-              <span>Log out</span>
-            </MenuItem>
-          </Menu>
-        </Sider>
-        <Layout>
-          <Content style={{ margin: '0 16px', textAlign: 'center' }}>
-            <Route exact path="/notes" component={NoteList} />
-            <Route
-              path="/notes/:title"
-              render={routeProps => (
-                <NoteEditor
-                  {...routeProps}
-                  title={routeProps.match.params.title}
-                  readOnly={Math.random() >= 0.5}
-                />
-              )}
-            />
-          </Content>
-        </Layout>
+      <Layout className="layout" style={{ minHeight: '100vh' }}>
+        <Header />
+        <Content
+          style={{ padding: '50px', alignItems: 'center', justifyContent: 'center' }}>
+          <Tabs
+            defaultActiveKey={this.props.activeTabKey}
+            tabBarExtraContent={addNoteButton}
+            style={{ width: '80%', margin: '0 auto' }}>
+            <TabPane tab="My Notes" key="notes">
+              <Route exact path="/" component={NoteList} />
+            </TabPane>
+            <TabPane tab="Shared Notes" key="shared">
+              Content of Shared Notes
+            </TabPane>
+          </Tabs>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          Cogito Notes ©2018 Created by Mate Papp
+        </Footer>
       </Layout>
     );
   }
 }
-
-export const HomePage = connect(null)(Home);

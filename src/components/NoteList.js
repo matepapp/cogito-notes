@@ -1,9 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { List, Spin } from 'antd';
 import axios from 'axios';
-import { NoteCard } from '.';
+import { List } from 'antd';
+import { noteService } from '../services';
+import { NoteCard, LoadingCardList } from '.';
 import { type Note } from '../types';
 
 type State = {
@@ -18,10 +19,8 @@ export class NoteList extends Component<{}, State> {
   };
 
   componentDidMount() {
-    // TODO: Change to our API when it's available
     axios.get('https://swapi.co/api/planets').then(response => {
       console.log(response.data.results);
-
       const notes: Array<Note> = response.data.results.map(planet => {
         return {
           id: planet.orbital_period,
@@ -31,25 +30,29 @@ export class NoteList extends Component<{}, State> {
           }`,
         };
       });
-
       this.setState({ notes, loading: false });
       console.log(this.state);
     });
+
+    // TODO: Change to real implementation when it's ready
+    noteService.list();
   }
 
   render() {
     return this.state.loading ? (
-      <Spin size="large" />
+      <LoadingCardList />
     ) : (
       <List
-        grid={{ gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 3 }}
+        grid={{ gutter: 20, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 3 }}
         dataSource={this.state.notes}
         renderItem={item => (
           <List.Item>
             <Link to={`/notes/${item.title}`}>
-              <NoteCard title={item.title} isLoading={false}>
-                {item.description}
-              </NoteCard>
+              <NoteCard
+                title={item.title}
+                author="John Doe"
+                description={item.description}
+              />
             </Link>
           </List.Item>
         )}

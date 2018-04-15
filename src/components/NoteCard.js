@@ -3,16 +3,16 @@ import React from 'react';
 import { Card } from 'antd';
 
 type Props = {
-  isLoading: boolean,
   title: string,
-  children: string,
+  description: string,
+  author: string,
 };
 
 export const NoteCard = (props: Props) => {
+  const author = <div>{props.author}</div>;
   return (
-    // TODO: Make Card responsive
-    <Card loading={props.isLoading} title={props.title} style={{ width: '200px' }}>
-      {props.children}
+    <Card title={props.title} extra={author} style={{ height: 170 }}>
+      {props.description}
     </Card>
   );
 };

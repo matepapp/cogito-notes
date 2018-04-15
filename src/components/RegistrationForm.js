@@ -3,21 +3,23 @@ import React from 'react';
 import { Row, Form, Icon, Input, Button } from 'antd';
 import { connect } from 'react-redux';
 import { type Dispatch } from '../types';
+import { type State } from '../reducers';
 import { authActions } from '../actions';
 
 const FormItem = Form.Item;
 
 type Props = {
-  form: any,
-  dispatch: Dispatch,
+  form?: any,
+  dispatch?: Dispatch,
+  loading: boolean,
 };
 
-type State = {
+type FormState = {
   passwordsValidationStatus: ?'success' | 'error',
   passwordsValidationMessage: ?string,
 };
 
-class NormalLoginForm extends React.Component<Props, State> {
+class NormalLoginForm extends React.Component<Props, FormState> {
   state = {
     passwordsValidationStatus: null,
     passwordsValidationMessage: null,
@@ -122,6 +124,7 @@ class NormalLoginForm extends React.Component<Props, State> {
           <Button
             type="primary"
             htmlType="submit"
+            loading={this.props.loading}
             className="login-form-button"
             style={{ width: '70%' }}>
             Registration
@@ -132,4 +135,10 @@ class NormalLoginForm extends React.Component<Props, State> {
   }
 }
 
-export const RegistrationForm = connect(null)(Form.create()(NormalLoginForm));
+const mapStateToProps = (state: State): Props => {
+  return {
+    loading: state.auth.loading,
+  };
+};
+
+export const RegistrationForm = connect(mapStateToProps)(Form.create()(NormalLoginForm));
