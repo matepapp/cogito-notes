@@ -11,6 +11,7 @@ const URL = {
 const config = {
   headers: { Authorization: `JWT ${TOKEN}` },
 };
+
 const list = (): Promise<Note> => {
   return network
     .get(URL.LIST, config)

@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { List, Spin } from 'antd';
 import { noteService } from '../services';
 import { NoteCard, LoadingCardList } from '.';
@@ -18,20 +19,22 @@ export class NoteList extends Component<{}, State> {
   };
 
   componentDidMount() {
-    // axios.get('https://swapi.co/api/planets').then(response => {
-    //   console.log(response.data.results);
-    //   const notes: Array<Note> = response.data.results.map(planet => {
-    //     return {
-    //       id: planet.orbital_period,
-    //       title: planet.name,
-    //       description: `The climate is ${planet.climate} and the terrain is ${
-    //         planet.terrain
-    //       }`,
-    //     };
-    //   });
-    //   this.setState({ notes, loading: false });
-    //   console.log(this.state);
-    // });
+    axios.get('https://swapi.co/api/planets').then(response => {
+      console.log(response.data.results);
+      const notes: Array<Note> = response.data.results.map(planet => {
+        return {
+          id: planet.orbital_period,
+          title: planet.name,
+          description: `The climate is ${planet.climate} and the terrain is ${
+            planet.terrain
+          }`,
+        };
+      });
+      this.setState({ notes, loading: false });
+      console.log(this.state);
+    });
+
+    // TODO: Change to real implementation when it's ready
     noteService.list();
   }
 
