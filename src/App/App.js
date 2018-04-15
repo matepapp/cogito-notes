@@ -13,8 +13,8 @@ type Props = {
 };
 
 class App extends React.Component<Props> {
-  componentWillReceiveProps(nextProps: Props) {
-    nextProps.loggedIn ? history.push('/') : history.push('/login');
+  componentDidUpdate() {
+    this.props.loggedIn ? history.push('/') : history.push('/login');
   }
 
   render() {

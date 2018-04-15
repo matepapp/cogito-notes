@@ -1,6 +1,5 @@
 // @flow
 import { authService } from '../services';
-import { alertActions } from './';
 import { authConstants } from '../constants';
 import {
   type RegisterUser,
@@ -40,7 +39,6 @@ const register = (user: RegisterUser): Dispatch => {
       },
       error => {
         dispatch(failure(error));
-        dispatch(alertActions.error(error.non_field_errors));
       },
     );
   };
@@ -68,7 +66,6 @@ const login = (user: LoginUser): Dispatch => {
       },
       error => {
         dispatch(failure(error));
-        dispatch(alertActions.error(error));
       },
     );
   };

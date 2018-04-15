@@ -1,27 +1,41 @@
 // @flow
 import React from 'react';
-import { Layout, Row, Col, Tabs, Alert } from 'antd';
+import { Layout, Row, Col, Tabs, notification } from 'antd';
 import { connect } from 'react-redux';
 import { RegistrationForm, LoginForm } from '../components';
 import { type State } from '../reducers';
+import { UserInfo } from '../types';
 import logo from '../resources/img/logo.svg';
 
 const TabPane = Tabs.TabPane;
 const { Content } = Layout;
 
 type Props = {
-  alertMessage?: string,
-  alertType: 'success' | 'error',
+  user: ?UserInfo,
+  error: ?string,
 };
 
 class Page extends React.Component<Props> {
+  componentDidUpdate() {
+    const { user, error } = this.props;
+    if (user != null) {
+      this.renderNotification('success', `Welcome back ${user.username}!`);
+      return;
+    }
+
+    if (error != null) this.renderNotification('error', error);
+  }
+
+  renderNotification = (type: string, message: string) => {
+    notification[type]({
+      message: type.toUpperCase(),
+      description: message,
+    });
+  };
+
   render() {
-    const { alertMessage, alertType } = this.props;
     return (
       <Layout style={{ minHeight: '100vh' }}>
-        {alertMessage ? (
-          <Alert message="Error" description={alertMessage} type={alertType} showIcon />
-        ) : null}
         <Row style={{ display: 'flex', justifyContent: 'center' }}>
           <img
             src={logo}
@@ -50,8 +64,8 @@ class Page extends React.Component<Props> {
 
 const mapStateToProps = (state: State): Props => {
   return {
-    alertMessage: state.alert.message,
-    alertType: state.alert.type,
+    error: state.auth.error,
+    user: state.auth.user,
   };
 };
 
