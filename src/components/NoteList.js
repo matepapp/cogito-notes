@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { List, Spin } from 'antd';
 import axios from 'axios';
-import { NoteCard } from '.';
+import { NoteCard, LoadingCardList } from '.';
 import { type Note } from '../types';
 
 type State = {
@@ -39,17 +39,19 @@ export class NoteList extends Component<{}, State> {
 
   render() {
     return this.state.loading ? (
-      <Spin size="large" />
+      <LoadingCardList />
     ) : (
       <List
-        grid={{ gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 3 }}
+        grid={{ gutter: 20, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 3 }}
         dataSource={this.state.notes}
         renderItem={item => (
           <List.Item>
             <Link to={`/notes/${item.title}`}>
-              <NoteCard title={item.title} isLoading={false}>
-                {item.description}
-              </NoteCard>
+              <NoteCard
+                title={item.title}
+                author="John Doe"
+                description={item.description}
+              />
             </Link>
           </List.Item>
         )}
