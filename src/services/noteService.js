@@ -7,11 +7,11 @@ const URL = {
   LIST: '/notes/',
 };
 
-const config = {
-  headers: { Authorization: `JWT ${TOKEN}` },
-};
-
 const list = (): Promise<Note> => {
+  const config = {
+    headers: { Authorization: `JWT ${TOKEN}` },
+  };
+
   return network
     .get(URL.LIST, config)
     .catch(error => {
