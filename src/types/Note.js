@@ -7,4 +7,5 @@ export type Note = {
   owner: string,
   title: string,
   text: string,
+  isEdited: boolean,
 };

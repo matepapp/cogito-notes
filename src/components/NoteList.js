@@ -1,58 +1,37 @@
 // @flow
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { List } from 'antd';
-import { noteService } from '../services';
+import { connect } from 'react-redux';
 import { NoteCard, LoadingCardList } from '.';
-import { type Note } from '../types';
+import { type Note, type Dispatch } from '../types';
+import { noteActions } from '../actions';
+import { type State } from '../reducers';
 
-type State = {
-  notes: Array<Note>,
+type Props = {
   loading: boolean,
+  error: ?string,
+  notes: ?Array<Note>,
+  dispatch?: Dispatch,
 };
 
-export class NoteList extends Component<{}, State> {
-  state: State = {
-    notes: [],
-    loading: true,
-  };
-
+class NoteListComponent extends Component<Props> {
   componentDidMount() {
-    axios.get('https://swapi.co/api/planets').then(response => {
-      console.log(response.data.results);
-      const notes: Array<Note> = response.data.results.map(planet => {
-        return {
-          id: planet.orbital_period,
-          title: planet.name,
-          description: `The climate is ${planet.climate} and the terrain is ${
-            planet.terrain
-          }`,
-        };
-      });
-      this.setState({ notes, loading: false });
-      console.log(this.state);
-    });
-
-    // TODO: Change to real implementation when it's ready
-    noteService.list();
+    this.props.dispatch(noteActions.list());
   }
 
   render() {
-    return this.state.loading ? (
+    const { notes, loading } = this.props;
+    return loading || notes == null ? (
       <LoadingCardList />
     ) : (
       <List
         grid={{ gutter: 20, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 3 }}
-        dataSource={this.state.notes}
-        renderItem={item => (
+        dataSource={notes}
+        renderItem={(note: Note) => (
           <List.Item>
-            <Link to={`/notes/${item.title}`}>
-              <NoteCard
-                title={item.title}
-                author="John Doe"
-                description={item.description}
-              />
+            <Link to={`/notes/${note.id}`}>
+              <NoteCard title={note.title} author="John Doe" description={note.text} />
             </Link>
           </List.Item>
         )}
@@ -60,3 +39,13 @@ export class NoteList extends Component<{}, State> {
     );
   }
 }
+
+const mapStateToProps = (state: State): Props => {
+  return {
+    loading: state.note.loading,
+    notes: state.note.notes,
+    error: state.note.error,
+  };
+};
+
+export const NoteList = connect(mapStateToProps)(NoteListComponent);
