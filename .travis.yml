@@ -1,19 +1,20 @@
 language: node_js
 node_js:
-  - "stable"
+- stable
 cache:
   directories:
   - node_modules
 script:
-  - npm run build
+- npm run build
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $github_token
+  github_token: "$github_token"
   local_dir: build
   on:
-    branch: 
-      - development
-      - master
+    branch:
+    - development
+    - master
 notifications:
-  slack: cogito-project:02ewd8QtfceiOalkoawabyKz
+  slack:
+    secure: n1mTs9tLcXyK80Zr7C50Ze4ui0qDOlg9CFe2OyKUD7Goi7FCMG9q1JP9RKZ0NFaQtX+E6ks40bXkeNTggwykPkz7gnIPsSA+/8YSMv4/o5gihiL685Lq7tG903fHh2NHHjOesie61Juv5CR7ZM57CptVrxi1iw+LNdnczAQAI608VtLT4Aj0FQ1qppt35UFQDV70bM7F3sT5LsAgleL9iQVTrP+tolfKBY9HSVVKneEGpoO4nw62iTSD+9OYWTEm5E2QaFBSw7hFHP/O/tGbkpXQmkHyt8saTfi8+mUYVPNGfbmKzlPXrJ+akxh5xPl9kwqPnu6mH2jJjuRYzgM6Nm7GA4/vP+cEmW6UyhMqob5IfewGHAsDOh2n++hxGvPb98VYLIdmn+tT6IkNsmP7mQiNWWy4EE+3BXVI2pOeT2Ciu6OZ3SkQGxntAp4xDlTG5iXOOZ9TH202jsVFB4qOEzqgPzHMXJzZcTckb1WI22ZTLE4YesnTeWoUsiEA7v+yeAkDFFbJoDlZ38JCIJ+f7b5jAZpH15uOnhyZW+IBL74bA6v8ItKH4Xw0EESWLnqqf+AGrN+2OC4M3CA/Mekn8CJpJ/+YV1jn+foXnwOcEQjq4J6D7krz3F7X/usSfVBMhQRY7bAY7KQarsiiyYJfqMuKCi9xc0MuucdDOW6BYfc=
