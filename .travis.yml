@@ -15,3 +15,5 @@ deploy:
     branch: 
       - development
       - master
+notifications:
+  slack: cogito-project:02ewd8QtfceiOalkoawabyKz
