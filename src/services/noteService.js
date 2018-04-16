@@ -18,8 +18,6 @@ const list = (): Promise<Array<Note>> => {
       return Promise.reject(error.response.data);
     })
     .then(response => {
-      console.log(response);
-
       const notes: Array<Note> = response.data.results.map(note => {
         const { id, url, created, owner, is_edited, title, text } = note;
         return { id, url, created, owner, isEdited: is_edited, title, text };
