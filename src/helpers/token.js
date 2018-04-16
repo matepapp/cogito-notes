@@ -8,4 +8,4 @@ export const setToken = (token: string) =>
 
 export const removeToken = () => localStorage.removeItem(authConstants.TOKEN_KEY);
 
-export const TOKEN = localStorage.getItem(authConstants.TOKEN_KEY);
+export const TOKEN: ?string = localStorage.getItem(authConstants.TOKEN_KEY);
