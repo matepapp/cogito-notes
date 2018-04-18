@@ -29,9 +29,11 @@ const login = (user: LoginUser): Promise<UserInfo> => {
   return network
     .post(URL.LOGIN, JSON.stringify(user))
     .catch(error => {
-      return Promise.reject(error.response.data.non_field_errors.join('. '));
+      return Promise.reject(error.message);
     })
     .then(response => {
+      console.log(response);
+
       setToken(response.data.token);
       return userInfoFromApiResponse(response.data.user);
     });
