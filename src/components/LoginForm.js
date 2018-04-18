@@ -39,7 +39,7 @@ class Login extends React.Component<Props> {
         <FormItem style={{ marginBottom: 10 }} label="Email">
           {getFieldDecorator('email', {
             rules: [{ required: true, message: 'Please add your email!' }],
-          })(<Input prefix={<Icon type="user" />} placeholder="johndoe" />)}
+          })(<Input prefix={<Icon type="mail" />} placeholder="email@address.com" />)}
         </FormItem>
 
         <FormItem label="Password">
