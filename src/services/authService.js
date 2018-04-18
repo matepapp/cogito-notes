@@ -32,8 +32,6 @@ const login = (user: LoginUser): Promise<UserInfo> => {
       return Promise.reject(error.message);
     })
     .then(response => {
-      console.log(response);
-
       setToken(response.data.token);
       return userInfoFromApiResponse(response.data.user);
     });

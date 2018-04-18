@@ -21,8 +21,8 @@ class Login extends React.Component<Props> {
 
     form.validateFields((error, values) => {
       if (!error) {
-        const { username, password } = values;
-        dispatch(authActions.login({ username, password }));
+        const { email, password } = values;
+        dispatch(authActions.login({ email, password }));
       }
     });
   };
@@ -36,9 +36,9 @@ class Login extends React.Component<Props> {
         hideRequiredMark
         layout="vertical"
         style={{ width: '60%', margin: '0 auto' }}>
-        <FormItem style={{ marginBottom: 10 }} label="Username">
-          {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please add your username!' }],
+        <FormItem style={{ marginBottom: 10 }} label="Email">
+          {getFieldDecorator('email', {
+            rules: [{ required: true, message: 'Please add your email!' }],
           })(<Input prefix={<Icon type="user" />} placeholder="johndoe" />)}
         </FormItem>
 
