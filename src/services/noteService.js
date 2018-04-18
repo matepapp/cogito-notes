@@ -4,7 +4,7 @@ import { TOKEN } from '../helpers';
 import { network } from '.';
 
 const URL = {
-  LIST: '/notes/',
+  NOTES: '/notes/',
 };
 
 const list = (): Promise<Array<Note>> => {
@@ -13,7 +13,7 @@ const list = (): Promise<Array<Note>> => {
   };
 
   return network
-    .get(URL.LIST, config)
+    .get(URL.NOTES, config)
     .catch(error => {
       return Promise.reject(error.response.data);
     })
@@ -27,6 +27,22 @@ const list = (): Promise<Array<Note>> => {
     });
 };
 
+const getNoteByID = (id: number): Promise<Note> => {
+  const config = {
+    headers: { Authorization: `JWT ${TOKEN}` },
+  };
+
+  return network
+    .get(URL.NOTES + id, config)
+    .catch(error => {
+      return Promise.reject(error.response.data);
+    })
+    .then(response => {
+      console.log(response);
+    });
+};
+
 export const noteService = {
   list,
+  getNoteByID,
 };
