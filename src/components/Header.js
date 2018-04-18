@@ -9,7 +9,7 @@ import { BorderlessButton } from '.';
 import logo from '../resources/img/logo.svg';
 
 type Props = {
-  username: string,
+  fullName: string,
   dispatch?: Dispatch,
 };
 
@@ -55,7 +55,7 @@ class HeaderComponent extends React.Component<Props, HeaderState> {
               visible={this.state.popoverVisible}
               onVisibleChange={this.handlePopoverChange}>
               <BorderlessButton icon="user">
-                {this.props.username}
+                {this.props.fullName}
                 <Icon type="down" />
               </BorderlessButton>
             </Popover>
@@ -67,8 +67,11 @@ class HeaderComponent extends React.Component<Props, HeaderState> {
 }
 
 const mapStateToProps = (state: State): Props => {
-  const username = state.auth.user ? state.auth.user.username : '';
-  return { username };
+  const fullName = state.auth.user
+    ? state.auth.user.firstName + state.auth.user.lastName
+    : '';
+
+  return { fullName };
 };
 
 export const Header = connect(mapStateToProps)(HeaderComponent);

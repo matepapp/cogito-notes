@@ -19,7 +19,10 @@ class Page extends React.Component<Props> {
   componentDidUpdate() {
     const { user, error } = this.props;
     if (user != null) {
-      this.renderNotification('success', `Welcome back ${user.username}!`);
+      this.renderNotification(
+        'success',
+        `Welcome back ${user.firstName} ${user.lastName}!`,
+      );
       return;
     }
 

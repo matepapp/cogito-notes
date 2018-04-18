@@ -30,23 +30,23 @@ class NormalLoginForm extends React.Component<Props, FormState> {
     const { form, dispatch } = this.props;
 
     form.validateFields((error, values) => {
-      console.log(values.passwordCheck);
+      if (values.passwordCheck === values.password) {
+        this.setState({
+          passwordsValidationStatus: 'success',
+          passwordsValidationMessage: null,
+        });
+      } else {
+        this.setState({
+          passwordsValidationStatus: 'error',
+          passwordsValidationMessage: 'The passwords are not the same',
+        });
+        return;
+      }
 
-      values.passwordCheck === values.password
-        ? this.setState({
-            passwordsValidationStatus: 'success',
-            passwordsValidationMessage: null,
-          })
-        : this.setState({
-            passwordsValidationStatus: 'error',
-            passwordsValidationMessage: 'The passwords are not the same',
-          });
-
-      if (!error) {
-        const { username, password, passwordCheck, email, firstName, lastName } = values;
+      if (!error && this.state.passwordsValidationStatus !== 'error') {
+        const { password, passwordCheck, email, firstName, lastName } = values;
         dispatch(
           authActions.register({
-            username,
             password1: password,
             password2: passwordCheck,
             email,
@@ -76,12 +76,6 @@ class NormalLoginForm extends React.Component<Props, FormState> {
           {getFieldDecorator('lastname', {
             rules: [{ required: true, message: 'Please fill your last name!' }],
           })(<Input prefix={<Icon type="user" />} placeholder="Doe" />)}
-        </FormItem>
-
-        <FormItem style={{ marginBottom: 10 }} label="Username">
-          {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please fill your username!' }],
-          })(<Input prefix={<Icon type="user" />} placeholder="johndoe" />)}
         </FormItem>
 
         <FormItem style={{ marginBottom: 10 }} label="Email" type="email">
