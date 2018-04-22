@@ -41,7 +41,7 @@ export class NoteEditor extends React.Component<Props, EditorState> {
     const { dispatch, id } = this.props;
     dispatch(noteActions.getNoteByID(id));
     this.setState({
-      value: RichTextEditor.createValueFromString(this.props.title, 'markdown'),
+      value: RichTextEditor.createValueFromString(this.props.text, 'markdown'),
     });
   }
 
