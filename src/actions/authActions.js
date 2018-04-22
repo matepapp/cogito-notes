@@ -1,6 +1,7 @@
 // @flow
 import { authService } from '../services';
 import { authConstants } from '../constants';
+import { notificationActions } from '../actions';
 import {
   type RegisterUser,
   type LoginUser,
@@ -36,9 +37,15 @@ const register = (user: RegisterUser): Dispatch => {
     authService.register(user).then(
       userInfo => {
         dispatch(success(userInfo));
+        dispatch(
+          notificationActions.success(
+            `Registration completed ${userInfo.firstName} ${userInfo.lastName}!`,
+          ),
+        );
       },
       error => {
         dispatch(failure(error));
+        dispatch(notificationActions.error(error));
       },
     );
   };
@@ -63,9 +70,15 @@ const login = (user: LoginUser): Dispatch => {
     authService.login(user).then(
       userInfo => {
         dispatch(success(userInfo));
+        dispatch(
+          notificationActions.success(
+            `Welcome back ${userInfo.firstName} ${userInfo.lastName}!`,
+          ),
+        );
       },
       error => {
         dispatch(failure(error));
+        dispatch(notificationActions.error(error));
       },
     );
   };

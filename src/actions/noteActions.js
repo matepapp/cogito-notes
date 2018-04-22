@@ -1,6 +1,7 @@
 // @flow
 import { noteConstants } from '../constants';
 import { type Dispatch, type Note } from '../types';
+import { notificationActions } from '../actions';
 import { noteService } from '../services';
 
 export type NoteAction =
@@ -30,6 +31,7 @@ const list = (): Dispatch => {
       },
       error => {
         dispatch(failure(error));
+        dispatch(notificationActions.error(error));
       },
     );
   };

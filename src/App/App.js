@@ -2,6 +2,7 @@
 import React from 'react';
 import { Route, Router, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { notification } from 'antd';
 import { PrivateRoute } from '../components';
 import { history } from '../helpers';
 import { HomePage, WelcomePage } from '../pages';
@@ -10,12 +11,25 @@ import './App.css';
 
 type Props = {
   loggedIn: boolean,
+  notificationType: ?string,
+  notificationMessage: ?string,
 };
 
 class App extends React.Component<Props> {
   componentDidUpdate() {
-    this.props.loggedIn ? history.push('/') : history.push('/login');
+    const { loggedIn, notificationMessage, notificationType } = this.props;
+    loggedIn ? history.push('/') : history.push('/login');
+
+    if (notificationMessage != null && notificationType != null)
+      this.renderNotification(notificationType, notificationMessage);
   }
+
+  renderNotification = (type: string, message: string) => {
+    notification[type]({
+      message: type.toUpperCase(),
+      description: message,
+    });
+  };
 
   render() {
     return (
@@ -32,6 +46,8 @@ class App extends React.Component<Props> {
 const mapStateToProps = (state: State): Props => {
   return {
     loggedIn: state.auth.loggedIn,
+    notificationType: state.notification.type,
+    notificationMessage: state.notification.message,
   };
 };
 
