@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Layout, Row, Col, Tabs, notification } from 'antd';
+import { Layout, Row, Col, Tabs } from 'antd';
 import { connect } from 'react-redux';
 import { RegistrationForm, LoginForm } from '../components';
 import { type State } from '../reducers';
@@ -12,30 +12,9 @@ const { Content } = Layout;
 
 type Props = {
   user: ?UserInfo,
-  error: ?string,
 };
 
 class Page extends React.Component<Props> {
-  componentDidUpdate() {
-    const { user, error } = this.props;
-    if (user != null) {
-      this.renderNotification(
-        'success',
-        `Welcome back ${user.firstName} ${user.lastName}!`,
-      );
-      return;
-    }
-
-    if (error != null) this.renderNotification('error', error);
-  }
-
-  renderNotification = (type: string, message: string) => {
-    notification[type]({
-      message: type.toUpperCase(),
-      description: message,
-    });
-  };
-
   render() {
     return (
       <Layout style={{ minHeight: '100vh' }}>
@@ -67,7 +46,6 @@ class Page extends React.Component<Props> {
 
 const mapStateToProps = (state: State): Props => {
   return {
-    error: state.auth.error,
     user: state.auth.user,
   };
 };
