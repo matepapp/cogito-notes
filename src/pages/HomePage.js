@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Layout } from 'antd';
+import { Button, Layout } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 import { Header, NotesTab, NoteEditor } from '../components';
 
@@ -13,13 +13,8 @@ export const HomePage = () => {
       <Content
         style={{ padding: '50px', alignItems: 'center', justifyContent: 'center' }}>
         <Switch>
-          <Route exact path="/" render={NotesTab} />
-          <Route
-            path="/notes/:id"
-            render={routeProps => (
-              <NoteEditor {...routeProps} id={routeProps.match.params.id} />
-            )}
-          />
+          <Route exact path="/" component={NotesTab} />
+          <Route path="/notes/:id" component={NoteEditor} />
         </Switch>
       </Content>
       <Footer style={{ textAlign: 'center' }}>

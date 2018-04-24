@@ -9,11 +9,15 @@ import { HomePage, WelcomePage } from '../pages';
 import { type State } from '../reducers';
 import './App.css';
 
+<<<<<<< HEAD
 type Props = {
   loggedIn: boolean,
   notificationType: ?string,
   notificationMessage: ?string,
 };
+=======
+type Props = { loggedIn: boolean };
+>>>>>>> Start to fix dispatching and routing
 
 class App extends React.Component<Props> {
   componentDidUpdate() {
@@ -43,6 +47,7 @@ class App extends React.Component<Props> {
   }
 }
 
+<<<<<<< HEAD
 const mapStateToProps = (state: State): Props => {
   return {
     loggedIn: state.auth.loggedIn,
@@ -50,5 +55,8 @@ const mapStateToProps = (state: State): Props => {
     notificationMessage: state.notification.message,
   };
 };
+=======
+const mapStateToProps = (state: State): Props => ({ loggedIn: state.auth.loggedIn });
+>>>>>>> Start to fix dispatching and routing
 
 export default connect(mapStateToProps)(App);

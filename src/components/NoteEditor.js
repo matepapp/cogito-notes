@@ -24,8 +24,8 @@ export class NoteEditor extends React.Component<Props, EditorState> {
   };
 
   defaultProps = {
-    title: '',
-    text: '',
+    title: null,
+    text: null,
     readOnly: true,
   };
 
@@ -39,16 +39,19 @@ export class NoteEditor extends React.Component<Props, EditorState> {
 
   componentDidMount() {
     const { dispatch, id } = this.props;
-    dispatch(noteActions.getNoteByID(id));
+    // dispatch(noteActions.getNoteByID(id));
     this.setState({
-      value: RichTextEditor.createValueFromString(this.props.text, 'markdown'),
+      value: RichTextEditor.createValueFromString('TEXT', 'markdown'),
     });
   }
 
   render() {
-    const { text, title, readOnly } = this.props;
     return (
-      <RichTextEditor readOnly={readOnly} value={title + text} onChange={this.onChange} />
+      <RichTextEditor
+        readOnly={this.props.readOnly}
+        value={this.state.value}
+        onChange={this.onChange}
+      />
     );
   }
 }
