@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { List } from 'antd';
 import { connect } from 'react-redux';
 import { NoteCard, LoadingCardList } from '.';
-import { type Note, type Dispatch } from '../types';
+import { type Note, type Dispatch, type RouteProps } from '../types';
 import { noteActions } from '../actions';
 import { type State } from '../reducers';
 
@@ -12,10 +12,11 @@ type Props = {
   loading: boolean,
   error: ?string,
   notes: ?Array<Note>,
-  dispatch?: Dispatch,
 };
 
-class NoteListComponent extends Component<Props> {
+type ActionProps = { loadNotes: () => void };
+
+class NoteListComponent extends Component<Props & ActionProps & RouteProps> {
   componentDidMount() {
     this.props.dispatch(noteActions.list());
   }
@@ -48,4 +49,10 @@ const mapStateToProps = (state: State): Props => {
   };
 };
 
-export const NoteList = connect(mapStateToProps)(NoteListComponent);
+const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
+  return {
+    loadNotes: () => dispatch(noteActions.list()),
+  };
+};
+
+export const NoteList = connect(mapStateToProps, mapDispatchToProps)(NoteListComponent);

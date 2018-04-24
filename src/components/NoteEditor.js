@@ -3,30 +3,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import RichTextEditor from 'react-rte';
 import { type State } from '../reducers';
-import { Dispatch } from '../types';
+import { type Dispatch, type Note, type RouteProps } from '../types';
 import { noteActions } from '../actions';
 
-type Props = {
-  id: number,
-  title: ?string,
-  text: ?string,
-  readOnly: ?boolean,
-  dispatch?: Dispatch,
-};
-
-type EditorState = {
-  value: any,
-};
+type ReduxProps = { note?: Note };
+type ActionProps = { getNoteByID: (id: number) => void };
+type Props = ReduxProps & ActionProps & RouteProps;
+type EditorState = { value: any };
 
 export class NoteEditor extends React.Component<Props, EditorState> {
   state = {
     value: RichTextEditor.createEmptyValue(),
-  };
-
-  defaultProps = {
-    title: null,
-    text: null,
-    readOnly: true,
   };
 
   onChange = (value: any) => {
@@ -38,11 +25,18 @@ export class NoteEditor extends React.Component<Props, EditorState> {
   };
 
   componentDidMount() {
-    const { dispatch, id } = this.props;
-    // dispatch(noteActions.getNoteByID(id));
-    this.setState({
-      value: RichTextEditor.createValueFromString('TEXT', 'markdown'),
-    });
+    const { getNoteByID } = this.props;
+    const { id } = this.props.match.params.id;
+    getNoteByID(id);
+  }
+
+  componentDidUpdate() {
+    const { note } = this.props;
+    if (note != null) {
+      this.setState({
+        value: RichTextEditor.createValueFromString(note.text, 'markdown'),
+      });
+    }
   }
 
   render() {
@@ -56,15 +50,12 @@ export class NoteEditor extends React.Component<Props, EditorState> {
   }
 }
 
-const mapStateToProps = (state: State): Props => {
+const mapStateToProps = (state: State): ReduxProps => ({ note: state.note.note });
+
+const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
   return {
-    title: state.note.note.title,
-    id: state.note.note.id,
-    text: state.note.note.text,
-    // TODO: implement editable logic
-    // const readOnly = state.note.note ? (state.note.note.title) : '';
-    readOnly: false,
+    getNoteByID: (id: number) => dispatch(noteActions.getNoteByID(id)),
   };
 };
 
-connect(mapStateToProps)(NoteEditor);
+connect(mapStateToProps, mapDispatchToProps)(NoteEditor);
