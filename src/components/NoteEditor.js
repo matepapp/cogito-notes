@@ -7,36 +7,30 @@ import { type Dispatch, type Note, type RouteProps } from '../types';
 import { noteActions } from '../actions';
 
 type ReduxProps = { note?: Note };
-type ActionProps = { getNoteByID: (id: number) => void };
+type ActionProps = { getNoteByID: (id: string) => void };
 type Props = ReduxProps & ActionProps & RouteProps;
 type EditorState = { value: any };
 
-export class NoteEditor extends React.Component<Props, EditorState> {
+class Editor extends React.Component<Props, EditorState> {
   state = {
     value: RichTextEditor.createEmptyValue(),
   };
 
   onChange = (value: any) => {
     this.setState({ value });
-
-    // if (this.props.onChange) {
-    //   this.props.onChange(value.toString('html'));
-    // }
   };
 
-  componentDidMount() {
-    const { getNoteByID } = this.props;
-    const { id } = this.props.match.params.id;
-    getNoteByID(id);
-  }
-
-  componentDidUpdate() {
-    const { note } = this.props;
-    if (note != null) {
+  componentWillReceiveProps(nextProps: Props) {
+    const { note } = nextProps;
+    if (note != null)
       this.setState({
         value: RichTextEditor.createValueFromString(note.text, 'markdown'),
       });
-    }
+  }
+
+  componentDidMount() {
+    const { getNoteByID, match } = this.props;
+    getNoteByID(match.params.id);
   }
 
   render() {
@@ -54,8 +48,8 @@ const mapStateToProps = (state: State): ReduxProps => ({ note: state.note.note }
 
 const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
   return {
-    getNoteByID: (id: number) => dispatch(noteActions.getNoteByID(id)),
+    getNoteByID: (id: string) => dispatch(noteActions.getNoteByID(id)),
   };
 };
 
-connect(mapStateToProps, mapDispatchToProps)(NoteEditor);
+export const NoteEditor = connect(mapStateToProps, mapDispatchToProps)(Editor);

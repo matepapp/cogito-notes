@@ -139,6 +139,7 @@ const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
     register: (user: RegisterUser) => dispatch(authActions.register(user)),
   };
 };
+
 export const RegistrationForm = connect(mapStateToProps, mapDispatchToProps)(
   Form.create()(NormalLoginForm),
 );

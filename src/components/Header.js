@@ -2,7 +2,7 @@
 import React from 'react';
 import { Layout, Icon, Popover, Row, Col } from 'antd';
 import { connect } from 'react-redux';
-import { Dispatch } from '../types';
+import { type Dispatch } from '../types';
 import { authActions } from '../actions';
 import { type State } from '../reducers';
 import { BorderlessButton } from '.';

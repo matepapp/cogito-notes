@@ -18,7 +18,7 @@ type ActionProps = { loadNotes: () => void };
 
 class NoteListComponent extends Component<Props & ActionProps & RouteProps> {
   componentDidMount() {
-    this.props.dispatch(noteActions.list());
+    this.props.loadNotes();
   }
 
   render() {

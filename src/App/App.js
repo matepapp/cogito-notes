@@ -4,25 +4,22 @@ import { Route, Router, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { notification } from 'antd';
 import { PrivateRoute } from '../components';
+import { pathConstants } from '../constants';
 import { history } from '../helpers';
 import { HomePage, WelcomePage } from '../pages';
 import { type State } from '../reducers';
 import './App.css';
 
-<<<<<<< HEAD
 type Props = {
   loggedIn: boolean,
   notificationType: ?string,
   notificationMessage: ?string,
 };
-=======
-type Props = { loggedIn: boolean };
->>>>>>> Start to fix dispatching and routing
 
 class App extends React.Component<Props> {
-  componentDidUpdate() {
-    const { loggedIn, notificationMessage, notificationType } = this.props;
-    loggedIn ? history.push('/') : history.push('/login');
+  componentWillReceiveProps(nextProps: Props) {
+    const { loggedIn, notificationMessage, notificationType } = nextProps;
+    loggedIn ? history.push(pathConstants.NOTES) : history.push(pathConstants.LOGIN);
 
     if (notificationMessage != null && notificationType != null)
       this.renderNotification(notificationType, notificationMessage);
@@ -39,15 +36,17 @@ class App extends React.Component<Props> {
     return (
       <Router history={history}>
         <Switch>
-          <PrivateRoute exact path="/" component={HomePage} />
-          <Route path="/login" component={WelcomePage} />
+          <PrivateRoute exact path={pathConstants.ROOT} component={HomePage} />
+          <PrivateRoute path={pathConstants.NOTES} component={HomePage} />
+          <PrivateRoute path={pathConstants.SHARED} component={HomePage} />
+          <Route exact path={pathConstants.LOGIN} component={WelcomePage} />
+          <Route exact path={pathConstants.REGISTRATION} component={WelcomePage} />
         </Switch>
       </Router>
     );
   }
 }
 
-<<<<<<< HEAD
 const mapStateToProps = (state: State): Props => {
   return {
     loggedIn: state.auth.loggedIn,
@@ -55,8 +54,5 @@ const mapStateToProps = (state: State): Props => {
     notificationMessage: state.notification.message,
   };
 };
-=======
-const mapStateToProps = (state: State): Props => ({ loggedIn: state.auth.loggedIn });
->>>>>>> Start to fix dispatching and routing
 
 export default connect(mapStateToProps)(App);

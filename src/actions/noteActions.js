@@ -40,7 +40,7 @@ const list = (): Dispatch => {
   };
 };
 
-const getNoteByID = (id: number): Dispatch => {
+const getNoteByID = (id: string): Dispatch => {
   const request = (): NoteAction => {
     return { type: noteConstants.BY_ID };
   };
