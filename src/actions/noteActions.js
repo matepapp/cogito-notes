@@ -1,5 +1,5 @@
 // @flow
-import { noteConstants } from '../constants';
+import { NOTE } from '../constants';
 import { type Dispatch, type Note } from '../types';
 import { notificationActions } from '../actions';
 import { noteService } from '../services';
@@ -14,15 +14,15 @@ export type NoteAction =
 
 const list = (): Dispatch => {
   const request = (): NoteAction => {
-    return { type: noteConstants.LIST };
+    return { type: NOTE.LIST };
   };
 
   const success = (notes: Array<Note>): NoteAction => {
-    return { type: noteConstants.LIST_SUCCES, notes };
+    return { type: NOTE.LIST_SUCCES, notes };
   };
 
   const failure = (error: string): NoteAction => {
-    return { type: noteConstants.LIST_ERROR, error };
+    return { type: NOTE.LIST_ERROR, error };
   };
 
   return (dispatch: Dispatch) => {
@@ -42,15 +42,15 @@ const list = (): Dispatch => {
 
 const getNoteByID = (id: string): Dispatch => {
   const request = (): NoteAction => {
-    return { type: noteConstants.BY_ID };
+    return { type: NOTE.BY_ID };
   };
 
   const success = (note: Note): NoteAction => {
-    return { type: noteConstants.BY_ID_SUCCESS, note };
+    return { type: NOTE.BY_ID_SUCCESS, note };
   };
 
   const failure = (error: string): NoteAction => {
-    return { type: noteConstants.BY_ID_ERROR, error };
+    return { type: NOTE.BY_ID_ERROR, error };
   };
 
   return (dispatch: Dispatch) => {

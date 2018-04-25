@@ -2,7 +2,7 @@
 import React from 'react';
 import { Layout, Row, Col, Tabs } from 'antd';
 import { RegistrationForm, LoginForm } from '../components';
-import { pathConstants } from '../constants';
+import { PATH } from '../constants';
 import { type RouteProps } from '../types';
 import logo from '../resources/img/logo.svg';
 
@@ -26,10 +26,10 @@ export class WelcomePage extends React.Component<RouteProps> {
               <Tabs
                 defaultActiveKey={this.props.match.path}
                 style={{ textAlign: 'center' }}>
-                <TabPane tab="Login" key={pathConstants.LOGIN}>
+                <TabPane tab="Login" key={PATH.LOGIN}>
                   <LoginForm />
                 </TabPane>
-                <TabPane tab="Registration" key={pathConstants.REGISTRATION}>
+                <TabPane tab="Registration" key={PATH.REGISTRATION}>
                   <RegistrationForm />
                 </TabPane>
               </Tabs>

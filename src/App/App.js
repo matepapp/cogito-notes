@@ -4,7 +4,7 @@ import { Route, Router, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { notification } from 'antd';
 import { PrivateRoute } from '../components';
-import { pathConstants } from '../constants';
+import { PATH } from '../constants';
 import { history } from '../helpers';
 import { HomePage, WelcomePage } from '../pages';
 import { type State } from '../reducers';
@@ -19,7 +19,7 @@ type Props = {
 class App extends React.Component<Props> {
   componentWillReceiveProps(nextProps: Props) {
     const { loggedIn, notificationMessage, notificationType } = nextProps;
-    loggedIn ? history.push(pathConstants.NOTES) : history.push(pathConstants.LOGIN);
+    loggedIn ? history.push(PATH.NOTES) : history.push(PATH.LOGIN);
 
     if (notificationMessage != null && notificationType != null)
       this.renderNotification(notificationType, notificationMessage);
@@ -36,11 +36,11 @@ class App extends React.Component<Props> {
     return (
       <Router history={history}>
         <Switch>
-          <PrivateRoute exact path={pathConstants.ROOT} component={HomePage} />
-          <PrivateRoute path={pathConstants.NOTES} component={HomePage} />
-          <PrivateRoute path={pathConstants.SHARED} component={HomePage} />
-          <Route exact path={pathConstants.LOGIN} component={WelcomePage} />
-          <Route exact path={pathConstants.REGISTRATION} component={WelcomePage} />
+          <PrivateRoute exact path={PATH.ROOT} component={HomePage} />
+          <PrivateRoute path={PATH.NOTES} component={HomePage} />
+          <PrivateRoute path={PATH.SHARED} component={HomePage} />
+          <Route exact path={PATH.LOGIN} component={WelcomePage} />
+          <Route exact path={PATH.REGISTRATION} component={WelcomePage} />
         </Switch>
       </Router>
     );
