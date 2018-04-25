@@ -1,5 +1,5 @@
 // @flow
-import { type Note, noteFromApiResponse } from '../types';
+import { type Note } from '../types';
 import { TOKEN } from '../helpers';
 import { network } from '.';
 
@@ -17,13 +17,7 @@ const list = (): Promise<Array<Note>> => {
     .catch(error => {
       return Promise.reject(error.response.data);
     })
-    .then(response => {
-      const notes: Array<Note> = response.data.results.map(result =>
-        noteFromApiResponse(result),
-      );
-
-      return notes;
-    });
+    .then(response => response.data.results);
 };
 
 const getNoteByID = (id: string): Promise<Note> => {
@@ -36,7 +30,7 @@ const getNoteByID = (id: string): Promise<Note> => {
     .catch(error => {
       return Promise.reject(error.response.data);
     })
-    .then(response => noteFromApiResponse(response.data));
+    .then(response => response.data);
 };
 
 export const noteService = {

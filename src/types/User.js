@@ -4,10 +4,10 @@ import { Note } from '.';
 export type User = { name: string, id: number, notes?: Array<Note> };
 
 export type UserInfo = {
-  id: number,
+  ok: number,
   email: string,
-  firstName: string,
-  lastName: string,
+  first_name: string,
+  last_name: string,
 };
 
 export type LoginUser = {
@@ -16,14 +16,9 @@ export type LoginUser = {
 };
 
 export type RegisterUser = {
-  firstName: string,
-  lastName: string,
+  first_name: string,
+  last_name: string,
   email: string,
   password1: string,
   password2: string,
-};
-
-export const userInfoFromApiResponse = (apiResponse: Object): UserInfo => {
-  const { pk, email, first_name, last_name } = apiResponse;
-  return { id: pk, email, firstName: first_name, lastName: last_name };
 };
