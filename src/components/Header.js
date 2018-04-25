@@ -2,29 +2,24 @@
 import React from 'react';
 import { Layout, Icon, Popover, Row, Col } from 'antd';
 import { connect } from 'react-redux';
-import { Dispatch } from '../types';
+import { type Dispatch } from '../types';
 import { authActions } from '../actions';
 import { type State } from '../reducers';
 import { BorderlessButton } from '.';
 import logo from '../resources/img/logo.svg';
 
-type Props = {
-  fullName: string,
-  dispatch?: Dispatch,
-};
+type Props = { fullName: string };
+type ActionProps = { logOut: () => void };
+type HeaderState = { popoverVisible: boolean };
 
-type HeaderState = {
-  popoverVisible: boolean,
-};
-
-class HeaderComponent extends React.Component<Props, HeaderState> {
+class HeaderComponent extends React.Component<Props & ActionProps, HeaderState> {
   state = {
     popoverVisible: false,
   };
 
   onButtonClick = () => {
     this.setState({ popoverVisible: false });
-    this.props.dispatch(authActions.logout());
+    this.props.logOut();
   };
 
   handlePopoverChange = (visible: boolean) => {
@@ -74,4 +69,10 @@ const mapStateToProps = (state: State): Props => {
   return { fullName };
 };
 
-export const Header = connect(mapStateToProps)(HeaderComponent);
+const mapDispathToProps = (dispatch: Dispatch): ActionProps => {
+  return {
+    logOut: () => dispatch(authActions.logout()),
+  };
+};
+
+export const Header = connect(mapStateToProps, mapDispathToProps)(HeaderComponent);

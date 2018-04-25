@@ -1,20 +1,15 @@
 // @flow
 import React from 'react';
 import { Layout, Row, Col, Tabs } from 'antd';
-import { connect } from 'react-redux';
 import { RegistrationForm, LoginForm } from '../components';
-import { type State } from '../reducers';
-import { UserInfo } from '../types';
+import { pathConstants } from '../constants';
+import { type RouteProps } from '../types';
 import logo from '../resources/img/logo.svg';
 
 const TabPane = Tabs.TabPane;
 const { Content } = Layout;
 
-type Props = {
-  user: ?UserInfo,
-};
-
-class Page extends React.Component<Props> {
+export class WelcomePage extends React.Component<RouteProps> {
   render() {
     return (
       <Layout style={{ minHeight: '100vh' }}>
@@ -28,11 +23,13 @@ class Page extends React.Component<Props> {
         <Content style={{ paddingTop: 70 }}>
           <Row style={{ display: 'flex', justifyContent: 'center' }}>
             <Col xs={20} sm={16} md={12} lg={8} xl={8}>
-              <Tabs defaultActiveKey="login" style={{ textAlign: 'center' }}>
-                <TabPane tab="Login" key="login">
+              <Tabs
+                defaultActiveKey={this.props.match.path}
+                style={{ textAlign: 'center' }}>
+                <TabPane tab="Login" key={pathConstants.LOGIN}>
                   <LoginForm />
                 </TabPane>
-                <TabPane tab="Registration" key="registration">
+                <TabPane tab="Registration" key={pathConstants.REGISTRATION}>
                   <RegistrationForm />
                 </TabPane>
               </Tabs>
@@ -43,11 +40,3 @@ class Page extends React.Component<Props> {
     );
   }
 }
-
-const mapStateToProps = (state: State): Props => {
-  return {
-    user: state.auth.user,
-  };
-};
-
-export const WelcomePage = connect(mapStateToProps)(Page);

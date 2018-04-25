@@ -23,7 +23,7 @@ export type RegisterUser = {
   password2: string,
 };
 
-export const userInfoFromApiResponse = (userApiResponse: Object): UserInfo => {
-  const { pk, email, first_name, last_name } = userApiResponse;
+export const userInfoFromApiResponse = (apiResponse: Object): UserInfo => {
+  const { pk, email, first_name, last_name } = apiResponse;
   return { id: pk, email, firstName: first_name, lastName: last_name };
 };

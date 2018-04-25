@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { authActions } from '../actions';
-import { type Dispatch } from '../types';
+import { type Dispatch, LoginUser } from '../types';
 import { type State } from '../reducers';
 import { Row, Form, Icon, Input, Button } from 'antd';
 
@@ -14,15 +14,17 @@ type Props = {
   dispatch?: Dispatch,
 };
 
-class Login extends React.Component<Props> {
+type ActionProps = { login: (user: LoginUser) => void };
+
+class Login extends React.Component<Props & ActionProps> {
   handleSubmit = e => {
     e.preventDefault();
-    const { form, dispatch } = this.props;
+    const { form, login } = this.props;
 
     form.validateFields((error, values) => {
       if (!error) {
         const { email, password } = values;
-        dispatch(authActions.login({ email, password }));
+        login({ email, password });
       }
     });
   };
@@ -39,7 +41,7 @@ class Login extends React.Component<Props> {
         <FormItem style={{ marginBottom: 10 }} label="Email">
           {getFieldDecorator('email', {
             rules: [{ required: true, message: 'Please add your email!' }],
-          })(<Input prefix={<Icon type="user" />} placeholder="johndoe" />)}
+          })(<Input prefix={<Icon type="mail" />} placeholder="email@address.com" />)}
         </FormItem>
 
         <FormItem label="Password">
@@ -71,10 +73,14 @@ class Login extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State): Props => {
+const mapStateToProps = (state: State): Props => ({ loading: state.auth.loading });
+
+const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
   return {
-    loading: state.auth.loading,
+    login: (user: LoginUser) => dispatch(authActions.login(user)),
   };
 };
 
-export const LoginForm = connect(mapStateToProps)(Form.create()(Login));
+export const LoginForm = connect(mapStateToProps, mapDispatchToProps)(
+  Form.create()(Login),
+);

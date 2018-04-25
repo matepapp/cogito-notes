@@ -2,7 +2,7 @@
 import React from 'react';
 import { Row, Form, Icon, Input, Button } from 'antd';
 import { connect } from 'react-redux';
-import { type Dispatch } from '../types';
+import { type Dispatch, type RegisterUser } from '../types';
 import { type State } from '../reducers';
 import { authActions } from '../actions';
 
@@ -10,16 +10,17 @@ const FormItem = Form.Item;
 
 type Props = {
   form?: any,
-  dispatch?: Dispatch,
   loading: boolean,
 };
+
+type ActionProps = { register: (user: RegisterUser) => void };
 
 type FormState = {
   passwordsValidationStatus: ?'success' | 'error',
   passwordsValidationMessage: ?string,
 };
 
-class NormalLoginForm extends React.Component<Props, FormState> {
+class NormalLoginForm extends React.Component<Props & ActionProps, FormState> {
   state = {
     passwordsValidationStatus: null,
     passwordsValidationMessage: null,
@@ -27,7 +28,7 @@ class NormalLoginForm extends React.Component<Props, FormState> {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { form, dispatch } = this.props;
+    const { form, register } = this.props;
 
     form.validateFields((error, values) => {
       if (values.passwordCheck === values.password) {
@@ -45,15 +46,13 @@ class NormalLoginForm extends React.Component<Props, FormState> {
 
       if (!error && this.state.passwordsValidationStatus !== 'error') {
         const { password, passwordCheck, email, firstName, lastName } = values;
-        dispatch(
-          authActions.register({
-            password1: password,
-            password2: passwordCheck,
-            email,
-            firstName,
-            lastName,
-          }),
-        );
+        register({
+          password1: password,
+          password2: passwordCheck,
+          email,
+          firstName,
+          lastName,
+        });
       }
     });
   };
@@ -135,4 +134,12 @@ const mapStateToProps = (state: State): Props => {
   };
 };
 
-export const RegistrationForm = connect(mapStateToProps)(Form.create()(NormalLoginForm));
+const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
+  return {
+    register: (user: RegisterUser) => dispatch(authActions.register(user)),
+  };
+};
+
+export const RegistrationForm = connect(mapStateToProps, mapDispatchToProps)(
+  Form.create()(NormalLoginForm),
+);

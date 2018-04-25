@@ -1,39 +1,24 @@
 // @flow
 import React from 'react';
-import { Route } from 'react-router-dom';
-import { Layout, Tabs, Button } from 'antd';
-import { NoteList, Header } from '../components';
+import { Layout } from 'antd';
+import { Route, Switch } from 'react-router-dom';
+import { pathConstants } from '../constants';
+import { Header, NotesTab, NoteEditor } from '../components';
 
 const { Content, Footer } = Layout;
-const TabPane = Tabs.TabPane;
 
-type Props = {
-  activeTabKey: 'shared' | 'notes',
-};
-
-export class HomePage extends React.Component<Props> {
-  static defaultProps = {
-    activeTabKey: 'notes',
-  };
-
+export class HomePage extends React.Component<{}> {
   render() {
-    const addNoteButton = <Button>New Note</Button>;
     return (
       <Layout className="layout" style={{ minHeight: '100vh' }}>
         <Header />
         <Content
           style={{ padding: '50px', alignItems: 'center', justifyContent: 'center' }}>
-          <Tabs
-            defaultActiveKey={this.props.activeTabKey}
-            tabBarExtraContent={addNoteButton}
-            style={{ width: '80%', margin: '0 auto' }}>
-            <TabPane tab="My Notes" key="notes">
-              <Route exact path="/" component={NoteList} />
-            </TabPane>
-            <TabPane tab="Shared Notes" key="shared">
-              Content of Shared Notes
-            </TabPane>
-          </Tabs>
+          <Switch>
+            <Route exact path={pathConstants.NOTES} component={NotesTab} />
+            <Route exact path={pathConstants.SHARED} component={NotesTab} />
+            <Route path={`${pathConstants.NOTES}/:id`} component={NoteEditor} />
+          </Switch>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
           Cogito Notes ©2018 Created by Mate Papp
