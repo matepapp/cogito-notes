@@ -15,6 +15,7 @@ const list = (): Promise<Array<Note>> => {
   return network
     .get(URL.NOTES, config)
     .catch(error => {
+      console.log(error);
       return Promise.reject(error.response.data);
     })
     .then(response => response.data.results);
@@ -33,7 +34,22 @@ const getNoteByID = (id: string): Promise<Note> => {
     .then(response => response.data);
 };
 
+const save = (note: Note): Promise<Note> => {
+  const config = {
+    headers: { Authorization: `JWT ${TOKEN}` },
+  };
+
+  return network
+    .post(URL.NOTES + note.id, JSON.stringify(note), config)
+    .catch(error => {
+      console.log(error);
+      return Promise.reject(error.response.data);
+    })
+    .then(response => console.log(response));
+};
+
 export const noteService = {
   list,
   getNoteByID,
+  save,
 };

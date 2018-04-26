@@ -61,6 +61,27 @@ export const note = (state: NoteState = initialState, action: NoteAction): NoteS
         notes: null,
         note: null,
       };
+    case NOTE.SAVE:
+      return {
+        loading: true,
+        error: null,
+        notes: null,
+        note: null,
+      };
+    case NOTE.SAVE_SUCCES:
+      return {
+        loading: false,
+        error: null,
+        notes: null,
+        note: action.note,
+      };
+    case NOTE.SAVE_ERROR:
+      return {
+        loading: false,
+        error: action.error,
+        notes: null,
+        note: null,
+      };
     default:
       return state;
   }

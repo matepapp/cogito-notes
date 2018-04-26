@@ -24,11 +24,9 @@ const login = (user: LoginUser): Promise<UserInfo> => {
   return network
     .post(URL.LOGIN, JSON.stringify(user))
     .catch(error => {
-      console.log(error);
       return Promise.reject(error.message);
     })
     .then(response => {
-      console.log(response.data.user);
       setToken(response.data.token);
       return response.data.user;
     });
