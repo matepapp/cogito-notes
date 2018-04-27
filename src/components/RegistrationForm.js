@@ -31,7 +31,7 @@ class NormalLoginForm extends React.Component<Props & ActionProps, FormState> {
     const { form, register } = this.props;
 
     form.validateFields((error, values) => {
-      if (values.passwordCheck === values.password) {
+      if (values.password2 === values.password1) {
         this.setState({
           passwordsValidationStatus: 'success',
           passwordsValidationMessage: null,
@@ -45,14 +45,8 @@ class NormalLoginForm extends React.Component<Props & ActionProps, FormState> {
       }
 
       if (!error && this.state.passwordsValidationStatus !== 'error') {
-        const { password, passwordCheck, email, firstName, lastName } = values;
-        register({
-          password1: password,
-          password2: passwordCheck,
-          email,
-          firstName,
-          lastName,
-        });
+        const { password1, password2, email, first_name, last_name } = values;
+        register({ password1, password2, email, first_name, last_name });
       }
     });
   };
@@ -66,13 +60,13 @@ class NormalLoginForm extends React.Component<Props & ActionProps, FormState> {
         layout="vertical"
         style={{ width: '60%', margin: '0 auto' }}>
         <FormItem style={{ marginBottom: 10 }} label="First name">
-          {getFieldDecorator('firstname', {
+          {getFieldDecorator('first_name', {
             rules: [{ required: true, message: 'Please fill your first name!' }],
           })(<Input prefix={<Icon type="user" />} placeholder="John" />)}
         </FormItem>
 
         <FormItem style={{ marginBottom: 10 }} label="Last name">
-          {getFieldDecorator('lastname', {
+          {getFieldDecorator('last_name', {
             rules: [{ required: true, message: 'Please fill your last name!' }],
           })(<Input prefix={<Icon type="user" />} placeholder="Doe" />)}
         </FormItem>
@@ -84,7 +78,7 @@ class NormalLoginForm extends React.Component<Props & ActionProps, FormState> {
         </FormItem>
 
         <FormItem style={{ marginBottom: 10 }} label="Password">
-          {getFieldDecorator('password', {
+          {getFieldDecorator('password1', {
             rules: [
               { required: true, message: 'Please fill your password!' },
               { min: 8, message: 'Tha password should be minimum 8 character' },
@@ -102,7 +96,7 @@ class NormalLoginForm extends React.Component<Props & ActionProps, FormState> {
           label="Repeat password"
           validateStatus={this.state.passwordsValidationStatus}
           help={this.state.passwordsValidationMessage}>
-          {getFieldDecorator('passwordCheck', {
+          {getFieldDecorator('password2', {
             rules: [{ required: true, message: 'Please fill your password!' }],
           })(
             <Input

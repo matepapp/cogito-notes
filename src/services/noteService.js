@@ -1,5 +1,5 @@
 // @flow
-import { type Note, noteFromApiResponse } from '../types';
+import { type Note } from '../types';
 import { TOKEN } from '../helpers';
 import { network } from '.';
 
@@ -15,15 +15,10 @@ const list = (): Promise<Array<Note>> => {
   return network
     .get(URL.NOTES, config)
     .catch(error => {
+      console.log(error);
       return Promise.reject(error.response.data);
     })
-    .then(response => {
-      const notes: Array<Note> = response.data.results.map(result =>
-        noteFromApiResponse(result),
-      );
-
-      return notes;
-    });
+    .then(response => response.data.results);
 };
 
 const getNoteByID = (id: string): Promise<Note> => {
@@ -36,10 +31,25 @@ const getNoteByID = (id: string): Promise<Note> => {
     .catch(error => {
       return Promise.reject(error.response.data);
     })
-    .then(response => noteFromApiResponse(response.data));
+    .then(response => response.data);
+};
+
+const save = (note: Note): Promise<Note> => {
+  const config = {
+    headers: { Authorization: `JWT ${TOKEN}` },
+  };
+
+  return network
+    .post(URL.NOTES + note.id, JSON.stringify(note), config)
+    .catch(error => {
+      console.log(error);
+      return Promise.reject(error.response.data);
+    })
+    .then(response => console.log(response));
 };
 
 export const noteService = {
   list,
   getNoteByID,
+  save,
 };

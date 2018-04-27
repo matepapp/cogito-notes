@@ -1,6 +1,6 @@
 // @flow
 
-export const notificationConstants = {
+export const NOTIFICATION = {
   SUCCESS: 'NOTIFICATION_SUCCESS',
   ERROR: 'NOTIFICATION_ERROR',
   CLEAR: 'NOTIFICATION_CLEAR',

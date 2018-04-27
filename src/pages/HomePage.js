@@ -2,8 +2,8 @@
 import React from 'react';
 import { Layout } from 'antd';
 import { Route, Switch } from 'react-router-dom';
-import { pathConstants } from '../constants';
-import { Header, NotesTab, NoteEditor } from '../components';
+import { PATH } from '../constants';
+import { Header, NotesTab, NoteContainer } from '../components';
 
 const { Content, Footer } = Layout;
 
@@ -15,9 +15,9 @@ export class HomePage extends React.Component<{}> {
         <Content
           style={{ padding: '50px', alignItems: 'center', justifyContent: 'center' }}>
           <Switch>
-            <Route exact path={pathConstants.NOTES} component={NotesTab} />
-            <Route exact path={pathConstants.SHARED} component={NotesTab} />
-            <Route path={`${pathConstants.NOTES}/:id`} component={NoteEditor} />
+            <Route exact path={PATH.NOTES} component={NotesTab} />
+            <Route exact path={PATH.SHARED} component={NotesTab} />
+            <Route path={`${PATH.NOTES}/:id`} component={NoteContainer} />
           </Switch>
         </Content>
         <Footer style={{ textAlign: 'center' }}>

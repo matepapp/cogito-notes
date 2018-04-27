@@ -1,5 +1,5 @@
 // @flow
-import { authConstants } from '../constants';
+import { AUTH } from '../constants';
 import { AuthAction } from '../actions';
 import { type UserInfo } from '../types';
 import { hasToken } from '../helpers';
@@ -20,49 +20,49 @@ const initialState: AuthState = {
 
 export const auth = (state: AuthState = initialState, action: AuthAction): AuthState => {
   switch (action.type) {
-    case authConstants.LOGIN:
+    case AUTH.LOGIN:
       return {
         loading: true,
         loggedIn: false,
         user: null,
         error: null,
       };
-    case authConstants.LOGIN_SUCCESS:
+    case AUTH.LOGIN_SUCCESS:
       return {
         loading: false,
         loggedIn: true,
         user: action.user,
         error: null,
       };
-    case authConstants.LOGIN_ERROR:
+    case AUTH.LOGIN_ERROR:
       return {
         loading: false,
         loggedIn: false,
         user: null,
         error: action.error,
       };
-    case authConstants.LOGOUT:
+    case AUTH.LOGOUT:
       return {
         loading: false,
         loggedIn: false,
         user: null,
         error: null,
       };
-    case authConstants.REGISTER:
+    case AUTH.REGISTER:
       return {
         loading: true,
         loggedIn: false,
         user: null,
         error: null,
       };
-    case authConstants.REGISTER_SUCCESS:
+    case AUTH.REGISTER_SUCCESS:
       return {
         loading: false,
         loggedIn: true,
         user: action.user,
         error: null,
       };
-    case authConstants.REGISTER_ERROR:
+    case AUTH.REGISTER_ERROR:
       return {
         loading: false,
         loggedIn: false,

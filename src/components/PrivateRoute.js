@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { hasToken } from '../helpers';
-import { pathConstants } from '../constants';
+import { PATH } from '../constants';
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -10,9 +10,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
       hasToken ? (
         <Component {...props} />
       ) : (
-        <Redirect
-          to={{ pathname: pathConstants.LOGIN, state: { from: props.location } }}
-        />
+        <Redirect to={{ pathname: PATH.LOGIN, state: { from: props.location } }} />
       )
     }
   />

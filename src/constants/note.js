@@ -1,11 +1,13 @@
 // @flow
 
-export const noteConstants = {
+export const NOTE = {
   LIST: 'NOTE_LIST',
   LIST_ERROR: 'NOTE_LIST_ERROR',
   LIST_SUCCES: 'NOTE_LIST_SUCCES',
-
   BY_ID: 'NOTE_BY_ID',
   BY_ID_SUCCESS: 'NOTE_BY_ID_SUCCESS',
   BY_ID_ERROR: 'NOTE_BY_ID_ERROR',
+  SAVE: 'NOTE_SAVE',
+  SAVE_ERROR: 'NOTE_SAVE_ERROR',
+  SAVE_SUCCES: 'NOTE_SAVE_SUCCES',
 };

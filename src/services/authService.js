@@ -1,10 +1,5 @@
 // @flow
-import {
-  type LoginUser,
-  type RegisterUser,
-  type UserInfo,
-  userInfoFromApiResponse,
-} from '../types';
+import { type LoginUser, type RegisterUser, type UserInfo } from '../types';
 import { setToken, removeToken } from '../helpers';
 import { network } from '.';
 
@@ -21,7 +16,7 @@ const register = (user: RegisterUser): Promise<UserInfo> => {
       return Promise.reject(error.response.data);
     })
     .then(response => {
-      return userInfoFromApiResponse(response.data.user);
+      return response.data.user;
     });
 };
 
@@ -33,7 +28,7 @@ const login = (user: LoginUser): Promise<UserInfo> => {
     })
     .then(response => {
       setToken(response.data.token);
-      return userInfoFromApiResponse(response.data.user);
+      return response.data.user;
     });
 };
 

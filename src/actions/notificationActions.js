@@ -1,5 +1,5 @@
 // @flow
-import { notificationConstants } from '../constants';
+import { NOTIFICATION } from '../constants';
 
 export type NotificationAction =
   | { type: 'NOTIFICATION_SUCCESS', message: string }
@@ -7,15 +7,15 @@ export type NotificationAction =
   | { type: 'NOTIFICATION_CLEAR' };
 
 const success = (message: string): NotificationAction => {
-  return { type: notificationConstants.SUCCESS, message };
+  return { type: NOTIFICATION.SUCCESS, message };
 };
 
 const error = (message: string): NotificationAction => {
-  return { type: notificationConstants.ERROR, message };
+  return { type: NOTIFICATION.ERROR, message };
 };
 
 const clear = () => {
-  return { type: notificationConstants.CLEAR };
+  return { type: NOTIFICATION.CLEAR };
 };
 
 export const notificationActions = {

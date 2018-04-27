@@ -1,6 +1,6 @@
 // @flow
 import { authService } from '../services';
-import { authConstants } from '../constants';
+import { AUTH } from '../constants';
 import { notificationActions } from '../actions';
 import {
   type RegisterUser,
@@ -20,15 +20,15 @@ export type AuthAction =
 
 const register = (user: RegisterUser): Dispatch => {
   const request = (): AuthAction => {
-    return { type: authConstants.REGISTER };
+    return { type: AUTH.REGISTER };
   };
 
   const success = (user: UserInfo): AuthAction => {
-    return { type: authConstants.REGISTER_SUCCESS, user };
+    return { type: AUTH.REGISTER_SUCCESS, user };
   };
 
   const failure = (error: string): AuthAction => {
-    return { type: authConstants.REGISTER_ERROR, error };
+    return { type: AUTH.REGISTER_ERROR, error };
   };
 
   return (dispatch: Dispatch) => {
@@ -53,15 +53,15 @@ const register = (user: RegisterUser): Dispatch => {
 
 const login = (user: LoginUser): Dispatch => {
   const request = (): AuthAction => {
-    return { type: authConstants.LOGIN };
+    return { type: AUTH.LOGIN };
   };
 
   const success = (user: UserInfo): AuthAction => {
-    return { type: authConstants.LOGIN_SUCCESS, user };
+    return { type: AUTH.LOGIN_SUCCESS, user };
   };
 
   const failure = (error: string): AuthAction => {
-    return { type: authConstants.LOGIN_ERROR, error };
+    return { type: AUTH.LOGIN_ERROR, error };
   };
 
   return (dispatch: Dispatch) => {
@@ -86,7 +86,7 @@ const login = (user: LoginUser): Dispatch => {
 
 const logout = (): AuthAction => {
   authService.logout();
-  return { type: authConstants.LOGOUT };
+  return { type: AUTH.LOGOUT };
 };
 
 export const authActions = {

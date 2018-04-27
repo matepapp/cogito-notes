@@ -1,5 +1,5 @@
 // @flow
-import { notificationConstants } from '../constants';
+import { NOTIFICATION } from '../constants';
 import { type NotificationAction } from '../actions';
 
 export type NotificationState = {
@@ -12,11 +12,11 @@ export const notification = (
   action: NotificationAction,
 ): NotificationState => {
   switch (action.type) {
-    case notificationConstants.SUCCESS:
+    case NOTIFICATION.SUCCESS:
       return { type: 'success', message: action.message };
-    case notificationConstants.ERROR:
+    case NOTIFICATION.ERROR:
       return { type: 'error', message: action.message };
-    case notificationConstants.CLEAR:
+    case NOTIFICATION.CLEAR:
       return {};
     default:
       return state;

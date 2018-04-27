@@ -1,41 +1,56 @@
 // @flow
 import React from 'react';
-import { connect } from 'react-redux';
 import RichTextEditor from 'react-rte';
-import { type State } from '../reducers';
-import { type Dispatch, type Note, type RouteProps } from '../types';
-import { noteActions } from '../actions';
 
-type ReduxProps = { note?: Note };
-type ActionProps = { getNoteByID: (id: string) => void };
-type Props = ReduxProps & ActionProps & RouteProps;
+type Props = {
+  readOnly: boolean,
+  value: string,
+  onValueChange: (value: string) => void,
+};
+
 type EditorState = { value: any };
 
-class Editor extends React.Component<Props, EditorState> {
-  state = {
-    value: RichTextEditor.createEmptyValue(),
-  };
+const toolbarConfig = {
+  display: [
+    'INLINE_STYLE_BUTTONS',
+    'BLOCK_TYPE_BUTTONS',
+    'BLOCK_TYPE_DROPDOWN',
+    'HISTORY_BUTTONS',
+  ],
+  INLINE_STYLE_BUTTONS: [
+    { label: 'Bold', style: 'BOLD', className: 'custom-css-class' },
+    { label: 'Italic', style: 'ITALIC' },
+    { label: 'Underline', style: 'UNDERLINE' },
+  ],
+  BLOCK_TYPE_DROPDOWN: [
+    { label: 'Normal', style: 'unstyled' },
+    { label: 'Heading Large', style: 'header-one' },
+    { label: 'Heading Medium', style: 'header-two' },
+    { label: 'Heading Small', style: 'header-three' },
+  ],
+  BLOCK_TYPE_BUTTONS: [
+    { label: 'UL', style: 'unordered-list-item' },
+    { label: 'OL', style: 'ordered-list-item' },
+  ],
+};
+
+export class NoteEditor extends React.Component<Props, EditorState> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      value: RichTextEditor.createValueFromString(props.value, 'markdown'),
+    };
+  }
 
   onChange = (value: any) => {
     this.setState({ value });
+    this.props.onValueChange(value.toString('markdown'));
   };
-
-  componentWillReceiveProps(nextProps: Props) {
-    const { note } = nextProps;
-    if (note != null)
-      this.setState({
-        value: RichTextEditor.createValueFromString(note.text, 'markdown'),
-      });
-  }
-
-  componentDidMount() {
-    const { getNoteByID, match } = this.props;
-    getNoteByID(match.params.id);
-  }
 
   render() {
     return (
       <RichTextEditor
+        toolbarConfig={toolbarConfig}
         readOnly={this.props.readOnly}
         value={this.state.value}
         onChange={this.onChange}
@@ -43,13 +58,3 @@ class Editor extends React.Component<Props, EditorState> {
     );
   }
 }
-
-const mapStateToProps = (state: State): ReduxProps => ({ note: state.note.note });
-
-const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
-  return {
-    getNoteByID: (id: string) => dispatch(noteActions.getNoteByID(id)),
-  };
-};
-
-export const NoteEditor = connect(mapStateToProps, mapDispatchToProps)(Editor);
