@@ -4,7 +4,7 @@ import { Note } from '.';
 export type User = { name: string, id: number, notes?: Array<Note> };
 
 export type UserInfo = {
-  ok: number,
+  pk: number,
   email: string,
   first_name: string,
   last_name: string,

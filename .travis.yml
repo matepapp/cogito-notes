@@ -1,10 +1,10 @@
 language: node_js
 node_js:
-- "8"
+- '8'
 cache: yarn
 before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.6.0
-  - export PATH="$HOME/.yarn/bin:$PATH"
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.6.0
+- export PATH="$HOME/.yarn/bin:$PATH"
 script:
 - yarn run build
 deploy:
@@ -18,4 +18,4 @@ deploy:
     - master
 notifications:
   slack:
-    secure: n1mTs9tLcXyK80Zr7C50Ze4ui0qDOlg9CFe2OyKUD7Goi7FCMG9q1JP9RKZ0NFaQtX+E6ks40bXkeNTggwykPkz7gnIPsSA+/8YSMv4/o5gihiL685Lq7tG903fHh2NHHjOesie61Juv5CR7ZM57CptVrxi1iw+LNdnczAQAI608VtLT4Aj0FQ1qppt35UFQDV70bM7F3sT5LsAgleL9iQVTrP+tolfKBY9HSVVKneEGpoO4nw62iTSD+9OYWTEm5E2QaFBSw7hFHP/O/tGbkpXQmkHyt8saTfi8+mUYVPNGfbmKzlPXrJ+akxh5xPl9kwqPnu6mH2jJjuRYzgM6Nm7GA4/vP+cEmW6UyhMqob5IfewGHAsDOh2n++hxGvPb98VYLIdmn+tT6IkNsmP7mQiNWWy4EE+3BXVI2pOeT2Ciu6OZ3SkQGxntAp4xDlTG5iXOOZ9TH202jsVFB4qOEzqgPzHMXJzZcTckb1WI22ZTLE4YesnTeWoUsiEA7v+yeAkDFFbJoDlZ38JCIJ+f7b5jAZpH15uOnhyZW+IBL74bA6v8ItKH4Xw0EESWLnqqf+AGrN+2OC4M3CA/Mekn8CJpJ/+YV1jn+foXnwOcEQjq4J6D7krz3F7X/usSfVBMhQRY7bAY7KQarsiiyYJfqMuKCi9xc0MuucdDOW6BYfc=
+    secure: jQuEgNJNgzPv/nwYvoJrBFJV6ZaDCK+G75TcQjXdieEH47oIsWwGgaCD+jMIfujZDz3ak147ajQU4syhVSM2d/dgfU9+1A55tTIi5X4lh9/3u7LMAn48GkxKWZE3IqLJZ8f5oLFqMfU0pPSGa612mAH2Cs/k/87IyHilzkCb6Ilzl4Hq4efSKB1reBz30CrTL8e9QIBugib6Nqt+QLf0iNpciGxCfpIbP9Mm2HzV+l9LoCGseAtdSmYswDc4HWzdajEF3rCBylb0iMvqu50qrYrYWjZU3zDbmXZjRmjPKQ55/stvU4m6PhWPz8isa6EzU9GSwzBDPW63y12eVHkMkzsjENu1X/U8Ror4jPa3iOgmFiu6yYzOaHM0/ms5bCvV5QHPFNOw1HeTIn8kiwF0v1WVp3/bSbxhf1fuhUcU+9yqpg4FDVC4TyPHNQQ2XTS5yVF7tfc18HQKQxAwh2ok0DB+cy0AZw5DTUX+XWTxoM1/dVO+CfLS6qFwIpIHJgyNz9SVMPR3RjB5odvXSUI08Ggai6VPAvhYlMxLTR6Z7s3qjoRNM/tLI/kcGWZMmsUWmB/GzJHdMggv5Qp6hRE2HpfeDBnq/13OBVqVRz1wBTm1nH48P8UVFOzWys29wRPyrYaQ7gKvzsUuU6+W8hW58VZKYjuW5lZMGGqIh6Dfjbs=
