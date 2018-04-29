@@ -1,5 +1,6 @@
 # Cogito Notes 📝
-[![Build Status](https://travis-ci.com/matepapp/cogito-notes.svg?token=xfz6hSPQHtHd5XkqKmZj&branch=development)](https://travis-ci.com/matepapp/cogito-notes) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Build Status](https://travis-ci.org/matepapp/cogito-notes.svg?branch=development)](https://travis-ci.org/matepapp/cogito-notes)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 My Bachelor thesis at Budapest University of Technology about a community based lecture notes editor web application using [React](https://reactjs.org), [Redux](https://redux.js.org).
 
@@ -17,4 +18,4 @@ Check it out live [here](https://matepapp.github.io/cogito-notes/)!
 - [Github Pages](https://pages.github.com)
 
 ## Instructions
-The `master` and `development` branch are protected, you can only modify it by creating a [Pull Request](https://github.com/matepapp/cogito-notes/pulls). Every push starts a build on Travis CI and every merged pull request on `development` triggers a new deployment to Github Pages. See more CI details on the [repo Travis CI page](https://travis-ci.com/matepapp/cogito-notes).
+The `master` and `development` branch are protected, you can only modify it by creating a [Pull Request](https://github.com/matepapp/cogito-notes/pulls). Every push starts a build on Travis CI and every merged pull request on `development` triggers a new deployment to Github Pages. See more CI details on the [repo Travis CI page](https://travis-ci.org/matepapp/cogito-notes).
