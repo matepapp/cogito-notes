@@ -15,7 +15,6 @@ const list = (): Promise<Array<Note>> => {
   return network
     .get(URL.NOTES, config)
     .catch(error => {
-      console.log(error);
       return Promise.reject(error.response.data);
     })
     .then(response => response.data.results);
@@ -40,12 +39,11 @@ const save = (note: Note): Promise<Note> => {
   };
 
   return network
-    .post(URL.NOTES + note.id, JSON.stringify(note), config)
+    .patch(URL.NOTES + note.id, JSON.stringify(note), config)
     .catch(error => {
-      console.log(error);
       return Promise.reject(error.response.data);
     })
-    .then(response => console.log(response));
+    .then(response => response.data);
 };
 
 export const noteService = {
