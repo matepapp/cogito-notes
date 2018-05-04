@@ -3,7 +3,7 @@ import React from 'react';
 import { Layout, Row, Col, Tabs } from 'antd';
 import { RegistrationForm, LoginForm } from '../components';
 import { PATH } from '../constants';
-import { type RouteProps } from '../types';
+import type { RouteProps } from '../types';
 import logo from '../resources/img/logo.svg';
 
 const TabPane = Tabs.TabPane;

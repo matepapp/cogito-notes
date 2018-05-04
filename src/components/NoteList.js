@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { List } from 'antd';
 import { connect } from 'react-redux';
 import { NoteCard, LoadingCardList } from '.';
-import { type Note, type Dispatch, type RouteProps } from '../types';
+import type { Note, Dispatch, RouteProps } from '../types';
+import type { State } from '../reducers';
 import { noteActions } from '../actions';
-import { type State } from '../reducers';
 
 type Props = {
   loading: boolean,

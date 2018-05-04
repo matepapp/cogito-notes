@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import { Tabs, Button } from 'antd';
 import { PATH } from '../constants';
 import { NoteList } from '../components';
-import { type RouteProps } from '../types';
+import type { RouteProps } from '../types';
 
 const TabPane = Tabs.TabPane;
 

@@ -2,8 +2,8 @@
 import React from 'react';
 import { Row, Form, Icon, Input, Button } from 'antd';
 import { connect } from 'react-redux';
-import { type Dispatch, type RegisterUser } from '../types';
-import { type State } from '../reducers';
+import type { Dispatch, RegisterUser } from '../types';
+import type { State } from '../reducers';
 import { authActions } from '../actions';
 
 const FormItem = Form.Item;

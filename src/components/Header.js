@@ -2,9 +2,9 @@
 import React from 'react';
 import { Layout, Icon, Popover, Row, Col } from 'antd';
 import { connect } from 'react-redux';
-import { type Dispatch } from '../types';
+import type { Dispatch } from '../types';
+import type { State } from '../reducers';
 import { authActions } from '../actions';
-import { type State } from '../reducers';
 import { BorderlessButton } from '.';
 import logo from '../resources/img/logo.svg';
 

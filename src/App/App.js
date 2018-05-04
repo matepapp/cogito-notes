@@ -7,7 +7,7 @@ import { PrivateRoute } from '../components';
 import { PATH } from '../constants';
 import { history } from '../helpers';
 import { HomePage, WelcomePage } from '../pages';
-import { type State } from '../reducers';
+import type { State } from '../reducers';
 import './App.css';
 
 type Props = {

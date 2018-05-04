@@ -2,13 +2,7 @@
 import { authService } from '../services';
 import { AUTH } from '../constants';
 import { notificationActions } from '../actions';
-import {
-  type RegisterUser,
-  type LoginUser,
-  type Dispatch,
-  type Action,
-  type UserInfo,
-} from '../types';
+import type { RegisterUser, LoginUser, Dispatch, Action, UserInfo } from '../types';
 
 type Payload = {
   user?: UserInfo,

@@ -1,7 +1,7 @@
 // @flow
 import { AUTH } from '../constants';
-import { AuthAction } from '../actions';
-import { type UserInfo } from '../types';
+import type { AuthAction } from '../actions';
+import type { UserInfo } from '../types';
 import { hasToken } from '../helpers';
 
 export type AuthState = {

@@ -1,7 +1,7 @@
 // @flow
 import { NOTE } from '../constants';
-import { type NoteAction } from '../actions';
-import { type Note } from '../types';
+import type { NoteAction } from '../actions';
+import type { Note } from '../types';
 
 export type NoteState = {
   +loading: boolean,

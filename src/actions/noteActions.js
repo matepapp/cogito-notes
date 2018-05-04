@@ -1,6 +1,6 @@
 // @flow
 import { NOTE } from '../constants';
-import { type Dispatch, type Note, type Action } from '../types';
+import type { Dispatch, Note, Action } from '../types';
 import { notificationActions } from '../actions';
 import { noteService } from '../services';
 

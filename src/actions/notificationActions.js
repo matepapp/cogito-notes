@@ -1,6 +1,6 @@
 // @flow
 import { NOTIFICATION } from '../constants';
-import { type Action } from '../types';
+import type { Action } from '../types';
 
 export type NotificationAction = Action & { message?: string };
 
