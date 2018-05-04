@@ -3,8 +3,8 @@ import { NOTIFICATION } from '../constants';
 import { type NotificationAction } from '../actions';
 
 export type NotificationState = {
-  type?: 'success' | 'error',
-  message?: string,
+  +type?: 'success' | 'error',
+  +message?: string,
 };
 
 export const notification = (

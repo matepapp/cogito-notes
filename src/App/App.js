@@ -7,8 +7,7 @@ import { PrivateRoute } from '../components';
 import { PATH } from '../constants';
 import { history } from '../helpers';
 import { HomePage, WelcomePage } from '../pages';
-import { type State } from '../reducers';
-import './App.css';
+import type { State } from '../reducers';
 
 type Props = {
   loggedIn: boolean,
@@ -21,7 +20,7 @@ class App extends React.Component<Props> {
     const { loggedIn, notificationMessage, notificationType } = nextProps;
     loggedIn ? history.push(PATH.NOTES) : history.push(PATH.LOGIN);
 
-    if (notificationMessage != null && notificationType != null)
+    if (notificationMessage && notificationType)
       this.renderNotification(notificationType, notificationMessage);
   }
 

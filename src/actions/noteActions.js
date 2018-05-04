@@ -1,21 +1,18 @@
 // @flow
 import { NOTE } from '../constants';
-import { type Dispatch, type Note } from '../types';
+import type { Dispatch, Note, Action, ThunkAction } from '../types';
 import { notificationActions } from '../actions';
 import { noteService } from '../services';
 
-export type NoteAction =
-  | { type: 'NOTE_LIST' }
-  | { type: 'NOTE_LIST_ERROR', error: string }
-  | { type: 'NOTE_LIST_SUCCES', notes: Array<Note> }
-  | { type: 'NOTE_BY_ID' }
-  | { type: 'NOTE_BY_ID_SUCCESS', note: Note }
-  | { type: 'NOTE_BY_ID_ERROR', error: string }
-  | { type: 'NOTE_SAVE', note: Note }
-  | { type: 'NOTE_SAVE_ERROR', error: string }
-  | { type: 'NOTE_SAVE_SUCCES' };
+type Payload = {
+  notes?: Array<Note>,
+  note?: Note,
+  error?: string,
+};
 
-const list = (): Dispatch => {
+export type NoteAction = Action & Payload;
+
+const list = (): ThunkAction => {
   const request = (): NoteAction => {
     return { type: NOTE.LIST };
   };
@@ -41,7 +38,7 @@ const list = (): Dispatch => {
   };
 };
 
-const getNoteByID = (id: string): Dispatch => {
+const getNoteByID = (id: string): ThunkAction => {
   const request = (): NoteAction => {
     return { type: NOTE.BY_ID };
   };
@@ -63,7 +60,7 @@ const getNoteByID = (id: string): Dispatch => {
   };
 };
 
-const save = (note: Note): Dispatch => {
+const save = (note: Note): ThunkAction => {
   const request = (): NoteAction => {
     return { type: NOTE.SAVE };
   };

@@ -1,13 +1,13 @@
-// @flow
+/* @flow */
 import React from 'react';
 import { Spin, Row, Col } from 'antd';
 import { connect } from 'react-redux';
-import { type State } from '../reducers';
-import { type Dispatch, type Note, type RouteProps } from '../types';
-import { noteActions } from '../actions';
-import { NoteEditor, NoteHeader } from './';
+import type { State } from '../../reducers';
+import type { Dispatch, Note, RouteProps } from '../../types';
+import { noteActions } from '../../actions';
+import { NoteEditor, NoteHeader } from '../';
 
-type ReduxProps = { note?: Note };
+type ReduxProps = { note: ?Note };
 type ActionProps = {
   getNoteByID: (id: string) => void,
   saveNote: (note: Note) => void,
@@ -22,7 +22,7 @@ class NoteContainer extends React.Component<Props, EditorState> {
 
   componentDidMount() {
     const { getNoteByID, match } = this.props;
-    getNoteByID(match.params.id);
+    if (match.params.id) getNoteByID(match.params.id);
   }
 
   onEditorChanged = (value: string) => this.setState({ value });
@@ -47,7 +47,7 @@ class NoteContainer extends React.Component<Props, EditorState> {
         <Col xs={22} sm={20} md={18} lg={16} xl={14}>
           <NoteEditor
             value={note.text}
-            readOnly={note.readOnly}
+            readOnly={note.is_edited}
             onValueChange={this.onEditorChanged}
           />
         </Col>

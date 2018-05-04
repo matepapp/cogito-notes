@@ -2,23 +2,23 @@
 import { authService } from '../services';
 import { AUTH } from '../constants';
 import { notificationActions } from '../actions';
-import {
-  type RegisterUser,
-  type LoginUser,
-  type Dispatch,
-  type UserInfo,
+import type {
+  RegisterUser,
+  LoginUser,
+  ThunkAction,
+  Dispatch,
+  Action,
+  UserInfo,
 } from '../types';
 
-export type AuthAction =
-  | { type: 'AUTH_REGISTER' }
-  | { type: 'AUTH_REGISTER_SUCCESS', user: UserInfo }
-  | { type: 'AUTH_REGISTER_ERROR', error: string }
-  | { type: 'AUTH_LOGIN' }
-  | { type: 'AUTH_LOGIN_SUCCESS', user: UserInfo }
-  | { type: 'AUTH_LOGIN_ERROR', error: string }
-  | { type: 'AUTH_LOGOUT' };
+type Payload = {
+  user?: UserInfo,
+  error?: string,
+};
 
-const register = (user: RegisterUser): Dispatch => {
+export type AuthAction = Action & Payload;
+
+const register = (user: RegisterUser): ThunkAction => {
   const request = (): AuthAction => {
     return { type: AUTH.REGISTER };
   };
@@ -51,7 +51,7 @@ const register = (user: RegisterUser): Dispatch => {
   };
 };
 
-const login = (user: LoginUser): Dispatch => {
+const login = (user: LoginUser): ThunkAction => {
   const request = (): AuthAction => {
     return { type: AUTH.LOGIN };
   };
@@ -67,7 +67,7 @@ const login = (user: LoginUser): Dispatch => {
   return (dispatch: Dispatch) => {
     dispatch(request());
 
-    authService.login(user).then(
+    return authService.login(user).then(
       userInfo => {
         dispatch(success(userInfo));
         dispatch(

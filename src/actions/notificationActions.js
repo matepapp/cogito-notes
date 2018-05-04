@@ -1,10 +1,8 @@
 // @flow
 import { NOTIFICATION } from '../constants';
+import type { Action } from '../types';
 
-export type NotificationAction =
-  | { type: 'NOTIFICATION_SUCCESS', message: string }
-  | { type: 'NOTIFICATION_ERROR', message: string }
-  | { type: 'NOTIFICATION_CLEAR' };
+export type NotificationAction = Action & { message?: string };
 
 const success = (message: string): NotificationAction => {
   return { type: NOTIFICATION.SUCCESS, message };

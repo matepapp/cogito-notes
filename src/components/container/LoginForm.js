@@ -1,12 +1,25 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { authActions } from '../actions';
-import { type Dispatch, LoginUser } from '../types';
-import { type State } from '../reducers';
+import { authActions } from '../../actions';
+import type { Dispatch, LoginUser } from '../../types';
+import type { State } from '../../reducers';
 import { Row, Form, Icon, Input, Button } from 'antd';
 
 const FormItem = Form.Item;
+
+const styles = {
+  form: {
+    width: '60%',
+    margin: '0 auto',
+  },
+  formItem: {
+    textAlign: 'center',
+  },
+  submitButton: {
+    width: '70%',
+  },
+};
 
 type Props = {
   form?: any,
@@ -16,7 +29,7 @@ type Props = {
 
 type ActionProps = { login: (user: LoginUser) => void };
 
-class Login extends React.Component<Props & ActionProps> {
+class LoginForm extends React.Component<Props & ActionProps> {
   handleSubmit = e => {
     e.preventDefault();
     const { form, login } = this.props;
@@ -37,8 +50,8 @@ class Login extends React.Component<Props & ActionProps> {
         className="login-form"
         hideRequiredMark
         layout="vertical"
-        style={{ width: '60%', margin: '0 auto' }}>
-        <FormItem style={{ marginBottom: 10 }} label="Email">
+        style={styles.form}>
+        <FormItem label="Email">
           {getFieldDecorator('email', {
             rules: [{ required: true, message: 'Please add your email!' }],
           })(<Input prefix={<Icon type="mail" />} placeholder="email@address.com" />)}
@@ -56,14 +69,14 @@ class Login extends React.Component<Props & ActionProps> {
           )}
         </FormItem>
 
-        <FormItem style={{ textAlign: 'center' }}>
+        <FormItem style={styles.formItem}>
           <Row>
             <Button
               type="primary"
               htmlType="submit"
               className="login-form-button"
               loading={this.props.loading}
-              style={{ width: '70%' }}>
+              style={styles.submitButton}>
               Login
             </Button>
           </Row>
@@ -81,6 +94,4 @@ const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
   };
 };
 
-export const LoginForm = connect(mapStateToProps, mapDispatchToProps)(
-  Form.create()(Login),
-);
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(LoginForm));

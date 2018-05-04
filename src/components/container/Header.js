@@ -2,17 +2,30 @@
 import React from 'react';
 import { Layout, Icon, Popover, Row, Col } from 'antd';
 import { connect } from 'react-redux';
-import { type Dispatch } from '../types';
-import { authActions } from '../actions';
-import { type State } from '../reducers';
-import { BorderlessButton } from '.';
-import logo from '../resources/img/logo.svg';
+import type { Dispatch } from '../../types';
+import type { State } from '../../reducers';
+import { authActions } from '../../actions';
+import { BorderlessButton } from '../presentational';
+import logo from '../../resources/img/logo.svg';
+
+const styles = {
+  layout: {
+    backgroundColor: '#FFF',
+    width: '100%',
+    padding: '0 10px',
+    boxShadow: '0px 1px 20px 20px #0000001A',
+  },
+  logo: {
+    width: '200px',
+    height: '30%',
+  },
+};
 
 type Props = { fullName: string };
 type ActionProps = { logOut: () => void };
 type HeaderState = { popoverVisible: boolean };
 
-class HeaderComponent extends React.Component<Props & ActionProps, HeaderState> {
+class Header extends React.Component<Props & ActionProps, HeaderState> {
   state = {
     popoverVisible: false,
   };
@@ -28,16 +41,10 @@ class HeaderComponent extends React.Component<Props & ActionProps, HeaderState> 
 
   render() {
     return (
-      <Layout.Header
-        style={{
-          backgroundColor: '#FFF',
-          width: '100%',
-          padding: '0 10px',
-          boxShadow: '0px 1px 20px 20px #0000001A',
-        }}>
+      <Layout.Header style={styles.layout}>
         <Row type="flex" justify="end">
           <Col span={8}>
-            <img src={logo} alt="logo" style={{ width: '200px', height: '30%' }} />
+            <img src={logo} alt="logo" style={styles.logo} />
           </Col>
           <Col span={4} offset={12}>
             <Popover
@@ -75,4 +82,4 @@ const mapDispathToProps = (dispatch: Dispatch): ActionProps => {
   };
 };
 
-export const Header = connect(mapStateToProps, mapDispathToProps)(HeaderComponent);
+export default connect(mapStateToProps, mapDispathToProps)(Header);

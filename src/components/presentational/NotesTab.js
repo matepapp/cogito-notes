@@ -2,11 +2,16 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { Tabs, Button } from 'antd';
-import { PATH } from '../constants';
-import { NoteList } from '../components';
-import { type RouteProps } from '../types';
+import { PATH } from '../../constants';
+import { NoteList } from '../../components';
+import type { RouteProps } from '../../types';
 
 const TabPane = Tabs.TabPane;
+
+const style = {
+  width: '80%',
+  margin: '0 auto',
+};
 
 export const NotesTab = (props: RouteProps) => {
   const addNoteButton = <Button>New Note</Button>;
@@ -14,7 +19,7 @@ export const NotesTab = (props: RouteProps) => {
     <Tabs
       defaultActiveKey={props.match.path}
       tabBarExtraContent={addNoteButton}
-      style={{ width: '80%', margin: '0 auto' }}>
+      style={style}>
       <TabPane tab="My Notes" key={PATH.NOTES}>
         <Route exact path={PATH.NOTES} component={NoteList} />
       </TabPane>

@@ -1,5 +1,5 @@
 // @flow
-import { type Note } from '../types';
+import type { Note } from '../types';
 import { TOKEN } from '../helpers';
 import { network } from '.';
 

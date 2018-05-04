@@ -8,10 +8,14 @@ type Props = {
   author: string,
 };
 
+const style = {
+  height: 170,
+};
+
 export const NoteCard = (props: Props) => {
   const author = <div>{props.author}</div>;
   return (
-    <Card title={props.title} extra={author} style={{ height: 170 }}>
+    <Card title={props.title} extra={author} style={style}>
       {props.description}
     </Card>
   );

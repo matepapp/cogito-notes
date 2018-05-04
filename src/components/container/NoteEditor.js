@@ -34,7 +34,7 @@ const toolbarConfig = {
   ],
 };
 
-export class NoteEditor extends React.Component<Props, EditorState> {
+export default class NoteEditor extends React.Component<Props, EditorState> {
   constructor(props: Props) {
     super(props);
     this.state = {

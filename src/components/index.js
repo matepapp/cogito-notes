@@ -1,12 +1,2 @@
-export * from './LoginForm';
-export * from './NoteCard';
-export * from './NoteEditor';
-export * from './NoteHeader';
-export * from './NoteList';
-export * from './NotesTab';
-export { default as NoteContainer } from './NoteContainer';
-export * from './PrivateRoute';
-export * from './RegistrationForm';
-export * from './Header';
-export * from './BorderlessButton';
-export * from './LoadingCardList';
+export * from './presentational';
+export * from './container';

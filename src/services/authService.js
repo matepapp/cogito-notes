@@ -1,5 +1,5 @@
 // @flow
-import { type LoginUser, type RegisterUser, type UserInfo } from '../types';
+import type { LoginUser, RegisterUser, UserInfo } from '../types';
 import { setToken, removeToken } from '../helpers';
 import { network } from '.';
 

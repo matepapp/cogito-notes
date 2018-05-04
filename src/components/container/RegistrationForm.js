@@ -2,11 +2,21 @@
 import React from 'react';
 import { Row, Form, Icon, Input, Button } from 'antd';
 import { connect } from 'react-redux';
-import { type Dispatch, type RegisterUser } from '../types';
-import { type State } from '../reducers';
-import { authActions } from '../actions';
+import type { Dispatch, RegisterUser } from '../../types';
+import type { State } from '../../reducers';
+import { authActions } from '../../actions';
 
 const FormItem = Form.Item;
+
+const styles = {
+  form: {
+    width: '60%',
+    margin: '0 auto',
+  },
+  submitButton: {
+    width: '70%',
+  },
+};
 
 type Props = {
   form?: any,
@@ -20,7 +30,7 @@ type FormState = {
   passwordsValidationMessage: ?string,
 };
 
-class NormalLoginForm extends React.Component<Props & ActionProps, FormState> {
+class RegistrationForm extends React.Component<Props & ActionProps, FormState> {
   state = {
     passwordsValidationStatus: null,
     passwordsValidationMessage: null,
@@ -58,26 +68,26 @@ class NormalLoginForm extends React.Component<Props & ActionProps, FormState> {
         onSubmit={this.handleSubmit}
         className="login-form"
         layout="vertical"
-        style={{ width: '60%', margin: '0 auto' }}>
-        <FormItem style={{ marginBottom: 10 }} label="First name">
+        style={styles.form}>
+        <FormItem label="First name">
           {getFieldDecorator('first_name', {
             rules: [{ required: true, message: 'Please fill your first name!' }],
           })(<Input prefix={<Icon type="user" />} placeholder="John" />)}
         </FormItem>
 
-        <FormItem style={{ marginBottom: 10 }} label="Last name">
+        <FormItem label="Last name">
           {getFieldDecorator('last_name', {
             rules: [{ required: true, message: 'Please fill your last name!' }],
           })(<Input prefix={<Icon type="user" />} placeholder="Doe" />)}
         </FormItem>
 
-        <FormItem style={{ marginBottom: 10 }} label="Email" type="email">
+        <FormItem label="Email" type="email">
           {getFieldDecorator('email', {
             rules: [{ required: true, message: 'Please fill your email address!' }],
           })(<Input prefix={<Icon type="mail" />} placeholder="email@address.com" />)}
         </FormItem>
 
-        <FormItem style={{ marginBottom: 10 }} label="Password">
+        <FormItem label="Password">
           {getFieldDecorator('password1', {
             rules: [
               { required: true, message: 'Please fill your password!' },
@@ -100,7 +110,7 @@ class NormalLoginForm extends React.Component<Props & ActionProps, FormState> {
             rules: [{ required: true, message: 'Please fill your password!' }],
           })(
             <Input
-              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              prefix={<Icon type="lock" />}
               type="password"
               placeholder="Password again"
             />,
@@ -113,7 +123,7 @@ class NormalLoginForm extends React.Component<Props & ActionProps, FormState> {
             htmlType="submit"
             loading={this.props.loading}
             className="login-form-button"
-            style={{ width: '70%' }}>
+            style={styles.submitButton}>
             Registration
           </Button>
         </Row>
@@ -134,6 +144,6 @@ const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
   };
 };
 
-export const RegistrationForm = connect(mapStateToProps, mapDispatchToProps)(
-  Form.create()(NormalLoginForm),
+export default connect(mapStateToProps, mapDispatchToProps)(
+  Form.create()(RegistrationForm),
 );

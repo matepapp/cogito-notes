@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { hasToken } from '../helpers';
-import { PATH } from '../constants';
+import { hasToken } from '../../helpers';
+import { PATH } from '../../constants';
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route

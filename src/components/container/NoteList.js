@@ -3,10 +3,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { List } from 'antd';
 import { connect } from 'react-redux';
-import { NoteCard, LoadingCardList } from '.';
-import { type Note, type Dispatch, type RouteProps } from '../types';
-import { noteActions } from '../actions';
-import { type State } from '../reducers';
+import { NoteCard, LoadingCardList } from '../';
+import { PATH } from '../../constants';
+import type { Note, Dispatch, RouteProps } from '../../types';
+import type { State } from '../../reducers';
+import { noteActions } from '../../actions';
+
+const styles = {
+  grid: { gutter: 20, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 3 },
+};
 
 type Props = {
   loading: boolean,
@@ -16,22 +21,22 @@ type Props = {
 
 type ActionProps = { loadNotes: () => void };
 
-class NoteListComponent extends Component<Props & ActionProps & RouteProps> {
+class NoteList extends Component<Props & ActionProps & RouteProps> {
   componentDidMount() {
     this.props.loadNotes();
   }
 
   render() {
     const { notes, loading } = this.props;
-    return loading || notes == null ? (
+    return !loading || !notes ? (
       <LoadingCardList />
     ) : (
       <List
-        grid={{ gutter: 20, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 3 }}
+        grid={styles.grid}
         dataSource={notes}
         renderItem={(note: Note) => (
           <List.Item>
-            <Link to={`/notes/${note.id}`}>
+            <Link to={`${PATH.NOTES}/${note.id}`}>
               <NoteCard title={note.title} author="John Doe" description={note.text} />
             </Link>
           </List.Item>
@@ -55,4 +60,4 @@ const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
   };
 };
 
-export const NoteList = connect(mapStateToProps, mapDispatchToProps)(NoteListComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(NoteList);

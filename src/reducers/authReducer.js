@@ -1,14 +1,14 @@
 // @flow
 import { AUTH } from '../constants';
-import { AuthAction } from '../actions';
-import { type UserInfo } from '../types';
+import type { AuthAction } from '../actions';
+import type { UserInfo } from '../types';
 import { hasToken } from '../helpers';
 
 export type AuthState = {
-  loading: boolean,
-  loggedIn: boolean,
-  error: ?string,
-  user: ?UserInfo,
+  +loading: boolean,
+  +loggedIn: boolean,
+  +error: ?string,
+  +user: ?UserInfo,
 };
 
 const initialState: AuthState = {
