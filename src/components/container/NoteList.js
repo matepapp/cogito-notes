@@ -1,10 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { List } from 'antd';
 import { connect } from 'react-redux';
 import { NoteCard, LoadingCardList } from '../';
-import { PATH } from '../../constants';
 import type { Note, Dispatch, RouteProps } from '../../types';
 import type { State } from '../../reducers';
 import { noteListActions } from '../../actions';
@@ -26,8 +24,17 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
     this.props.loadNotes();
   }
 
+  onShareButton = (id: string) => console.log(`Jegyzet megosztasa ${id}`);
+
   render() {
     const { notes, loading } = this.props;
+
+    // TODO: Refactor using moment.js
+    const convertDateFromString = (string: string) => {
+      const date = new Date(string);
+      return date.toLocaleDateString();
+    };
+
     return loading ? (
       <LoadingCardList />
     ) : (
@@ -36,9 +43,14 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
         dataSource={notes}
         renderItem={(note: Note) => (
           <List.Item>
-            <Link to={`${PATH.NOTES}/${note.id}`}>
-              <NoteCard title={note.title} author="John Doe" description={note.text} />
-            </Link>
+            <NoteCard
+              id={note.id}
+              title={note.title}
+              author="John Doe"
+              description={note.text}
+              creationDate={convertDateFromString(note.created)}
+              onShareButton={() => this.onShareButton(note.id)}
+            />
           </List.Item>
         )}
       />

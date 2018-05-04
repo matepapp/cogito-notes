@@ -45,7 +45,8 @@ class NoteContainer extends React.Component<Props, EditorState> {
 
   onSave = () => {
     const { note, saveNote } = this.props;
-    if (note !== undefined) saveNote({ ...note, text: this.state.value });
+    const { value, title } = this.state;
+    if (note !== undefined) saveNote({ ...note, text: value, title });
   };
 
   onEdit = () => {

@@ -38,7 +38,7 @@ const save = (note: Note): Promise<Note> => {
   };
 
   return network
-    .patch(URL.NOTES + note.id, JSON.stringify(note), config)
+    .post(URL.NOTES + note.id, JSON.stringify(note), config)
     .catch(error => Promise.reject(error.response.data.detail))
     .then(response => response.data);
 };
@@ -48,8 +48,9 @@ const edit = (note: Note): Promise<Note> => {
     headers: { Authorization: `JWT ${TOKEN}` },
   };
 
+  console.log(TOKEN);
   return network
-    .post(URL.NOTES + note.id + URL.EDIT, note.id, config)
+    .post(URL.NOTES + note.id + URL.EDIT, config)
     .catch(error => Promise.reject(error.response.data.detail))
     .then(response => response.data);
 };

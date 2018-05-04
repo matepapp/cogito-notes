@@ -43,8 +43,8 @@ const save = (note: Note): ThunkAction => {
     return { type: NOTE.SAVE };
   };
 
-  const success = (isEditing: boolean): NoteAction => {
-    return { type: NOTE.SAVE_SUCCES, isEditing };
+  const success = (note: Note): NoteAction => {
+    return { type: NOTE.SAVE_SUCCES, note };
   };
 
   const failure = (error: string): NoteAction => {
@@ -55,7 +55,7 @@ const save = (note: Note): ThunkAction => {
     dispatch(request());
 
     noteService.save(note).then(
-      (note: Note) => dispatch(success(true)),
+      (note: Note) => dispatch(success(note)),
       (error: string) => {
         dispatch(failure(error));
         dispatch(notificationActions.error(error));
@@ -69,8 +69,8 @@ const edit = (note: Note): ThunkAction => {
     return { type: NOTE.EDIT };
   };
 
-  const success = (note: Note): NoteAction => {
-    return { type: NOTE.EDIT_SUCCES, note };
+  const success = (isEditing: boolean): NoteAction => {
+    return { type: NOTE.EDIT_SUCCES, isEditing };
   };
 
   const failure = (error: string): NoteAction => {
@@ -81,7 +81,7 @@ const edit = (note: Note): ThunkAction => {
     dispatch(request());
 
     noteService.edit(note).then(
-      (note: Note) => dispatch(success(note)),
+      () => dispatch(success(true)),
       (error: string) => {
         dispatch(failure(error));
         dispatch(notificationActions.error(error));
