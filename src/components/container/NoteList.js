@@ -28,7 +28,7 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
 
   render() {
     const { notes, loading } = this.props;
-    return !loading || !notes ? (
+    return loading || notes == null ? (
       <LoadingCardList />
     ) : (
       <List

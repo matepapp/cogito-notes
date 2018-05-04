@@ -35,11 +35,11 @@ const register = (user: RegisterUser): ThunkAction => {
     dispatch(request());
 
     authService.register(user).then(
-      userInfo => {
+      (userInfo: UserInfo) => {
         dispatch(success(userInfo));
         dispatch(
           notificationActions.success(
-            `Registration completed ${userInfo.firstName} ${userInfo.lastName}!`,
+            `Registration completed ${userInfo.first_name} ${userInfo.last_name}!`,
           ),
         );
       },
@@ -68,11 +68,11 @@ const login = (user: LoginUser): ThunkAction => {
     dispatch(request());
 
     return authService.login(user).then(
-      userInfo => {
+      (userInfo: UserInfo) => {
         dispatch(success(userInfo));
         dispatch(
           notificationActions.success(
-            `Welcome back ${userInfo.firstName} ${userInfo.lastName}!`,
+            `Welcome back ${userInfo.first_name} ${userInfo.last_name}!`,
           ),
         );
       },

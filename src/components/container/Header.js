@@ -70,7 +70,7 @@ class Header extends React.Component<Props & ActionProps, HeaderState> {
 
 const mapStateToProps = (state: State): Props => {
   const fullName = state.auth.user
-    ? state.auth.user.first_name + state.auth.user.last_name
+    ? `${state.auth.user.first_name} ${state.auth.user.last_name}`
     : '';
 
   return { fullName };
