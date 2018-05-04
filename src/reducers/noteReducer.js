@@ -4,10 +4,10 @@ import { type NoteAction } from '../actions';
 import { type Note } from '../types';
 
 export type NoteState = {
-  loading: boolean,
-  error: ?string,
-  notes: ?Array<Note>,
-  note: ?Note,
+  +loading: boolean,
+  +error: ?string,
+  +notes: ?Array<Note>,
+  +note: ?Note,
 };
 
 const initialState: NoteState = {

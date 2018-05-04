@@ -1,9 +1,9 @@
-// @flow
+/* @flow */
 import React from 'react';
 import { Spin, Row, Col } from 'antd';
 import { connect } from 'react-redux';
-import { type State } from '../reducers';
-import { type Dispatch, type Note, type RouteProps } from '../types';
+import type { State } from '../reducers';
+import type { Dispatch, Note, RouteProps } from '../types';
 import { noteActions } from '../actions';
 import { NoteEditor, NoteHeader } from './';
 
