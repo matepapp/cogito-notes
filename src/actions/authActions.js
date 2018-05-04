@@ -2,7 +2,14 @@
 import { authService } from '../services';
 import { AUTH } from '../constants';
 import { notificationActions } from '../actions';
-import type { RegisterUser, LoginUser, Dispatch, Action, UserInfo } from '../types';
+import type {
+  RegisterUser,
+  LoginUser,
+  ThunkAction,
+  Dispatch,
+  Action,
+  UserInfo,
+} from '../types';
 
 type Payload = {
   user?: UserInfo,
@@ -11,7 +18,7 @@ type Payload = {
 
 export type AuthAction = Action & Payload;
 
-const register = (user: RegisterUser): Dispatch => {
+const register = (user: RegisterUser): ThunkAction => {
   const request = (): AuthAction => {
     return { type: AUTH.REGISTER };
   };
@@ -44,12 +51,12 @@ const register = (user: RegisterUser): Dispatch => {
   };
 };
 
-const login = (user: LoginUser): Dispatch => {
+const login = (user: LoginUser): ThunkAction => {
   const request = (): AuthAction => {
     return { type: AUTH.LOGIN };
   };
 
-  const success = (user: UserInfo): Action => {
+  const success = (user: UserInfo): AuthAction => {
     return { type: AUTH.LOGIN_SUCCESS, user };
   };
 

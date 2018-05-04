@@ -1,6 +1,6 @@
 // @flow
 import { NOTE } from '../constants';
-import type { Dispatch, Note, Action } from '../types';
+import type { Dispatch, Note, Action, ThunkAction } from '../types';
 import { notificationActions } from '../actions';
 import { noteService } from '../services';
 
@@ -12,7 +12,7 @@ type Payload = {
 
 export type NoteAction = Action & Payload;
 
-const list = (): Dispatch => {
+const list = (): ThunkAction => {
   const request = (): NoteAction => {
     return { type: NOTE.LIST };
   };
@@ -38,7 +38,7 @@ const list = (): Dispatch => {
   };
 };
 
-const getNoteByID = (id: string): Dispatch => {
+const getNoteByID = (id: string): ThunkAction => {
   const request = (): NoteAction => {
     return { type: NOTE.BY_ID };
   };
@@ -60,7 +60,7 @@ const getNoteByID = (id: string): Dispatch => {
   };
 };
 
-const save = (note: Note): Dispatch => {
+const save = (note: Note): ThunkAction => {
   const request = (): NoteAction => {
     return { type: NOTE.SAVE };
   };
