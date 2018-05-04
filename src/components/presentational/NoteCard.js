@@ -16,7 +16,7 @@ type Props = {
 };
 
 const style = {
-  // height: 170,
+  height: 200,
 };
 
 export const NoteCard = (props: Props) => {

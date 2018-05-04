@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { NoteCard, LoadingCardList } from '../';
 import type { Note, Dispatch, RouteProps } from '../../types';
 import type { State } from '../../reducers';
-import { noteListActions } from '../../actions';
+import { noteListActions, notificationActions } from '../../actions';
 
 const styles = {
   grid: { gutter: 20, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 3 },
@@ -17,14 +17,23 @@ type Props = {
   notes?: Array<Note>,
 };
 
-type ActionProps = { loadNotes: () => void };
+type ActionProps = {
+  copyURLNotification: (message: string) => void,
+  loadNotes: () => void,
+};
 
 class NoteList extends Component<Props & ActionProps & RouteProps> {
   componentDidMount() {
     this.props.loadNotes();
   }
 
-  onShareButton = (id: string) => console.log(`Jegyzet megosztasa ${id}`);
+  onNoteShare = (note: Note) => {
+    document.addEventListener('copy', event => {
+      event.clipboardData.setData('text/plain', note.url);
+      event.preventDefault();
+    });
+    this.props.copyURLNotification(`Note's link copied to clipboard`);
+  };
 
   render() {
     const { notes, loading } = this.props;
@@ -47,9 +56,9 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
               id={note.id}
               title={note.title}
               author="John Doe"
-              description={note.text}
+              description={note.text.slice(0, 200)}
               creationDate={convertDateFromString(note.created)}
-              onShareButton={() => this.onShareButton(note.id)}
+              onShareButton={() => this.onNoteShare(note)}
             />
           </List.Item>
         )}
@@ -65,6 +74,8 @@ const mapStateToProps = (state: State): Props => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): ActionProps => ({
+  copyURLNotification: (message: string) =>
+    dispatch(notificationActions.success(message)),
   loadNotes: () => dispatch(noteListActions.list()),
 });
 
