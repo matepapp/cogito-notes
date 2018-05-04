@@ -7,7 +7,7 @@ import type { Dispatch, Note, RouteProps } from '../types';
 import { noteActions } from '../actions';
 import { NoteEditor, NoteHeader } from './';
 
-type ReduxProps = { note?: Note };
+type ReduxProps = { note: ?Note };
 type ActionProps = {
   getNoteByID: (id: string) => void,
   saveNote: (note: Note) => void,
@@ -22,7 +22,7 @@ class NoteContainer extends React.Component<Props, EditorState> {
 
   componentDidMount() {
     const { getNoteByID, match } = this.props;
-    getNoteByID(match.params.id);
+    if (match.params.id) getNoteByID(match.params.id);
   }
 
   onEditorChanged = (value: string) => this.setState({ value });

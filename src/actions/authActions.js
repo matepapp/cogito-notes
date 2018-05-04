@@ -49,7 +49,7 @@ const login = (user: LoginUser): Dispatch => {
     return { type: AUTH.LOGIN };
   };
 
-  const success = (user: UserInfo): AuthAction => {
+  const success = (user: UserInfo): Action => {
     return { type: AUTH.LOGIN_SUCCESS, user };
   };
 
@@ -60,7 +60,7 @@ const login = (user: LoginUser): Dispatch => {
   return (dispatch: Dispatch) => {
     dispatch(request());
 
-    authService.login(user).then(
+    return authService.login(user).then(
       userInfo => {
         dispatch(success(userInfo));
         dispatch(
