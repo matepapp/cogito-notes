@@ -6,8 +6,13 @@ import type { State } from '../../reducers';
 import type { Dispatch, Note, RouteProps } from '../../types';
 import { noteActions } from '../../actions';
 import { NoteEditor, NoteHeader } from '../';
+import { PATH } from '../../constants';
 
-type ReduxProps = { note: ?Note };
+type ReduxProps = {
+  loading: boolean,
+  note?: Note,
+};
+
 type ActionProps = {
   getNoteByID: (id: string) => void,
   saveNote: (note: Note) => void,
@@ -22,14 +27,14 @@ class NoteContainer extends React.Component<Props, EditorState> {
 
   componentDidMount() {
     const { getNoteByID, match } = this.props;
-    if (match.params.id) getNoteByID(match.params.id);
+    if (match.params.id && match.path !== PATH.NEW_NOTE) getNoteByID(match.params.id);
   }
 
   onEditorChanged = (value: string) => this.setState({ value });
 
   onSave = () => {
     const { note, saveNote } = this.props;
-    if (note != null) saveNote({ ...note, text: this.state.value });
+    if (note !== undefined) saveNote({ ...note, text: this.state.value });
   };
 
   renderSpinner = () => (
@@ -56,15 +61,20 @@ class NoteContainer extends React.Component<Props, EditorState> {
   );
 
   render() {
-    const { note } = this.props;
-    return note ? this.renderEditor(note) : this.renderSpinner();
+    const { loading, note } = this.props;
+    return !loading && note !== undefined
+      ? this.renderEditor(note)
+      : this.renderSpinner();
   }
 }
 
-const mapStateToProps = (state: State): ReduxProps => ({ note: state.note.note });
+const mapStateToProps = (state: State): ReduxProps => ({
+  loading: state.note.loading,
+  note: state.note.note,
+});
 
 const mapDispatchToProps = (dispatch: Dispatch): ActionProps => ({
-  getNoteByID: (id: string) => dispatch(noteActions.getNoteByID(id)),
+  getNoteByID: (id: string) => dispatch(noteActions.byID(id)),
   saveNote: (note: Note) => dispatch(noteActions.save(note)),
 });
 

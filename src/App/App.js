@@ -46,12 +46,10 @@ class App extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: State): Props => {
-  return {
-    loggedIn: state.auth.loggedIn,
-    notificationType: state.notification.type,
-    notificationMessage: state.notification.message,
-  };
-};
+const mapStateToProps = (state: State): Props => ({
+  loggedIn: state.auth.loggedIn,
+  notificationType: state.notification.type,
+  notificationMessage: state.notification.message,
+});
 
 export default connect(mapStateToProps)(App);

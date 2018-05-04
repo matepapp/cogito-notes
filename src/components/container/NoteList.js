@@ -7,7 +7,7 @@ import { NoteCard, LoadingCardList } from '../';
 import { PATH } from '../../constants';
 import type { Note, Dispatch, RouteProps } from '../../types';
 import type { State } from '../../reducers';
-import { noteActions } from '../../actions';
+import { noteListActions } from '../../actions';
 
 const styles = {
   grid: { gutter: 20, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 3 },
@@ -15,8 +15,8 @@ const styles = {
 
 type Props = {
   loading: boolean,
-  error: ?string,
-  notes: ?Array<Note>,
+  error?: string,
+  notes?: Array<Note>,
 };
 
 type ActionProps = { loadNotes: () => void };
@@ -28,7 +28,7 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
 
   render() {
     const { notes, loading } = this.props;
-    return loading || notes == null ? (
+    return loading ? (
       <LoadingCardList />
     ) : (
       <List
@@ -46,18 +46,14 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
   }
 }
 
-const mapStateToProps = (state: State): Props => {
-  return {
-    loading: state.note.loading,
-    notes: state.note.notes,
-    error: state.note.error,
-  };
-};
+const mapStateToProps = (state: State): Props => ({
+  loading: state.noteList.loading,
+  notes: state.noteList.notes,
+  error: state.noteList.error,
+});
 
-const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
-  return {
-    loadNotes: () => dispatch(noteActions.list()),
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch): ActionProps => ({
+  loadNotes: () => dispatch(noteListActions.list()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteList);

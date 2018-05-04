@@ -88,10 +88,8 @@ class LoginForm extends React.Component<Props & ActionProps> {
 
 const mapStateToProps = (state: State): Props => ({ loading: state.auth.loading });
 
-const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
-  return {
-    login: (user: LoginUser) => dispatch(authActions.login(user)),
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch): ActionProps => ({
+  login: (user: LoginUser) => dispatch(authActions.login(user)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(LoginForm));

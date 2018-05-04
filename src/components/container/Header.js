@@ -76,10 +76,8 @@ const mapStateToProps = (state: State): Props => {
   return { fullName };
 };
 
-const mapDispathToProps = (dispatch: Dispatch): ActionProps => {
-  return {
-    logOut: () => dispatch(authActions.logout()),
-  };
-};
+const mapDispathToProps = (dispatch: Dispatch): ActionProps => ({
+  logOut: () => dispatch(authActions.logout()),
+});
 
 export default connect(mapStateToProps, mapDispathToProps)(Header);
