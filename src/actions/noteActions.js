@@ -7,6 +7,7 @@ import { noteService } from '../services';
 type Payload = {
   note?: Note,
   error?: string,
+  isEditing?: boolean,
 };
 
 export type NoteAction = Action & Payload;
@@ -42,8 +43,8 @@ const save = (note: Note): ThunkAction => {
     return { type: NOTE.SAVE };
   };
 
-  const success = (note: Note): NoteAction => {
-    return { type: NOTE.SAVE_SUCCES, note };
+  const success = (isEditing: boolean): NoteAction => {
+    return { type: NOTE.SAVE_SUCCES, isEditing };
   };
 
   const failure = (error: string): NoteAction => {
@@ -54,6 +55,32 @@ const save = (note: Note): ThunkAction => {
     dispatch(request());
 
     noteService.save(note).then(
+      (note: Note) => dispatch(success(true)),
+      (error: string) => {
+        dispatch(failure(error));
+        dispatch(notificationActions.error(error));
+      },
+    );
+  };
+};
+
+const edit = (note: Note): ThunkAction => {
+  const request = (): NoteAction => {
+    return { type: NOTE.EDIT };
+  };
+
+  const success = (note: Note): NoteAction => {
+    return { type: NOTE.EDIT_SUCCES, note };
+  };
+
+  const failure = (error: string): NoteAction => {
+    return { type: NOTE.EDIT_ERROR, error };
+  };
+
+  return (dispatch: Dispatch) => {
+    dispatch(request());
+
+    noteService.edit(note).then(
       (note: Note) => dispatch(success(note)),
       (error: string) => {
         dispatch(failure(error));
@@ -66,4 +93,5 @@ const save = (note: Note): ThunkAction => {
 export const noteActions = {
   byID,
   save,
+  edit,
 };

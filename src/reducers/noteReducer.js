@@ -7,6 +7,7 @@ export type NoteState = {|
   +loading: boolean,
   +error?: string,
   +note?: Note,
+  +isEditing?: boolean,
 |};
 
 const initialState: NoteState = {
@@ -39,6 +40,20 @@ export const note = (state: NoteState = initialState, action: NoteAction): NoteS
         note: action.note,
       };
     case NOTE.SAVE_ERROR:
+      return {
+        loading: false,
+        error: action.error,
+      };
+    case NOTE.EDIT:
+      return {
+        loading: true,
+      };
+    case NOTE.EDIT_SUCCES:
+      return {
+        loading: false,
+        isEditing: action.isEditing,
+      };
+    case NOTE.EDIT_ERROR:
       return {
         loading: false,
         error: action.error,
