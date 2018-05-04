@@ -32,6 +32,8 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
       event.clipboardData.setData('text/plain', note.url);
       event.preventDefault();
     });
+    document.execCommand('copy');
+    document.removeEventListener('copy', event => event.preventDefault());
     this.props.copyURLNotification(`Note's link copied to clipboard`);
   };
 
