@@ -1,7 +1,11 @@
 // @flow
-import { Note } from '.';
+import type { Note } from '.';
 
-export type User = { name: string, id: number, notes?: Array<Note> };
+export type User = {
+  +name: string,
+  +id: number,
+  +notes?: Array<Note>,
+};
 
 export type UserInfo = {
   +pk: number,
