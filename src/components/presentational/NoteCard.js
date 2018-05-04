@@ -37,11 +37,12 @@ export const NoteCard = (props: Props) => {
   return (
     <Card
       hoverable
-      bordered={false}
       title={author}
       extra={creationDateLabel}
       actions={[editButton, shareButton]}>
-      <Meta title={title} description={description} />
+      <Link to={`${PATH.NOTES}/${id}`}>
+        <Meta title={title} description={description} />
+      </Link>
     </Card>
   );
 };
