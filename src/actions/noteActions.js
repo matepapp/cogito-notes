@@ -5,7 +5,7 @@ import { notificationActions } from '../actions';
 import { noteService } from '../services';
 
 type Payload = {
-  notes?: Note[],
+  notes?: Array<Note>,
   note?: Note,
   error?: string,
 };
