@@ -1,19 +1,16 @@
 // @flow
 import { NOTE } from '../constants';
-import { type Dispatch, type Note } from '../types';
+import { type Dispatch, type Note, type Action } from '../types';
 import { notificationActions } from '../actions';
 import { noteService } from '../services';
 
-export type NoteAction =
-  | { type: 'NOTE_LIST' }
-  | { type: 'NOTE_LIST_ERROR', error: string }
-  | { type: 'NOTE_LIST_SUCCES', notes: Array<Note> }
-  | { type: 'NOTE_BY_ID' }
-  | { type: 'NOTE_BY_ID_SUCCESS', note: Note }
-  | { type: 'NOTE_BY_ID_ERROR', error: string }
-  | { type: 'NOTE_SAVE', note: Note }
-  | { type: 'NOTE_SAVE_ERROR', error: string }
-  | { type: 'NOTE_SAVE_SUCCES' };
+type Payload = {
+  notes?: Note[],
+  note?: Note,
+  error?: string,
+};
+
+export type NoteAction = Action & Payload;
 
 const list = (): Dispatch => {
   const request = (): NoteAction => {

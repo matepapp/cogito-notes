@@ -6,17 +6,16 @@ import {
   type RegisterUser,
   type LoginUser,
   type Dispatch,
+  type Action,
   type UserInfo,
 } from '../types';
 
-export type AuthAction =
-  | { type: 'AUTH_REGISTER' }
-  | { type: 'AUTH_REGISTER_SUCCESS', user: UserInfo }
-  | { type: 'AUTH_REGISTER_ERROR', error: string }
-  | { type: 'AUTH_LOGIN' }
-  | { type: 'AUTH_LOGIN_SUCCESS', user: UserInfo }
-  | { type: 'AUTH_LOGIN_ERROR', error: string }
-  | { type: 'AUTH_LOGOUT' };
+type Payload = {
+  user?: UserInfo,
+  error?: string,
+};
+
+export type AuthAction = Action & Payload;
 
 const register = (user: RegisterUser): Dispatch => {
   const request = (): AuthAction => {
