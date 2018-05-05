@@ -36,16 +36,16 @@ const register = (user: RegisterUser): ThunkAction => {
 
     authService.register(user).then(
       (userInfo: UserInfo) => {
-        dispatch(success(userInfo));
         dispatch(
           notificationActions.success(
             `Registration completed ${userInfo.first_name} ${userInfo.last_name}!`,
           ),
         );
+        dispatch(success(userInfo));
       },
       error => {
-        dispatch(failure(error));
         dispatch(notificationActions.error(error));
+        dispatch(failure(error));
       },
     );
   };
@@ -69,16 +69,16 @@ const login = (user: LoginUser): ThunkAction => {
 
     return authService.login(user).then(
       (userInfo: UserInfo) => {
-        dispatch(success(userInfo));
         dispatch(
           notificationActions.success(
             `Welcome back ${userInfo.first_name} ${userInfo.last_name}!`,
           ),
         );
+        dispatch(success(userInfo));
       },
       error => {
-        dispatch(failure(error));
         dispatch(notificationActions.error(error));
+        dispatch(failure(error));
       },
     );
   };

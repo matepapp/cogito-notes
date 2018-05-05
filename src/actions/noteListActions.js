@@ -30,8 +30,8 @@ const list = (): ThunkAction => {
     noteService.list().then(
       (notes: Array<Note>) => dispatch(success(notes)),
       (error: string) => {
-        dispatch(failure(error));
         dispatch(notificationActions.error(error));
+        dispatch(failure(error));
       },
     );
   };

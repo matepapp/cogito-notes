@@ -10,9 +10,7 @@ const URL = {
 const list = (): Promise<Array<Note>> => {
   return authorizedNetwork()
     .get(URL.NOTES)
-    .catch(error => {
-      return Promise.reject(error.response.data);
-    })
+    .catch(error => Promise.reject(error.response.data.detail))
     .then(response => response.data.results);
 };
 

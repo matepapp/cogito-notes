@@ -31,8 +31,8 @@ const byID = (id: string): ThunkAction => {
     noteService.getNoteByID(id).then(
       (note: Note) => dispatch(success(note)),
       (error: string) => {
-        dispatch(failure(error));
         dispatch(notificationActions.error(error));
+        dispatch(failure(error));
       },
     );
   };
@@ -57,8 +57,8 @@ const save = (note: Note): ThunkAction => {
     noteService.save(note).then(
       (note: Note) => dispatch(success(note)),
       (error: string) => {
-        dispatch(failure(error));
         dispatch(notificationActions.error(error));
+        dispatch(failure(error));
       },
     );
   };
@@ -83,8 +83,8 @@ const edit = (note: Note): ThunkAction => {
     noteService.edit(note).then(
       () => dispatch(success(true)),
       (error: string) => {
-        dispatch(failure(error));
         dispatch(notificationActions.error(error));
+        dispatch(failure(error));
       },
     );
   };

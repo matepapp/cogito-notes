@@ -6,35 +6,26 @@ import { network } from '.';
 const URL = {
   REGISTER: '/registration/',
   LOGIN: '/login/',
-  LOGOUT: '/logout/',
 };
 
 const register = (user: RegisterUser): Promise<UserInfo> => {
   return network()
     .post(URL.REGISTER, user)
-    .catch(error => {
-      return Promise.reject(error.response.data);
-    })
-    .then(response => {
-      return response.data.user;
-    });
+    .catch(error => Promise.reject(error.response.data))
+    .then(response => response.data.user);
 };
 
 const login = (user: LoginUser): Promise<UserInfo> => {
   return network()
     .post(URL.LOGIN, JSON.stringify(user))
-    .catch(error => {
-      return Promise.reject(error.message);
-    })
+    .catch(error => Promise.reject(error.message))
     .then(response => {
       setToken(response.data.token);
       return response.data.user;
     });
 };
 
-const logout = () => {
-  removeToken();
-};
+const logout = () => removeToken();
 
 export const authService = {
   register,
