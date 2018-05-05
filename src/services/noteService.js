@@ -1,7 +1,6 @@
 // @flow
 import type { Note } from '../types';
-import { TOKEN } from '../helpers';
-import { network } from '.';
+import { authorizedNetwork } from '.';
 
 const URL = {
   NOTES: '/notes/',
@@ -9,12 +8,8 @@ const URL = {
 };
 
 const list = (): Promise<Array<Note>> => {
-  const config = {
-    headers: { Authorization: `JWT ${TOKEN}` },
-  };
-
-  return network
-    .get(URL.NOTES, config)
+  return authorizedNetwork()
+    .get(URL.NOTES)
     .catch(error => {
       return Promise.reject(error.response.data);
     })
@@ -22,35 +17,22 @@ const list = (): Promise<Array<Note>> => {
 };
 
 const getNoteByID = (id: string): Promise<Note> => {
-  const config = {
-    headers: { Authorization: `JWT ${TOKEN}` },
-  };
-
-  return network
-    .get(URL.NOTES + id, config)
+  return authorizedNetwork()
+    .get(URL.NOTES + id)
     .catch(error => Promise.reject(error.response.data.detail))
     .then(response => response.data);
 };
 
 const save = (note: Note): Promise<Note> => {
-  const config = {
-    headers: { Authorization: `JWT ${TOKEN}` },
-  };
-
-  return network
-    .post(URL.NOTES + note.id, JSON.stringify(note), config)
+  return authorizedNetwork()
+    .post(URL.NOTES + note.id, JSON.stringify(note))
     .catch(error => Promise.reject(error.response.data.detail))
     .then(response => response.data);
 };
 
 const edit = (note: Note): Promise<Note> => {
-  const config = {
-    headers: { Authorization: `JWT ${TOKEN}` },
-  };
-
-  console.log(TOKEN);
-  return network
-    .post(URL.NOTES + note.id + URL.EDIT, config)
+  return authorizedNetwork()
+    .post(URL.NOTES + note.id + URL.EDIT)
     .catch(error => Promise.reject(error.response.data.detail))
     .then(response => response.data);
 };

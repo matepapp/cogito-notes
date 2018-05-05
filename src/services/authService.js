@@ -10,7 +10,7 @@ const URL = {
 };
 
 const register = (user: RegisterUser): Promise<UserInfo> => {
-  return network
+  return network()
     .post(URL.REGISTER, user)
     .catch(error => {
       return Promise.reject(error.response.data);
@@ -21,7 +21,7 @@ const register = (user: RegisterUser): Promise<UserInfo> => {
 };
 
 const login = (user: LoginUser): Promise<UserInfo> => {
-  return network
+  return network()
     .post(URL.LOGIN, JSON.stringify(user))
     .catch(error => {
       return Promise.reject(error.message);
