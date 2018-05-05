@@ -39,13 +39,6 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
 
   render() {
     const { notes, loading } = this.props;
-
-    // TODO: Refactor using moment.js
-    const convertDateFromString = (string: string) => {
-      const date = new Date(string);
-      return date.toLocaleDateString();
-    };
-
     return loading ? (
       <LoadingCardList />
     ) : (
@@ -57,9 +50,11 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
             <NoteCard
               id={note.id}
               title={note.title}
+              // TODO: Refactor owner
               author="John Doe"
+              // TODO: Refactor to desciption
               description={note.text.slice(0, 200)}
-              creationDate={convertDateFromString(note.created)}
+              creationDate={new Date(note.created).toLocaleDateString()}
               onShareButton={() => this.onNoteShare(note)}
             />
           </List.Item>
