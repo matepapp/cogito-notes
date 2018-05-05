@@ -22,7 +22,6 @@ type ActionProps = { clearNotification: () => void };
 class App extends React.Component<Props & ActionProps> {
   componentWillReceiveProps(nextProps: Props) {
     const { loggedIn, notificationMessage, notificationType } = nextProps;
-    console.log(loggedIn);
     loggedIn ? history.push(PATH.NOTES) : history.push(PATH.LOGIN);
 
     if (notificationMessage !== undefined && notificationType !== undefined)
