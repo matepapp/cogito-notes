@@ -6,21 +6,26 @@ import { notification } from 'antd';
 import { PrivateRoute } from '../components';
 import { PATH } from '../constants';
 import { history } from '../helpers';
+import { notificationActions } from '../actions';
 import { HomePage, WelcomePage } from '../pages';
+import type { Dispatch } from '../types';
 import type { State } from '../reducers';
 
 type Props = {
   loggedIn: boolean,
-  notificationType: ?string,
-  notificationMessage: ?string,
+  notificationType?: string,
+  notificationMessage?: string,
 };
 
-class App extends React.Component<Props> {
+type ActionProps = { clearNotification: () => void };
+
+class App extends React.Component<Props & ActionProps> {
   componentWillReceiveProps(nextProps: Props) {
     const { loggedIn, notificationMessage, notificationType } = nextProps;
+    console.log(loggedIn);
     loggedIn ? history.push(PATH.NOTES) : history.push(PATH.LOGIN);
 
-    if (notificationMessage && notificationType)
+    if (notificationMessage !== undefined && notificationType !== undefined)
       this.renderNotification(notificationType, notificationMessage);
   }
 
@@ -29,6 +34,7 @@ class App extends React.Component<Props> {
       message: type.toUpperCase(),
       description: message,
     });
+    this.props.clearNotification();
   };
 
   render() {
@@ -52,4 +58,8 @@ const mapStateToProps = (state: State): Props => ({
   notificationMessage: state.notification.message,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch: Dispatch): ActionProps => ({
+  clearNotification: () => dispatch(notificationActions.clear()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
