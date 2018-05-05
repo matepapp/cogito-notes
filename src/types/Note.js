@@ -4,8 +4,9 @@ export type Note = {
   +id: string,
   +url: string,
   +created: string,
-  +owner: string,
+  +is_shared: boolean,
+  +ownerID: string,
   +title: string,
+  +editor: ?string,
   +text: string,
-  +is_edited: boolean,
 };

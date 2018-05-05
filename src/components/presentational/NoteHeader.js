@@ -1,10 +1,14 @@
 // @flow
 import React from 'react';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Input } from 'antd';
 
 type Props = {
   title: string,
-  onSaveButton: () => string,
+  readOnly: boolean,
+  editing: boolean,
+  onTitleChange: (title: string) => void,
+  onEditButton: () => void,
+  onSaveButton: () => void,
 };
 
 const styles = {
@@ -15,15 +19,26 @@ const styles = {
   },
 };
 
-export const NoteHeader = (props: Props) => (
-  <Row type="flex" justify="center" align="middle" style={styles.row}>
-    <Col xs={20} sm={18} md={16} lg={14} xl={12}>
-      <div style={styles.title}>{props.title}</div>
-    </Col>
-    <Col span={2}>
-      <Button type="primary" onClick={props.onSaveButton}>
-        Save
-      </Button>
-    </Col>
-  </Row>
-);
+export const NoteHeader = (props: Props) => {
+  const { title, readOnly, editing, onTitleChange, onEditButton, onSaveButton } = props;
+  const readOnlyTitle = () => <div style={styles.title}>{title}</div>;
+  const inputTitle = () => <Input defaultValue={title} onChange={onTitleChange} />;
+
+  const renderButton = () => (
+    <Button
+      type="primary"
+      disabled={readOnly}
+      onClick={editing ? onSaveButton : onEditButton}>
+      {editing ? 'Save' : 'Edit'}
+    </Button>
+  );
+
+  return (
+    <Row type="flex" justify="center" align="middle" style={styles.row}>
+      <Col xs={20} sm={18} md={16} lg={14} xl={12}>
+        {editing ? inputTitle() : readOnlyTitle()}
+      </Col>
+      <Col span={2}>{renderButton()}</Col>
+    </Row>
+  );
+};

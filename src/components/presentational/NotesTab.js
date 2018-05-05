@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import { Tabs, Button } from 'antd';
 import { PATH } from '../../constants';
 import { NoteList } from '../../components';
@@ -14,7 +14,12 @@ const style = {
 };
 
 export const NotesTab = (props: RouteProps) => {
-  const addNoteButton = <Button>New Note</Button>;
+  const addNoteButton = (
+    <Link to={PATH.NEW_NOTE}>
+      <Button>New Note</Button>
+    </Link>
+  );
+
   return (
     <Tabs
       defaultActiveKey={props.match.path}

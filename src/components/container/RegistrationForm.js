@@ -132,17 +132,11 @@ class RegistrationForm extends React.Component<Props & ActionProps, FormState> {
   }
 }
 
-const mapStateToProps = (state: State): Props => {
-  return {
-    loading: state.auth.loading,
-  };
-};
+const mapStateToProps = (state: State): Props => ({ loading: state.auth.loading });
 
-const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
-  return {
-    register: (user: RegisterUser) => dispatch(authActions.register(user)),
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch): ActionProps => ({
+  register: (user: RegisterUser) => dispatch(authActions.register(user)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   Form.create()(RegistrationForm),

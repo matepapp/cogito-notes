@@ -1,13 +1,11 @@
 // @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { List } from 'antd';
 import { connect } from 'react-redux';
 import { NoteCard, LoadingCardList } from '../';
-import { PATH } from '../../constants';
 import type { Note, Dispatch, RouteProps } from '../../types';
 import type { State } from '../../reducers';
-import { noteActions } from '../../actions';
+import { noteListActions, notificationActions } from '../../actions';
 
 const styles = {
   grid: { gutter: 20, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 3 },
@@ -15,20 +13,40 @@ const styles = {
 
 type Props = {
   loading: boolean,
-  error: ?string,
-  notes: ?Array<Note>,
+  error?: string,
+  notes?: Array<Note>,
 };
 
-type ActionProps = { loadNotes: () => void };
+type ActionProps = {
+  copyURLNotification: (message: string) => void,
+  loadNotes: () => void,
+};
 
 class NoteList extends Component<Props & ActionProps & RouteProps> {
   componentDidMount() {
     this.props.loadNotes();
   }
 
+  onNoteShare = (note: Note) => {
+    document.addEventListener('copy', event => {
+      event.clipboardData.setData('text/plain', note.url);
+      event.preventDefault();
+    });
+    document.execCommand('copy');
+    document.removeEventListener('copy', event => event.preventDefault());
+    this.props.copyURLNotification(`Note's link copied to clipboard`);
+  };
+
   render() {
     const { notes, loading } = this.props;
-    return !loading || !notes ? (
+
+    // TODO: Refactor using moment.js
+    const convertDateFromString = (string: string) => {
+      const date = new Date(string);
+      return date.toLocaleDateString();
+    };
+
+    return loading ? (
       <LoadingCardList />
     ) : (
       <List
@@ -36,9 +54,14 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
         dataSource={notes}
         renderItem={(note: Note) => (
           <List.Item>
-            <Link to={`${PATH.NOTES}/${note.id}`}>
-              <NoteCard title={note.title} author="John Doe" description={note.text} />
-            </Link>
+            <NoteCard
+              id={note.id}
+              title={note.title}
+              author="John Doe"
+              description={note.text.slice(0, 200)}
+              creationDate={convertDateFromString(note.created)}
+              onShareButton={() => this.onNoteShare(note)}
+            />
           </List.Item>
         )}
       />
@@ -46,18 +69,16 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
   }
 }
 
-const mapStateToProps = (state: State): Props => {
-  return {
-    loading: state.note.loading,
-    notes: state.note.notes,
-    error: state.note.error,
-  };
-};
+const mapStateToProps = (state: State): Props => ({
+  loading: state.noteList.loading,
+  notes: state.noteList.notes,
+  error: state.noteList.error,
+});
 
-const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
-  return {
-    loadNotes: () => dispatch(noteActions.list()),
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch): ActionProps => ({
+  copyURLNotification: (message: string) =>
+    dispatch(notificationActions.success(message)),
+  loadNotes: () => dispatch(noteListActions.list()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteList);

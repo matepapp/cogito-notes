@@ -1,12 +1,14 @@
 // @flow
 import React from 'react';
 import { Layout, Icon, Popover, Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import type { Dispatch } from '../../types';
 import type { State } from '../../reducers';
 import { authActions } from '../../actions';
 import { BorderlessButton } from '../presentational';
 import logo from '../../resources/img/logo.svg';
+import { PATH } from '../../constants';
 
 const styles = {
   layout: {
@@ -44,7 +46,9 @@ class Header extends React.Component<Props & ActionProps, HeaderState> {
       <Layout.Header style={styles.layout}>
         <Row type="flex" justify="end">
           <Col span={8}>
-            <img src={logo} alt="logo" style={styles.logo} />
+            <Link to={PATH.NOTES}>
+              <img src={logo} alt="logo" style={styles.logo} />
+            </Link>
           </Col>
           <Col span={4} offset={12}>
             <Popover
@@ -70,16 +74,14 @@ class Header extends React.Component<Props & ActionProps, HeaderState> {
 
 const mapStateToProps = (state: State): Props => {
   const fullName = state.auth.user
-    ? state.auth.user.first_name + state.auth.user.last_name
+    ? `${state.auth.user.first_name} ${state.auth.user.last_name}`
     : '';
 
   return { fullName };
 };
 
-const mapDispathToProps = (dispatch: Dispatch): ActionProps => {
-  return {
-    logOut: () => dispatch(authActions.logout()),
-  };
-};
+const mapDispathToProps = (dispatch: Dispatch): ActionProps => ({
+  logOut: () => dispatch(authActions.logout()),
+});
 
 export default connect(mapStateToProps, mapDispathToProps)(Header);

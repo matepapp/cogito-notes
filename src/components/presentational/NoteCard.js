@@ -1,22 +1,48 @@
 // @flow
 import React from 'react';
-import { Card } from 'antd';
+import { Link } from 'react-router-dom';
+import { Card, Button } from 'antd';
+import { PATH } from '../../constants';
+
+const { Meta } = Card;
 
 type Props = {
+  id: string,
   title: string,
   description: string,
   author: string,
-};
-
-const style = {
-  height: 170,
+  creationDate: string,
+  onShareButton: () => void,
 };
 
 export const NoteCard = (props: Props) => {
-  const author = <div>{props.author}</div>;
+  const { onShareButton, title, description, author, creationDate, id } = props;
+
+  const creationDateLabel = <div>{creationDate}</div>;
+
+  const editButton = (
+    <Link to={`${PATH.NOTES}/${id}`}>
+      <Button type="secondary" icon="select">
+        View
+      </Button>
+    </Link>
+  );
+
+  const shareButton = (
+    <Button type="secondary" icon="share-alt" onClick={onShareButton}>
+      Share
+    </Button>
+  );
+
   return (
-    <Card title={props.title} extra={author} style={style}>
-      {props.description}
+    <Card
+      hoverable
+      title={author}
+      extra={creationDateLabel}
+      actions={[editButton, shareButton]}>
+      <Link to={`${PATH.NOTES}/${id}`}>
+        <Meta title={title} description={description} />
+      </Link>
     </Card>
   );
 };

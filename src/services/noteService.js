@@ -5,6 +5,7 @@ import { network } from '.';
 
 const URL = {
   NOTES: '/notes/',
+  EDIT: '/edit',
 };
 
 const list = (): Promise<Array<Note>> => {
@@ -27,9 +28,7 @@ const getNoteByID = (id: string): Promise<Note> => {
 
   return network
     .get(URL.NOTES + id, config)
-    .catch(error => {
-      return Promise.reject(error.response.data);
-    })
+    .catch(error => Promise.reject(error.response.data.detail))
     .then(response => response.data);
 };
 
@@ -39,10 +38,20 @@ const save = (note: Note): Promise<Note> => {
   };
 
   return network
-    .patch(URL.NOTES + note.id, JSON.stringify(note), config)
-    .catch(error => {
-      return Promise.reject(error.response.data);
-    })
+    .post(URL.NOTES + note.id, JSON.stringify(note), config)
+    .catch(error => Promise.reject(error.response.data.detail))
+    .then(response => response.data);
+};
+
+const edit = (note: Note): Promise<Note> => {
+  const config = {
+    headers: { Authorization: `JWT ${TOKEN}` },
+  };
+
+  console.log(TOKEN);
+  return network
+    .post(URL.NOTES + note.id + URL.EDIT, config)
+    .catch(error => Promise.reject(error.response.data.detail))
     .then(response => response.data);
 };
 
@@ -50,4 +59,5 @@ export const noteService = {
   list,
   getNoteByID,
   save,
+  edit,
 };
