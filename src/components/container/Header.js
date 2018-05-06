@@ -18,8 +18,8 @@ const styles = {
     boxShadow: '0px 1px 20px 20px #0000001A',
   },
   logo: {
-    width: '300px',
-    height: '60%',
+    width: '40%',
+    height: '50%',
   },
 };
 
