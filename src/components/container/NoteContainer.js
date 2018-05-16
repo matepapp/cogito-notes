@@ -85,20 +85,21 @@ class NoteContainer extends React.Component<Props, EditorState> {
   );
 
   render() {
-    const { loading, note, match, isEditing } = this.props;
+    const { loading, note, isEditing } = this.props;
     const editing = isEditing !== undefined ? isEditing : false;
 
-    return match.path === PATH.NEW_NOTE
+    if (loading) return this.renderSpinner();
+
+    return note === undefined
       ? this.renderEditor('', '', false, true)
-      : !loading && note !== undefined
-        ? this.renderEditor(note.title, note.text, note.editor != null, editing)
-        : this.renderSpinner();
+      : this.renderEditor(note.title, note.text, note.editor != null, editing);
   }
 }
 
 const mapStateToProps = (state: State): ReduxProps => ({
   loading: state.note.loading,
   note: state.note.note,
+  isEditing: state.note.isEditing,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): ActionProps => ({

@@ -38,6 +38,32 @@ const byID = (id: string): ThunkAction => {
   };
 };
 
+const share = (note: Note): ThunkAction => {
+  const request = (): NoteAction => {
+    return { type: NOTE.SHARE };
+  };
+
+  const success = (note: Note): NoteAction => {
+    return { type: NOTE.SHARE_SUCCES, note };
+  };
+
+  const failure = (error: string): NoteAction => {
+    return { type: NOTE.SHARE_ERROR, error };
+  };
+
+  return (dispatch: Dispatch) => {
+    dispatch(request());
+
+    noteService.share(note).then(
+      (note: Note) => dispatch(success(note)),
+      (error: string) => {
+        dispatch(notificationActions.error(error));
+        dispatch(failure(error));
+      },
+    );
+  };
+};
+
 const save = (note: Note): ThunkAction => {
   const request = (): NoteAction => {
     return { type: NOTE.SAVE };
@@ -92,6 +118,7 @@ const edit = (note: Note): ThunkAction => {
 
 export const noteActions = {
   byID,
+  share,
   save,
   edit,
 };

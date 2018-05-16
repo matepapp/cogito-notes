@@ -3,12 +3,12 @@ import { NOTE } from '../constants';
 import type { NoteAction } from '../actions';
 import type { Note } from '../types';
 
-export type NoteState = {|
+export type NoteState = {
   +loading: boolean,
   +error?: string,
   +note?: Note,
   +isEditing?: boolean,
-|};
+};
 
 const initialState: NoteState = {
   loading: false,
@@ -46,12 +46,14 @@ export const note = (state: NoteState = initialState, action: NoteAction): NoteS
       };
     case NOTE.EDIT:
       return {
+        ...state,
         loading: true,
       };
     case NOTE.EDIT_SUCCES:
       return {
+        ...state,
         loading: false,
-        isEditing: action.isEditing,
+        isEditing: true,
       };
     case NOTE.EDIT_ERROR:
       return {
