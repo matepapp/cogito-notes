@@ -4,9 +4,9 @@ import { authorizedNetwork } from '.';
 
 const URL = {
   NOTES: '/notes/',
-  SHARED: '/shared/',
-  EDIT: '/edit',
-  SHARE: '/share',
+  SHARED_LIST: '/shared/',
+  EDIT: '/edit/',
+  SHARE: '/share/',
 };
 
 const list = (): Promise<Array<Note>> => {
@@ -18,7 +18,7 @@ const list = (): Promise<Array<Note>> => {
 
 const shared = (): Promise<Array<Note>> => {
   return authorizedNetwork()
-    .get(URL.SHARED)
+    .get(URL.SHARED_LIST)
     .catch(error => Promise.reject(error.response.data.detail))
     .then(response => console.log(response));
 };
@@ -32,9 +32,9 @@ const getNoteByID = (id: string): Promise<Note> => {
 
 const share = (note: Note): Promise<Note> => {
   return authorizedNetwork()
-    .post(URL.NOTES + note.id + URL.SHARED)
-    .catch(error => console.log(error))
-    .then(response => console.log(response));
+    .post(URL.NOTES + note.id + URL.SHARE)
+    .catch(error => Promise.reject(error.response.data.detail))
+    .then(response => response.data);
 };
 
 const save = (note: Note): Promise<Note> => {
@@ -46,7 +46,7 @@ const save = (note: Note): Promise<Note> => {
 
 const edit = (note: Note): Promise<Note> => {
   return authorizedNetwork()
-    .options(URL.NOTES + note.id + URL.EDIT)
+    .post(URL.NOTES + note.id + URL.EDIT)
     .catch(error => Promise.reject(error.response.data.detail))
     .then(response => response.data);
 };
