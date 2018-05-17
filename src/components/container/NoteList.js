@@ -3,15 +3,16 @@ import React, { Component } from 'react';
 import { List } from 'antd';
 import { connect } from 'react-redux';
 import { NoteCard, LoadingCardList } from '../';
+import { noteListActions, notificationActions, noteActions } from '../../actions';
+import { PATH } from '../../constants';
 import type { Note, Dispatch, RouteProps } from '../../types';
 import type { State } from '../../reducers';
-import { noteListActions, notificationActions } from '../../actions';
 
 const styles = {
   grid: { gutter: 20, xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 3 },
 };
 
-type Props = {
+type ReduxProps = {
   loading: boolean,
   error?: string,
   notes?: Array<Note>,
@@ -20,11 +21,16 @@ type Props = {
 type ActionProps = {
   copyURLNotification: (message: string) => void,
   loadNotes: () => void,
+  sharedNotes: () => void,
+  shareNote: (note: Note) => void,
 };
 
-class NoteList extends Component<Props & ActionProps & RouteProps> {
+type Props = ReduxProps & ActionProps & RouteProps;
+
+class NoteList extends Component<Props> {
   componentDidMount() {
-    this.props.loadNotes();
+    const { match, loadNotes, sharedNotes } = this.props;
+    match.path === PATH.SHARED ? sharedNotes() : loadNotes();
   }
 
   onNoteShare = (note: Note) => {
@@ -51,9 +57,8 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
               id={note.id}
               title={note.title}
               // TODO: Refactor owner
-              author="John Doe"
-              // TODO: Refactor to desciption
-              description={note.text.slice(0, 200)}
+              author="Mate Papp"
+              description={note.summary}
               creationDate={new Date(note.created).toLocaleDateString()}
               onShareButton={() => this.onNoteShare(note)}
             />
@@ -64,7 +69,7 @@ class NoteList extends Component<Props & ActionProps & RouteProps> {
   }
 }
 
-const mapStateToProps = (state: State): Props => ({
+const mapStateToProps = (state: State): ReduxProps => ({
   loading: state.noteList.loading,
   notes: state.noteList.notes,
   error: state.noteList.error,
@@ -74,6 +79,8 @@ const mapDispatchToProps = (dispatch: Dispatch): ActionProps => ({
   copyURLNotification: (message: string) =>
     dispatch(notificationActions.success(message)),
   loadNotes: () => dispatch(noteListActions.list()),
+  sharedNotes: () => dispatch(noteListActions.shared()),
+  shareNote: (note: Note) => dispatch(noteActions.share(note)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteList);

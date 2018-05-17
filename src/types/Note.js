@@ -9,4 +9,5 @@ export type Note = {
   +title: string,
   +editor: ?string,
   +text: string,
+  +summary: string,
 };

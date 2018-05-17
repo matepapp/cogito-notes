@@ -29,7 +29,7 @@ export const NotesTab = (props: RouteProps) => {
         <Route exact path={PATH.NOTES} component={NoteList} />
       </TabPane>
       <TabPane tab="Shared Notes" key={PATH.SHARED}>
-        Content of Shared Notes
+        <Route exact path={PATH.SHARED} component={NoteList} />
       </TabPane>
     </Tabs>
   );

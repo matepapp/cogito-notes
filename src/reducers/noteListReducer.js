@@ -32,6 +32,20 @@ export const noteList = (
         loading: false,
         error: action.error,
       };
+    case NOTE.SHARED_LIST:
+      return {
+        loading: true,
+      };
+    case NOTE.SHARED_LIST_SUCCES:
+      return {
+        loading: false,
+        notes: action.notes,
+      };
+    case NOTE.SHARED_LIST_ERROR:
+      return {
+        loading: false,
+        error: action.error,
+      };
     default:
       return state;
   }

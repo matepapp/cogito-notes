@@ -37,6 +37,33 @@ const list = (): ThunkAction => {
   };
 };
 
+const shared = (): ThunkAction => {
+  const request = (): NoteListAction => {
+    return { type: NOTE.SHARED_LIST };
+  };
+
+  const success = (notes: Array<Note>): NoteListAction => {
+    return { type: NOTE.SHARED_LIST_SUCCES, notes };
+  };
+
+  const failure = (error: string): NoteListAction => {
+    return { type: NOTE.SHARED_LIST_ERROR, error };
+  };
+
+  return (dispatch: Dispatch) => {
+    dispatch(request());
+
+    noteService.shared().then(
+      (notes: Array<Note>) => dispatch(success(notes)),
+      (error: string) => {
+        dispatch(notificationActions.error(error));
+        dispatch(failure(error));
+      },
+    );
+  };
+};
+
 export const noteListActions = {
   list,
+  shared,
 };

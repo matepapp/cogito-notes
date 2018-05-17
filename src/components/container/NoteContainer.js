@@ -18,6 +18,7 @@ type ActionProps = {
   getNoteByID: (id: string) => void,
   saveNote: (note: Note) => void,
   editNote: (note: Note) => void,
+  shareNote: (note: Note) => void,
 };
 
 type Props = ReduxProps & ActionProps & RouteProps;
@@ -54,6 +55,11 @@ class NoteContainer extends React.Component<Props, EditorState> {
     if (note !== undefined) editNote(note);
   };
 
+  onShare = () => {
+    const { note, shareNote } = this.props;
+    if (note !== undefined) shareNote(note);
+  };
+
   renderSpinner = () => (
     <Row type="flex" justify="center">
       <Col span={12}>
@@ -71,6 +77,7 @@ class NoteContainer extends React.Component<Props, EditorState> {
         onTitleChange={this.onTitleChange}
         onSaveButton={this.onSave}
         onEditButton={this.onEdit}
+        onShareButton={this.onShare}
       />
       <Row type="flex" justify="center">
         <Col xs={22} sm={20} md={18} lg={16} xl={14}>
@@ -85,26 +92,28 @@ class NoteContainer extends React.Component<Props, EditorState> {
   );
 
   render() {
-    const { loading, note, match, isEditing } = this.props;
+    const { loading, note, isEditing } = this.props;
     const editing = isEditing !== undefined ? isEditing : false;
 
-    return match.path === PATH.NEW_NOTE
+    if (loading) return this.renderSpinner();
+
+    return note === undefined
       ? this.renderEditor('', '', false, true)
-      : !loading && note !== undefined
-        ? this.renderEditor(note.title, note.text, note.editor != null, editing)
-        : this.renderSpinner();
+      : this.renderEditor(note.title, note.text, false, editing);
   }
 }
 
 const mapStateToProps = (state: State): ReduxProps => ({
   loading: state.note.loading,
   note: state.note.note,
+  isEditing: state.note.isEditing,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): ActionProps => ({
   getNoteByID: (id: string) => dispatch(noteActions.byID(id)),
   saveNote: (note: Note) => dispatch(noteActions.save(note)),
   editNote: (note: Note) => dispatch(noteActions.edit(note)),
+  shareNote: (note: Note) => dispatch(noteActions.share(note)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NoteContainer);
