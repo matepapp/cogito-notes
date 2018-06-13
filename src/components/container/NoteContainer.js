@@ -92,12 +92,12 @@ class NoteContainer extends React.Component<Props, EditorState> {
   );
 
   render() {
-    const { loading, note, isEditing } = this.props;
+    const { loading, note, isEditing, match } = this.props;
     const editing = isEditing !== undefined ? isEditing : false;
 
     if (loading) return this.renderSpinner();
 
-    return note === undefined
+    return note === undefined || match.path === PATH.NEW_NOTE
       ? this.renderEditor('', '', false, true)
       : this.renderEditor(note.title, note.text, false, editing);
   }
