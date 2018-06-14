@@ -37,6 +37,14 @@ export const NoteCard = (props: Props) => {
   return (
     <Card
       hoverable
+      style={{
+        height: '280px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        flex: '1',
+        justifyContent: 'space-between',
+      }}
       title={author}
       extra={creationDateLabel}
       actions={[editButton, shareButton]}>
